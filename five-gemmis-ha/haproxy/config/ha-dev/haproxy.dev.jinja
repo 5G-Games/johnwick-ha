@@ -175,7 +175,7 @@ backend {{ backend.get('name', backend_name) }}
 frontend frontend_prometheus_in
     bind  *:8405
     mode  http
-    acl allowed_prometheus src 10.58.0.0/16
+    acl allowed_prometheus src 10.168.0.0/16
     http-request deny if !allowed_prometheus
     http-request use-service prometheus-exporter if { path /metrics }
     no log
