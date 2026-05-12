@@ -1,4 +1,0 @@
-funnel.figoogoo.com funnel_prod
-prod-tracing-api.5gg.dev funnel_prod
-dev-tracing-api.5gg.dev funnel_dev
-uat-tracing-api.5gg.dev funnel_dev
