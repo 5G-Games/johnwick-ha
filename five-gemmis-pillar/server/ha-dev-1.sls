@@ -43,19 +43,19 @@ server:
           - 'member_db_prod if { dst_port 3366 } 5g_offcie_ip'
          
     backends:
-     backend member_db_std
-       mode tcp
-       option tcp-check
-       timeout connect 5s
-       timeout server 30s
-       server member_db_std stdmysql-instance-1.cdgm8426ylrz.ap-southeast-1.rds.amazonaws.com:3306 check
+     member_db_std:
+       name: member_db_std
+       options: 
+         - "tcp-check"                   
+       servers:
+         - member_db_std stdmysql-instance-1.cdgm8426ylrz.ap-southeast-1.rds.amazonaws.com:3306 check        
 
-     backend member_db_prod
-       mode tcp
-       option tcp-check
-       timeout connect 5s
-       timeout server 30s
-       server member_db_prod stdmysql-instance-1.cdgm8426ylrz.ap-southeast-1.rds.amazonaws.com:3306 check       
+     member_db_prod:
+       name: member_db_prod
+       options: 
+         - "tcp-check"                   
+       servers:
+         - member_db_prod prodmysql-instance-1.cdgm8426ylrz.ap-southeast-1.rds.amazonaws.com:3306 check 
 
     ## no match any rule"
      no_acl_match:
