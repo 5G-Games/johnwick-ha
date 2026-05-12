@@ -1,0 +1,7 @@
+$ModLoad imudp
+$UDPServerRun 514
+$template Haproxy,"%msg:2:$:%\n"
+$template HaproxyDown,"%timereported% %msg:2:$:%\n"
+local0.* -/var/log/haproxy_0.log;Haproxy
+local0.notice -/var/log/haproxy_allbutinfo.log;HaproxyDown
+:rawmsg,contains,"SSL handshake failure"  -/var/log/frontend_ssl_handshake_failure.log

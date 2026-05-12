@@ -1,0 +1,13 @@
+/var/log/haproxy_*.log {
+    missingok
+    notifempty
+    nocompress
+    rotate 3
+    su root adm
+    create 0640 syslog adm        
+    size 20G
+    sharedscripts
+    postrotate
+      systemctl restart rsyslog
+    endscript
+}

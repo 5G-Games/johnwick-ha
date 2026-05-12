@@ -1,0 +1,91 @@
+HTTP/1.0 503 Service Unavailable
+Cache-Control: no-cache
+Connection: close
+Content-Type: text/html; charset=UTF-8
+
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>5G Network Calibration</title>
+    <style>
+        body {
+            background-color: #ffffff;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: "Microsoft JhengHei", Arial, sans-serif;
+        }
+        .container {
+            text-align: center;
+            width: 100%;
+            max-width: 900px;
+        }
+        .main-layout {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        .text-group h1 {
+            font-size: 36px;
+            margin: 0;
+            color: #1a202c;
+        }
+        .text-group p {
+            font-size: 18px;
+            color: #4a5568;
+            margin-top: 10px;
+            border-top: 2px solid #3182ce;
+            padding-top: 10px;
+        }
+        svg {
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <svg width="60" height="80" viewBox="0 0 60 80">
+        <rect x="20" y="0" width="18" height="18" fill="#f6e05e"/>
+        <rect x="40" y="0" width="18" height="18" fill="#68d391"/>
+        <rect x="20" y="20" width="18" height="18" fill="#f6ad55"/>
+        <rect x="45" y="35" width="18" height="18" fill="#4fd1c5"/>
+        <rect x="35" y="55" width="18" height="18" fill="#f687b3"/>
+    </svg>
+
+    <div class="main-layout">
+        <svg width="150" height="150" viewBox="0 0 200 200">
+            <ellipse cx="100" cy="120" rx="60" ry="70" fill="#fbd38d"/>
+            <circle cx="70" cy="60" r="25" fill="#fbd38d"/>
+            <circle cx="130" cy="60" r="25" fill="#fbd38d"/>
+            <circle cx="100" cy="120" rx="40" ry="50" fill="#fff" opacity="0.4"/>
+            <circle cx="80" cy="85" r="5" fill="#333"/>
+            <circle cx="120" cy="85" r="5" fill="#333"/>
+            <path d="M90 105 Q100 115 110 105" stroke="#e53e3e" fill="none" stroke-width="3"/>
+            <rect x="150" y="80" width="25" height="40" rx="10" fill="#fbd38d" transform="rotate(-20 150 80)"/>
+        </svg>
+
+        <div class="text-group">
+            <h1>請稍待等候...</h1>
+            <p>5G Gemmis - SERVICE RESUMING SHORTLY</p>
+        </div>
+
+        <svg width="150" height="150" viewBox="0 0 200 200">
+            <ellipse cx="100" cy="120" rx="60" ry="70" fill="#fbd38d"/>
+            <circle cx="70" cy="60" r="25" fill="#fbd38d"/>
+            <circle cx="130" cy="60" r="25" fill="#fbd38d"/>
+            <circle cx="100" cy="120" rx="40" ry="50" fill="#fff" opacity="0.4"/>
+            <circle cx="80" cy="85" r="5" fill="#333"/>
+            <circle cx="120" cy="85" r="5" fill="#333"/>
+            <path d="M90 105 Q100 115 110 105" stroke="#e53e3e" fill="none" stroke-width="3"/>
+            <rect x="25" y="80" width="25" height="40" rx="10" fill="#fbd38d" transform="rotate(20 25 80)"/>
+        </svg>
+    </div>
+</div>
+</body>
+</html>

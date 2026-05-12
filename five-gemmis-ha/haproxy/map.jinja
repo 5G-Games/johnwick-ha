@@ -1,0 +1,34 @@
+{%- set os_family_map = salt['grains.filter_by']({
+    'Debian': {
+        'pkg': 'haproxy',
+        'service': 'haproxy',
+        'config_dir': '/etc/haproxy',
+        'config_file': '/etc/haproxy/haproxy.cfg',
+        'user': 'haproxy',
+        'group': 'haproxy',
+        'source_deps': [
+            'build-essential', 'libpcre3-dev', 'libpcre2-dev', 'libssl-dev', 'zlib1g-dev', 
+            'liblua5.4-dev', 'libsystemd-dev', 'socat'
+        ],
+    },
+    'RedHat': {
+        'pkg': 'haproxy',
+        'service': 'haproxy',
+        'config_dir': '/etc/haproxy',
+        'config_file': '/etc/haproxy/haproxy.cfg',
+        'user': 'haproxy',
+        'group': 'haproxy',
+        'source_deps': [
+            'gcc', 'pcre-devel', 'pcre2-devel', 'openssl-devel', 'zlib-devel', 
+            'lua-devel', 'systemd-devel', 'socat'
+        ],
+    },
+}, merge=salt['pillar.get']('haproxy:lookup')) %}
+
+{#- Merge the OS-specific map with generic defaults and the 'haproxy' pillar #}
+{%- set haproxy = salt['pillar.get']('haproxy', default=os_family_map, merge=True) %}
+
+{#- Add some computed variables if needed -#}
+{%- do haproxy.update({
+    'is_source_install': salt['pillar.get']('haproxy:install_from_source', False),
+}) %}

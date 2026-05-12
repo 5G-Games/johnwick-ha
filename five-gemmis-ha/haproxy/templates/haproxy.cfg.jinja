@@ -1,0 +1,118 @@
+{% from "haproxy/templates/macros.jinja" import render_list_of_dictionaries with context -%}
+# HAProxy configuration managed by Salt
+# OS Family: {{ grains['os_family'] }}
+
+#---------------------------------------------------------------------
+# Global settings
+#---------------------------------------------------------------------
+global
+    log {{ haproxy.get('global', {}).get('log', '127.0.0.1 local0') }}
+    chroot {{ haproxy.get('global', {}).get('chroot', '/var/lib/haproxy') }}
+    pidfile /var/run/haproxy.pid
+    maxconn {{ haproxy.get('global', {}).get('maxconn', 4000) }}
+    user {{ haproxy.user }}
+    group {{ haproxy.group }}
+    daemon
+    stats socket /var/lib/haproxy/stats mode 660 level admin expose-fd listeners
+
+    {%- if 'ssl_default_bind_ciphers' in haproxy.get('global', {}) %}
+    ssl-default-bind-ciphers {{ haproxy.global.ssl_default_bind_ciphers }}
+    {%- endif %}
+    {%- if 'ssl_default_bind_options' in haproxy.get('global', {}) %}
+    ssl-default-bind-options {{ haproxy.global.ssl_default_bind_options }}
+    {%- endif %}
+
+#---------------------------------------------------------------------
+# common defaults that all the 'listen' and 'backend' sections will
+# use- if not designated in their block
+#---------------------------------------------------------------------
+defaults
+    mode {{ haproxy.get('defaults', {}).get('mode', 'http') }}
+    log {{ haproxy.get('defaults', {}).get('log', 'global') }}
+    option httplog
+    option dontlognull
+    option http-server-close
+    option forwardfor except 127.0.0.0/8
+    option redispatch
+    retries {{ haproxy.get('defaults', {}).get('retries', 3) }}
+    timeout http-request {{ haproxy.get('defaults', {}).get('timeout', {}).get('http_request', '10s') }}
+    timeout queue {{ haproxy.get('defaults', {}).get('timeout', {}).get('queue', '1m') }}
+    timeout connect {{ haproxy.get('defaults', {}).get('timeout', {}).get('connect', '10s') }}
+    timeout client {{ haproxy.get('defaults', {}).get('timeout', {}).get('client', '1m') }}
+    timeout server {{ haproxy.get('defaults', {}).get('timeout', {}).get('server', '1m') }}
+    timeout http-keep-alive {{ haproxy.get('defaults', {}).get('timeout', {}).get('http_keep_alive', '10s') }}
+    timeout check {{ haproxy.get('defaults', {}).get('timeout', {}).get('check', '10s') }}
+    maxconn {{ haproxy.get('defaults', {}).get('maxconn', 3000) }}
+
+#---------------------------------------------------------------------
+# main frontend which proxys to the backends
+#---------------------------------------------------------------------
+{%- for frontend_name, frontend in haproxy.get('frontends', {})|dictsort %}
+frontend {{ frontend_name }}
+    {%- if 'bind' in frontend %}
+    {{ render_list_of_dictionaries('bind', frontend.bind) }}
+    {%- endif %}
+    {%- if 'mode' in frontend %}
+    mode {{ frontend.mode }}
+    {%- endif %}
+    {%- if 'acls' in frontend %}
+    {{ render_list_of_dictionaries('acl', frontend.acls) }}
+    {%- endif %}
+    {%- if 'httprequests' in frontend %}
+    {{ render_list_of_dictionaries('http-request', frontend.httprequests) }}
+    {%- endif %}
+    {%- if 'use_backends' in frontend %}
+    {{ render_list_of_dictionaries('use_backend', frontend.use_backends) }}
+    {%- endif %}
+    {%- if 'default_backend' in frontend %}
+    default_backend {{ frontend.default_backend }}
+    {%- endif %}
+{% endfor %}
+
+#---------------------------------------------------------------------
+# backends
+#---------------------------------------------------------------------
+{%- for backend_name, backend in haproxy.get('backends', {})|dictsort %}
+backend {{ backend_name }}
+    {%- if 'mode' in backend %}
+    mode {{ backend.mode }}
+    {%- endif %}
+    {%- if 'balance' in backend %}
+    balance {{ backend.balance }}
+    {%- endif %}
+    {%- if 'options' in backend %}
+    {{ render_list_of_dictionaries('option', backend.options) }}
+    {%- endif %}
+    {%- if 'servers' in backend %}
+    {%- for server_name, server in backend.servers|dictsort %}
+    server {{ server_name }} {{ server.host }}{% if 'port' in server %}:{{ server.port }}{% endif %} {{ server.get('check', '') }} {{ server.get('extra', '') }}
+    {%- endfor %}
+    {%- endif %}
+{% endfor %}
+
+#---------------------------------------------------------------------
+# stats listener
+#---------------------------------------------------------------------
+{%- if haproxy.get('stats', {}).get('enabled', False) %}
+listen admin
+    bind {{ haproxy.get('stats', {}).get('bind', '*:1936') }}
+    mode http
+    stats enable
+    stats uri {{ haproxy.get('stats', {}).get('uri', '/haproxy?stats') }}
+    stats hide-version
+    {%- if 'auth' in haproxy.get('stats', {}) %}
+    stats auth {{ haproxy.stats.auth }}
+    {%- endif %}
+{%- endif %}
+
+#---------------------------------------------------------------------
+# prometheus exporter
+#---------------------------------------------------------------------
+{%- if haproxy.get('prometheus', {}).get('enabled', False) %}
+frontend prometheus
+    bind {{ haproxy.get('prometheus', {}).get('bind', '*:8404') }}
+    mode http
+    http-request use-service prometheus-exporter if { path {{ haproxy.get('prometheus', {}).get('uri', '/metrics') }} }
+    no log
+{%- endif %}
+

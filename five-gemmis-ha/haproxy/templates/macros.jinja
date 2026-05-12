@@ -1,0 +1,13 @@
+{%- macro render_list_of_dictionaries(name, list, indent = '    ', infix = ' ', postfix = '\t') %}
+{%- if list is not iterable or list is string %}
+{{ indent ~ name ~ postfix ~ list }}
+{%- else %}{% for item in list %}
+{%- if item is not iterable or item is string %}
+{{ indent ~ name ~ postfix ~ item }}
+{%- else %}{% for key, value in item.items() %}
+{{- render_list_of_dictionaries(indent ~ name ~ infix ~ key, value, '', infix, postfix) }}
+        {%- endfor %}
+      {%- endif %}
+    {%- endfor %}
+  {%- endif %}
+{%- endmacro %}

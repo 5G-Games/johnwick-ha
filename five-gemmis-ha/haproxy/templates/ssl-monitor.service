@@ -1,0 +1,15 @@
+[Unit]
+Description=SSL List Exporter
+After=network-online.target
+
+# This assumes you are running snmp_exporter under the user "prometheus"
+
+[Service]
+User=root
+Restart=on-failure
+#ExecStart=python3.9 /etc/exporter_all/exe/leo_exporter.py >> /var/log/prometheus/prometheus-node-exporter.log
+ExecStart=python3.8 -u /etc/ssl-list-exporter/ssl-list-exporter.py
+
+
+[Install]
+WantedBy=multi-user.target

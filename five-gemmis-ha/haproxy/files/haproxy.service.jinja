@@ -1,0 +1,31 @@
+[Unit]
+Description=HAProxy Load Balancer
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+EnvironmentFile=-/etc/default/haproxy
+EnvironmentFile=-/etc/sysconfig/haproxy
+BindReadOnlyPaths=/etc/haproxy/haproxy.cfg
+ExecStartPre=/usr/sbin/haproxy -f /etc/haproxy/haproxy.cfg -c -q $EXTRAOPTS
+ExecStart=/usr/sbin/haproxy -Ws -f /etc/haproxy/haproxy.cfg -p /run/haproxy.pid $EXTRAOPTS
+ExecReload=/usr/sbin/haproxy -f /etc/haproxy/haproxy.cfg -c -q $EXTRAOPTS
+ExecReload=/bin/kill -USR2 $MAINPID
+KillMode=mixed
+Restart=always
+SuccessExitStatus=143
+Type=notify
+
+# The following lines leverage SystemD's sandboxing and security features.
+# For more information, see:
+# https://www.freedesktop.org/software/systemd/man/systemd.exec.html
+NoNewPrivileges=true
+ProtectHome=true
+ProtectSystem=full
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+SystemCallFilter=~@mount @debug
+
+[Install]
+WantedBy=multi-user.target
