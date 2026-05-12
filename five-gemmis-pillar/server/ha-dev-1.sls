@@ -19,8 +19,8 @@ server:
     include:
       - haproxy.override
     frontends:
-      fe_http_memberdb_in:
-        name: fe_http_memberdb_in
+      fe_tcp_memberdb_in:
+        name: fe_tcp_memberdb_in
         bind:
           - '*:3306' #member_db_std
           - '*:3366' #member_db_prod
@@ -45,6 +45,7 @@ server:
     backends:
      member_db_std:
        name: member_db_std
+       mode: tcp
        options: 
          - "tcp-check"                   
        servers:
@@ -52,6 +53,7 @@ server:
 
      member_db_prod:
        name: member_db_prod
+       mode: tcp
        options: 
          - "tcp-check"                   
        servers:
