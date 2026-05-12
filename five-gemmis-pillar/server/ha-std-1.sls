@@ -108,69 +108,22 @@ server:
 
 
     backends:
-     qa_cheat_elb:
-       name: qa_cheat_elb
-       options: 
-         - "tcp-check"                   
-       servers:
-         - qa_cheat_elb a0e78a798a6c048b9b167e1f50797864-437797f47aa7fb2c.elb.ap-southeast-1.amazonaws.com:6363 check
-
-     tournament_dev_elb:
-       name: tournament_dev_elb
-       options: 
-         - "tcp-check"                   
-       servers:
-         - tournament_dev_elb internal-ALB-Tournament-Dev-1007954309.ap-east-1.elb.amazonaws.com:80 check
-
-     ####campaign service###
-     campaign_dev_alb:
-       name: campaign_dev_alb
+    ###demo service###
+     demoapi_dev:
+       name: demoapi_dev
        mode: http
        options: 
-         - "httpchk GET /health"                   
+         - "httpchk GET /alive"           
        servers:
-         - campaign_dev_alb internal-ALB-FreeRoundBonusCampaign-Dev-1027103276.ap-east-1.elb.amazonaws.com:80 check
+         - demoapi_dev NLB-DemoApi-Dev-4a16e41c1325a0be.elb.ap-southeast-1.amazonaws.com:8080 check 
 
-     mc_dev_alb:
-       name: mc_dev_alb
-       mode: http
-       options: 
-         - "httpchk GET /health/live"                   
-       servers:
-         - mc_dev_alb internal-ALB-MessageCenterApi-Dev-1727792962.ap-east-1.elb.amazonaws.com:80 check
-     ###bridge service###
-     bridge_dev_alb:
-       name: bridge_dev_alb
-       mode: http
-       options: 
-         - "httpchk GET /alive"                   
-       servers:
-         - bridge_dev_alb internal-ALB-BridgeApi-Dev-2047111853.ap-east-1.elb.amazonaws.com:80 check
-
-     ###funnel service###
-     funnel_prod:
-       name: funnel_prod
-       mode: http
-       options: 
-         - "httpchk GET /health"             
-       servers:
-         - funnel_prod a0e78a798a6c048b9b167e1f50797864-437797f47aa7fb2c.elb.ap-southeast-1.amazonaws.com:8090 check 
-
-     funnel_dev:
-       name: funnel_dev
-       mode: http
-       options: 
-         - "httpchk GET /health"           
-       servers:
-         - funnel_dev a0e78a798a6c048b9b167e1f50797864-437797f47aa7fb2c.elb.ap-southeast-1.amazonaws.com:8091 check 
-
-     ###infra service###
-     header_print:
-       name: header_print
-       options: 
-         - "tcp-check"                
-       servers:
-         - header_print internal-ALB-MessageCenterApi-Dev-1727792962.ap-east-1.elb.amazonaws.com:80 check
+     ####infra service#ß##
+     #header_print:
+     #  name: header_print
+     #  options: 
+     #    - "tcp-check"                
+     #  servers:
+     #    - header_print internal-ALB-MessageCenterApi-Dev-1727792962.ap-east-1.elb.amazonaws.com:80 check
 
 
     ## no match any rule"
