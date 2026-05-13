@@ -121,7 +121,7 @@ server:
     ###game service###
      game_dev:
        name: game_dev
-       mode: tcp       
+       mode: http            
        options: 
          - "httpchk GET /alive"           
        servers:
