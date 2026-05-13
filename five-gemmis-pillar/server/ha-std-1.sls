@@ -129,7 +129,7 @@ server:
        default-servers:
          - resolvers awsdns resolve-prefer ipv4 init-addr none         
        servers:
-         - game_dev NLB-GameServer-Dev-83fa74183f53a6da.elb.ap-southeast-1.amazonaws.com:8080 check 
+         - game_dev internal-ALB-GameServer-Dev-1498468321.ap-southeast-1.elb.amazonaws.com:8080 check 
 
 
 
