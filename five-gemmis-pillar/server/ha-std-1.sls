@@ -114,7 +114,9 @@ server:
        name: demoapi_dev
        mode: http
        options: 
-         - "httpchk GET /alive"           
+         - "httpchk GET /alive"
+       default-servers:
+         - resolvers awsdns resolve-prefer ipv4 init-addr none                    
        servers:
          - demoapi_dev NLB-DemoApi-Dev-4a16e41c1325a0be.elb.ap-southeast-1.amazonaws.com:8080 check 
 
@@ -123,7 +125,9 @@ server:
        name: game_dev
        mode: http            
        options: 
-         - "httpchk GET /alive"           
+         - "httpchk GET /alive" 
+       default-servers:
+         - resolvers awsdns resolve-prefer ipv4 init-addr none         
        servers:
          - game_dev NLB-GameServer-Dev-83fa74183f53a6da.elb.ap-southeast-1.amazonaws.com:8080 check 
 

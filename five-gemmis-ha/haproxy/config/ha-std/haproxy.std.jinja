@@ -148,7 +148,10 @@ backend {{ backend.get('name', backend_name) }}
     {%- endif %}
     {%- if 'mode' in backend %}
     {{- render_list_of_dictionaries('mode',backend.mode) }}
-    {%- endif %}    
+    {%- endif %}
+     {%- if 'default-servers' in backend %}
+    {{- render_list_of_dictionaries('mode',backend.default-servers) }}
+    {%- endif %}           
     {%- if 'balance' in backend %}
     {{- render_list_of_dictionaries('balance',backend.balance) }}
     {%- endif %}
@@ -177,6 +180,11 @@ backend {{ backend.get('name', backend_name) }}
     {{- render_list_of_dictionaries('redirect',backend.redirect) }}
     {%- endif %}
 {%- endfor %}
+
+resolvers awsdns
+    nameserver aws 169.254.169.253:53
+    hold valid    10s
+    hold obsolete 30s
 
 frontend frontend_prometheus_in
     bind  *:8405
