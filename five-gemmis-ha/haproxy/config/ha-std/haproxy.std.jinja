@@ -149,8 +149,8 @@ backend {{ backend.get('name', backend_name) }}
     {%- if 'mode' in backend %}
     {{- render_list_of_dictionaries('mode',backend.mode) }}
     {%- endif %}
-     {%- if 'default-servers' in backend %}
-    {{- render_list_of_dictionaries('default-server',backend.default-servers) }}
+    {%- if 'default-servers' in backend %}
+    {{- render_list_of_dictionaries('default-server', backend['default-servers']) }}
     {%- endif %}           
     {%- if 'balance' in backend %}
     {{- render_list_of_dictionaries('balance',backend.balance) }}
