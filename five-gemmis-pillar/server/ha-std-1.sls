@@ -118,6 +118,17 @@ server:
        servers:
          - demoapi_dev NLB-DemoApi-Dev-4a16e41c1325a0be.elb.ap-southeast-1.amazonaws.com:8080 check 
 
+    ###game service###
+     game_dev:
+       name: game_dev
+       mode: http
+       options: 
+         - "httpchk GET /alive"           
+       servers:
+         - game_dev NLB-GameServer-Dev-83fa74183f53a6da.elb.ap-southeast-1.amazonaws.com:8080 check 
+
+
+
      ####infra service#ß##
      #header_print:
      #  name: header_print
