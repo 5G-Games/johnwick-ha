@@ -112,9 +112,9 @@ server:
     ###demo service###
      demoapi_dev:
        name: demoapi_dev
-       mode: http
+       mode: tcp
        options: 
-         - "httpchk GET /alive"
+         - "tcp-check" 
        default-servers:
          - resolvers awsdns resolve-prefer ipv4 init-addr none                    
        servers:
