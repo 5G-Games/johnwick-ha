@@ -47,24 +47,25 @@ defaults
     balance roundrobin
     option	dontlognull
     option	abortonclose
-    #option	forwardfor
-    option      http-keep-alive
-    option      tcpka
-    option      redispatch
-    option      contstats
+    option	forwardfor
+    option  http-keep-alive
+    option  http-server-close     
+    option  tcpka
+    option  redispatch
+    option  contstats
 {% raw %}
     log-format "[%tr] %ft/%b/%s %TR/%Tw/%Th/%Tc/%Tr/%Ta %ST %B %CC %CS %tsc %ci:%cp/%fi:%fp %sslv/%sslc %ac/%fc/%bc/%sc/%rc %sq/%bq %{+Q}r {%[capture.req.hdr(0)]|%[capture.req.hdr(5)]|%[capture.req.hdr(3)]|%[capture.req.hdr(4)]|%[capture.req.hdr(6)]|%[capture.req.hdr(1)]|%[capture.req.hdr(2)]}"
 {% endraw %}
     timeout client          60s
-    timeout connect         15s
+    timeout connect         5s
     timeout server          60s
-    timeout check           30s
-    timeout tunnel          60s
+    timeout check           5s
+    timeout tunnel          36000s
     timeout http-keep-alive 10s
     timeout http-request    30s
     timeout queue           30s
     timeout tarpit          60s
-    default-server inter 3s rise 2 fall 3
+    default-server inter 3s fastinter 1s downinter 1s rise 2 fall 3
 
 backend st_src_global
     stick-table type ip size 1m expire 10s store http_req_rate(10s)
