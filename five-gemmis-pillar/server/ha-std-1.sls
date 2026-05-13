@@ -118,7 +118,7 @@ server:
        default-servers:
          - resolvers awsdns resolve-prefer ipv4 init-addr none                    
        servers:
-         - demoapi_dev NLB-DemoApi-Dev-4a16e41c1325a0be.elb.ap-southeast-1.amazonaws.com:8080 check 
+         - demoapi_dev internal-ALB-DemoApi-Dev-877871421.ap-southeast-1.elb.amazonaws.com:8080 check 
 
     ###game service###
      game_dev:
