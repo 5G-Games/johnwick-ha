@@ -1,91 +1,102 @@
-HTTP/1.0 503 Service Unavailable
-Cache-Control: no-cache
-Connection: close
-Content-Type: text/html; charset=UTF-8
-
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh">
 <head>
-    <meta charset="UTF-8">
-    <title>5G Network Calibration</title>
-    <style>
-        body {
-            background-color: #ffffff;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            font-family: "Microsoft JhengHei", Arial, sans-serif;
-        }
-        .container {
-            text-align: center;
-            width: 100%;
-            max-width: 900px;
-        }
-        .main-layout {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 30px;
-            margin-top: 20px;
-        }
-        .text-group h1 {
-            font-size: 36px;
-            margin: 0;
-            color: #1a202c;
-        }
-        .text-group p {
-            font-size: 18px;
-            color: #4a5568;
-            margin-top: 10px;
-            border-top: 2px solid #3182ce;
-            padding-top: 10px;
-        }
-        svg {
-            display: block;
-            margin: 0 auto;
-        }
-    </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Service Unavailable</title>
+
+<style>
+  body {
+    margin: 0;
+    font-family: "Arial", sans-serif;
+    background: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .container {
+    text-align: center;
+    max-width: 900px;
+  }
+
+  /* 503 彩色字 */
+  .code {
+    font-size: 140px;
+    font-weight: bold;
+    letter-spacing: 10px;
+    background: linear-gradient(90deg,
+      #ff6b6b,
+      #feca57,
+      #48dbfb,
+      #5f27cd,
+      #1dd1a1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 10px;
+  }
+
+  /* 小機器人區塊（簡化版） */
+  .robot {
+    font-size: 70px;
+    margin: 20px 0;
+  }
+
+  .title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+
+  .sub {
+    font-size: 18px;
+    color: #666;
+    margin-top: 6px;
+  }
+
+  .footer {
+    margin-top: 25px;
+    font-size: 16px;
+    color: #888;
+  }
+
+  /* 背景裝飾 */
+  .bg-blocks {
+    position: absolute;
+    top: 10%;
+    right: 10%;
+    opacity: 0.15;
+    font-size: 40px;
+  }
+</style>
 </head>
+
 <body>
+
+<div class="bg-blocks">🟦🟩🟨🟪🟧</div>
+
 <div class="container">
-    <svg width="60" height="80" viewBox="0 0 60 80">
-        <rect x="20" y="0" width="18" height="18" fill="#f6e05e"/>
-        <rect x="40" y="0" width="18" height="18" fill="#68d391"/>
-        <rect x="20" y="20" width="18" height="18" fill="#f6ad55"/>
-        <rect x="45" y="35" width="18" height="18" fill="#4fd1c5"/>
-        <rect x="35" y="55" width="18" height="18" fill="#f687b3"/>
-    </svg>
 
-    <div class="main-layout">
-        <svg width="150" height="150" viewBox="0 0 200 200">
-            <ellipse cx="100" cy="120" rx="60" ry="70" fill="#fbd38d"/>
-            <circle cx="70" cy="60" r="25" fill="#fbd38d"/>
-            <circle cx="130" cy="60" r="25" fill="#fbd38d"/>
-            <circle cx="100" cy="120" rx="40" ry="50" fill="#fff" opacity="0.4"/>
-            <circle cx="80" cy="85" r="5" fill="#333"/>
-            <circle cx="120" cy="85" r="5" fill="#333"/>
-            <path d="M90 105 Q100 115 110 105" stroke="#e53e3e" fill="none" stroke-width="3"/>
-            <rect x="150" y="80" width="25" height="40" rx="10" fill="#fbd38d" transform="rotate(-20 150 80)"/>
-        </svg>
+  <div class="code">503</div>
 
-        <div class="text-group">
-            <h1>請稍待等候...</h1>
-            <p>5G Gemmis - SERVICE RESUMING SHORTLY</p>
-        </div>
+  <div class="robot">🦎👷‍♂️💻</div>
 
-        <svg width="150" height="150" viewBox="0 0 200 200">
-            <ellipse cx="100" cy="120" rx="60" ry="70" fill="#fbd38d"/>
-            <circle cx="70" cy="60" r="25" fill="#fbd38d"/>
-            <circle cx="130" cy="60" r="25" fill="#fbd38d"/>
-            <circle cx="100" cy="120" rx="40" ry="50" fill="#fff" opacity="0.4"/>
-            <circle cx="80" cy="85" r="5" fill="#333"/>
-            <circle cx="120" cy="85" r="5" fill="#333"/>
-            <path d="M90 105 Q100 115 110 105" stroke="#e53e3e" fill="none" stroke-width="3"/>
-            <rect x="25" y="80" width="25" height="40" rx="10" fill="#fbd38d" transform="rotate(20 25 80)"/>
-        </svg>
-    </div>
+  <div class="title">服務目前不可用</div>
+  <div class="sub">Service currently unavailable</div>
+
+  <div class="title">請稍候再試</div>
+  <div class="sub">Please try again later</div>
+
+  <div class="title">系統正在嘗試恢復連線</div>
+  <div class="sub">System is attempting to restore connection</div>
+
+  <div class="footer">
+    感謝你的耐心等候，我們會盡快為您服務<br/>
+    Thank you for your patience; we will serve you as soon as possible
+  </div>
+
 </div>
+
 </body>
 </html>
