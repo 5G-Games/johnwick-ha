@@ -120,6 +120,16 @@ server:
        servers:
          - demoapi_dev internal-ALB-DemoApi-Dev-990969710.ap-southeast-1.elb.amazonaws.com:8080 check 
 
+     api_dev:
+       name: api_dev
+       mode: http
+       options: 
+         - "httpchk GET /alive"
+       default-servers:
+         - resolvers awsdns resolve-prefer ipv4 init-addr none                    
+       servers:
+         - api_dev internal-ALB-PlatformApi-Dev-671097587.ap-southeast-1.elb.amazonaws.com:8080 check 
+
     ###game service###
      game_dev:
        name: game_dev
