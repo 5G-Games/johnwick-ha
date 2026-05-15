@@ -149,7 +149,7 @@ server:
        options: 
          - "tcp-check"                
        servers:
-         - header_print 10.29.8.218:80 check
+         - header_print 10.29.8.218:8080 check
 
 
     ## no match any rule"
