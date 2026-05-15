@@ -99,7 +99,7 @@ server:
           - inspect-delay 10s
 
         use_backend:
-          - header_print if hd_check_server 5g_offcie_ip
+          - header_print if header_print 5g_offcie_ip
           - '"%[req.hdr(host),lower,map_sub(/etc/haproxy/hostmap/game.map)]" if gs_sub gs_domain'
           - '"%[req.hdr(host),lower,map_sub(/etc/haproxy/hostmap/stage.map)]" if stage_sub std_domain'          
           - '"%[req.hdr(host),lower,map_sub(/etc/haproxy/hostmap/api.map)]" if api_sub api_domain 5g_offcie_ip'
