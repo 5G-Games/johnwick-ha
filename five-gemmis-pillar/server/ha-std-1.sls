@@ -75,7 +75,7 @@ server:
           - source_is_abuser        src_get_gpc0(fe_http_gs_in) gt 50
 
         ##infra rule##
-          - hd_check_server path_reg -i ^/6969
+          - header_print path_reg -i ^/6969$
 
         ## deny zone rule ##  
           - block-ip src -f /etc/haproxy/whitelist/blockip.list
@@ -99,7 +99,7 @@ server:
           - inspect-delay 10s
 
         use_backend:
-          #- header_print if hd_check_server 5g_offcie_ip
+          - header_print if hd_check_server 5g_offcie_ip
           - '"%[req.hdr(host),lower,map_sub(/etc/haproxy/hostmap/game.map)]" if gs_sub gs_domain'
           - '"%[req.hdr(host),lower,map_sub(/etc/haproxy/hostmap/stage.map)]" if stage_sub std_domain'          
           - '"%[req.hdr(host),lower,map_sub(/etc/haproxy/hostmap/api.map)]" if api_sub api_domain 5g_offcie_ip'
@@ -144,12 +144,12 @@ server:
 
 
      ####infra service#ß##
-     #header_print:
-     #  name: header_print
-     #  options: 
-     #    - "tcp-check"                
-     #  servers:
-     #    - header_print internal-ALB-MessageCenterApi-Dev-1727792962.ap-east-1.elb.amazonaws.com:80 check
+     header_print:
+       name: header_print
+       options: 
+         - "tcp-check"                
+       servers:
+         - header_print 10.29.8.218:80 check
 
 
     ## no match any rule"
