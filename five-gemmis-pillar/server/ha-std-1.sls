@@ -47,6 +47,7 @@ server:
         errorfile_503:
           - /etc/haproxy/html_static/error_503.html
         http_request:
+          - set-header X-Forwarded-Host %[req.hdr(Host)] if !{ req.hdr(X-Forwarded-Host) -m found }
           - set-header X-Real-IP %[src]
           - set-header X-Client-IP %[src]
           - set-header True-Client-IP %[src]
