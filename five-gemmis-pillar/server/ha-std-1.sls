@@ -148,7 +148,7 @@ server:
        name: game_engin_dev
        mode: http            
        options: 
-         - "httpchk GET /alive" 
+         - "httpchk GET /grpc.health.v1.Health/Check" 
        default-servers:
          - resolvers awsdns resolve-prefer ipv4 init-addr none         
        servers:
