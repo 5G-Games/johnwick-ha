@@ -144,6 +144,15 @@ server:
        servers:
          - game_dev internal-ALB-GameServer-Dev-1498468321.ap-southeast-1.elb.amazonaws.com:8080 check 
 
+     game_engin_dev:
+       name: game_engin_dev
+       mode: http            
+       options: 
+         - "httpchk GET /alive" 
+       default-servers:
+         - resolvers awsdns resolve-prefer ipv4 init-addr none         
+       servers:
+         - game_engin_dev internal-ALB-GameEngine-Dev-494097733.ap-southeast-1.elb.amazonaws.com:8080 check 
 
 
      ####infra service#ß##
