@@ -161,9 +161,10 @@ server:
      ###dal service### 
      dal_dev_elb:
        name: dal_dev_elb
-       #mode: http
        options: 
-         - "tcp-check"                    
+         - "tcp-check"               
+       default-servers:
+         - resolvers awsdns resolve-prefer ipv4 init-addr none              
        servers:
          - dal_dev_elb dal-dev.5gfafa.com:6969 check port 9696
 
