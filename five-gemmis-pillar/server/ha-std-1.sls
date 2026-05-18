@@ -158,8 +158,7 @@ server:
        servers:
          - game_engin_dev internal-ALB-GameEngine-Dev-494097733.ap-southeast-1.elb.amazonaws.com:443 ssl verify none check check-ssl alpn h2
 
-
-     ####infra service#ß##
+     ####infra service####
      header_print:
        name: header_print
        options: 
