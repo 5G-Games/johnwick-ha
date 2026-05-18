@@ -146,7 +146,13 @@ server:
 
      game_engin_dev:
        name: game_engin_dev
-       mode: http            
+       mode: http
+       options: 
+         - "httpchk"
+       http_check:
+         - "connect port 443 ssl alpn h2 sni str(ge-dev.5gstatic.com)"
+         - "send meth POST uri /grpc.health.v1.Health/Check ver HTTP/2 hdr host ge-dev.5gstatic.com hdr content-type application/grpc"
+         - "http-check expect status 200"
        default-servers:
          - resolvers awsdns resolve-prefer ipv4 init-addr none         
        servers:

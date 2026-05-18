@@ -149,6 +149,9 @@ backend {{ backend.get('name', backend_name) }}
     {%- if 'mode' in backend %}
     {{- render_list_of_dictionaries('mode',backend.mode) }}
     {%- endif %}
+    {%- if 'http_check' in backend %}
+    {{- render_list_of_dictionaries('http-check',backend.http_check) }}
+    {%- endif %}    
     {%- if 'default-servers' in backend %}
     {{- render_list_of_dictionaries('default-server', backend['default-servers']) }}
     {%- endif %}           
