@@ -148,7 +148,7 @@ server:
        name: game_engin_dev
        mode: http            
        options: 
-         - "'httpchk POST /grpc.health.v1.Health/Check HTTP/2\r\ncontent-type:\ application/grpc'" 
+         - "'httpchk POST /grpc.health.v1.Health/Check HTTP/2\r\ncontent-type: application/grpc'" 
        default-servers:
          - resolvers awsdns resolve-prefer ipv4 init-addr none         
        servers:
