@@ -158,6 +158,15 @@ server:
        servers:
          - game_engin_dev internal-ALB-GameEngine-Dev-494097733.ap-southeast-1.elb.amazonaws.com:443 ssl verify none check check-ssl alpn h2
 
+     ###dal service### 
+     dal_dev_elb:
+       name: dal_dev_elb
+       #mode: http
+       options: 
+         - "tcp-check"                    
+       servers:
+         - dal_dev_elb dal-dev.5gfafa.com:6969 check port 9696
+
      ####infra service####
      header_print:
        name: header_print
