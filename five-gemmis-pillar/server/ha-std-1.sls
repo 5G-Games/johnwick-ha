@@ -148,7 +148,8 @@ server:
        name: game_engin_dev
        mode: http            
        options: 
-         - "'httpchk POST /grpc.health.v1.Health/Check HTTP/2\r\ncontent-type: application/grpc'" 
+         - "httpchk POST /grpc.health.v1.Health/Check HTTP/2"
+         - "http-check send hdr content-type application/grpc hdr te trailers hdr host internal-ALB-GameEngine-Dev-494097733.ap-southeast-1.elb.amazonaws.com body \"\\x00\\x00\\x00\\x00\\x00\""
        default-servers:
          - resolvers awsdns resolve-prefer ipv4 init-addr none         
        servers:
