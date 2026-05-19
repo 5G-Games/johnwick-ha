@@ -102,10 +102,10 @@ server:
 
         use_backend:
           - header_print if header_print 5g_offcie_ip
-          - '"%[req.hdr(host),lower,map_sub(/etc/haproxy/hostmap/game.map)]" if gs_sub gs_domain'
-          - '"%[req.hdr(host),lower,map_sub(/etc/haproxy/hostmap/stage.map)]" if stage_sub std_domain'          
-          - '"%[req.hdr(host),lower,map_sub(/etc/haproxy/hostmap/api.map)]" if api_sub api_domain 5g_offcie_ip'
-          - '"%[req.hdr(host),lower,map_sub(/etc/haproxy/hostmap/dev.map)]" if dev_sub std_domain 5g_offcie_ip'
+          - '"%[req.hdr(host),lower,map_sub(/etc/haproxy/hostmap/game.map)]" if gs_sub gs_domain'        
+          - '"%[req.hdr(host),lower,map_sub(/etc/haproxy/hostmap/api.map)]" if api_sub api_domain'
+          - '"%[req.hdr(host),lower,map_sub(/etc/haproxy/hostmap/stage.map)]" if stage_sub std_domain'            
+          - '"%[req.hdr(host),lower,map_sub(/etc/haproxy/hostmap/dev.map)]" if dev_sub std_domain'
           - '"%[req.hdr(host),lower,map_sub(/etc/haproxy/hostmap/uat.map)]" if uat_sub std_domain 5g_offcie_ip'
 
 
@@ -134,15 +134,25 @@ server:
          - api_dev internal-ALB-PlatformApi-Dev-671097587.ap-southeast-1.elb.amazonaws.com:8080 check 
 
     ###game service###
-     game_dev:
-       name: game_dev
+     game_server_dev:
+       name: game_server_dev
        mode: http            
        options: 
          - "httpchk GET /alive" 
        default-servers:
          - resolvers awsdns resolve-prefer ipv4 init-addr none         
        servers:
-         - game_dev internal-ALB-GameServer-Dev-1498468321.ap-southeast-1.elb.amazonaws.com:8080 check 
+         - game_server_dev internal-ALB-GameServer-Dev-1498468321.ap-southeast-1.elb.amazonaws.com:8080 check 
+
+     tushar_gs_dev:
+       name: tushar_gs_dev
+       mode: http            
+       options: 
+         - "httpchk GET /alive" 
+       default-servers:
+         - resolvers awsdns resolve-prefer ipv4 init-addr none         
+       servers:
+         - tushar_gs_dev internal-ALB-GameServer-Optimized-827801056.ap-southeast-1.elb.amazonaws.com:8080 check 
 
      game_engin_dev:
        name: game_engin_dev
