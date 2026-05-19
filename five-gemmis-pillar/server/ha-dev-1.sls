@@ -28,8 +28,7 @@ server:
           - '*:9408' #warm_db_prod
           - '*:9406' #warm_db_std                     
         mode: tcp
-        log-formats:
-          - "%ci:%cp [%t] %ft %b/%s %Tw/%Tc/%Tt %B %ts %ac/%fc/%bc/%sc/%rc %sq/%bq"        
+        log-formats: "%ci:%cp [%t] %ft %b/%s %Tw/%Tc/%Tt %B %ts %ac/%fc/%bc/%sc/%rc %sq/%bq"        
         maxconn: 500
         options:
           - tcplog
