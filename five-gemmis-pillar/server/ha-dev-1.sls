@@ -25,8 +25,8 @@ server:
           - '*:3306' #member_db_std
           - '*:3366' #member_db_prod
           - '*:3389' #win_test_eric
-          - '*:27017' #warm_db_prod
-          - '*:27018' #warm_db_std                     
+          - '*:9408' #warm_db_prod
+          - '*:9406' #warm_db_std                     
         mode: tcp
         maxconn: 500
         options:
@@ -45,8 +45,8 @@ server:
           - 'member_db_std if { dst_port 3306 } 5g_offcie_ip'
           - 'member_db_prod if { dst_port 3366 } 5g_offcie_ip'
           - 'win_test_eric if { dst_port 3389 } 5g_offcie_ip'
-          - 'member_db_std if { dst_port 27018 } 5g_offcie_ip'
-          - 'member_db_prod if { dst_port 27017 } 5g_offcie_ip'
+          - 'member_db_std if { dst_port 9406 } 5g_offcie_ip'
+          - 'member_db_prod if { dst_port 9408 } 5g_offcie_ip'
 
     backends:
      member_db_std:
