@@ -24,6 +24,7 @@ server:
         bind:
           - '*:3306' #member_db_std
           - '*:3366' #member_db_prod
+          - '*:3389' #member_db_prod
         mode: tcp
         maxconn: 500
         options:
@@ -41,6 +42,7 @@ server:
         use_backend:
           - 'member_db_std if { dst_port 3306 } 5g_offcie_ip'
           - 'member_db_prod if { dst_port 3366 } 5g_offcie_ip'
+          - 'win_test_eric if { dst_port 3389 } 5g_offcie_ip'
          
     backends:
      member_db_std:
@@ -58,6 +60,15 @@ server:
          - "tcp-check"                   
        servers:
          - member_db_prod prodmysql-instance-1.cdgm8426ylrz.ap-southeast-1.rds.amazonaws.com:3306 check 
+
+     win_test_eric:
+       name: win_test_eric
+       mode: tcp
+       options: 
+         - "tcp-check"                   
+       servers:
+         - win_test_eric 10.29.15.79:3389 check 
+
 
     ## no match any rule"
      no_acl_match:
