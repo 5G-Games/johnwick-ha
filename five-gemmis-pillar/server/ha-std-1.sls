@@ -66,7 +66,7 @@ server:
         http_after_response:
           - set-header Access-Control-Allow-Origin "%[var(txn.origin)]"
           - set-header Access-Control-Allow-Credentials "true"
-
+          - set-header Access-Control-Allow-Headers "Origin, X-Requested-With, Content-Type, Accept, Authorization, sentry-trace, baggage, accept-timezone"
         default_backend:
           - no_acl_match
 
