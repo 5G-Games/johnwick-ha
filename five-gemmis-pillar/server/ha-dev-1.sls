@@ -24,7 +24,9 @@ server:
         bind:
           - '*:3306' #member_db_std
           - '*:3366' #member_db_prod
-          - '*:3389' #member_db_prod
+          - '*:3389' #win_test_eric
+          - '*:27017' #warm_db_prod
+          - '*:27018' #warm_db_std                     
         mode: tcp
         maxconn: 500
         options:
@@ -43,7 +45,9 @@ server:
           - 'member_db_std if { dst_port 3306 } 5g_offcie_ip'
           - 'member_db_prod if { dst_port 3366 } 5g_offcie_ip'
           - 'win_test_eric if { dst_port 3389 } 5g_offcie_ip'
-         
+          - 'member_db_std if { dst_port 27018 } 5g_offcie_ip'
+          - 'member_db_prod if { dst_port 27017 } 5g_offcie_ip'
+
     backends:
      member_db_std:
        name: member_db_std
@@ -60,6 +64,26 @@ server:
          - "tcp-check"                   
        servers:
          - member_db_prod prodmysql-instance-1.cdgm8426ylrz.ap-southeast-1.rds.amazonaws.com:3306 check 
+
+     warm_db_std:
+       name: warm_db_std
+       mode: tcp
+       options: 
+         - "tcp-check"                   
+       servers:
+         - warm_db_std_1 k8s-stdmongo-mongo0nl-0fe4befbc3-956ffdcd200e944d.elb.ap-southeast-1.amazonaws.com:27017 check    
+         - warm_db_std_2 k8s-stdmongo-mongo1nl-ff3964ed12-45fe68d95bda32ad.elb.ap-southeast-1.amazonaws.com:27017 check    
+         - warm_db_std_3 k8s-stdmongo-mongo2nl-051c390473-27e64a5a4a6fd818.elb.ap-southeast-1.amazonaws.com:27017 check    
+
+     warm_db_prod:
+       name: warm_db_prod
+       mode: tcp
+       options: 
+         - "tcp-check"                   
+       servers:
+         - warm_db_prod_1 k8s-mongodbs-mongo0nl-45ad3a8300-62810babae1f4bbb.elb.ap-southeast-1.amazonaws.com:27017 check    
+         - warm_db_prod_2 k8s-mongodbs-mongo1nl-f9f5879bcb-6365246bfb43b141.elb.ap-southeast-1.amazonaws.com:27017 check    
+         - warm_db_prod_3 k8s-mongodbs-mongo2nl-a7e4f7100c-6e97de9d2ff672cd.elb.ap-southeast-1.amazonaws.com:27017 check  
 
      win_test_eric:
        name: win_test_eric
