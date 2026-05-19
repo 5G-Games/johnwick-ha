@@ -108,8 +108,6 @@ server:
           - '"%[req.hdr(host),lower,map_sub(/etc/haproxy/hostmap/dev.map)]" if dev_sub std_domain'
           - '"%[req.hdr(host),lower,map_sub(/etc/haproxy/hostmap/uat.map)]" if uat_sub std_domain 5g_offcie_ip'
 
-
-
     backends:
     ###demo service###
      demoapi_dev:
@@ -121,7 +119,7 @@ server:
          - resolvers awsdns resolve-prefer ipv4 init-addr none                    
        servers:
          - demoapi_dev internal-ALB-DemoApi-Dev-990969710.ap-southeast-1.elb.amazonaws.com:8080 check 
-
+    ###api service###
      api_dev:
        name: api_dev
        mode: http
@@ -132,6 +130,26 @@ server:
          - resolvers awsdns resolve-prefer ipv4 init-addr none                    
        servers:
          - api_dev internal-ALB-PlatformApi-Dev-671097587.ap-southeast-1.elb.amazonaws.com:8080 check 
+     ###backstage service###
+     backstage_api_dev:
+       name: backstage_api_dev
+       mode: http            
+       options: 
+         - "httpchk GET /alive" 
+       default-servers:
+         - resolvers awsdns resolve-prefer ipv4 init-addr none         
+       servers:
+         - backstage_api_dev internal-ALB-BackstageApi-Dev-2107151475.ap-southeast-1.elb.amazonaws.com:8080 check          
+
+     backstage_agent_api_dev:
+       name: backstage_agent_api_dev
+       mode: http            
+       options: 
+         - "httpchk GET /alive" 
+       default-servers:
+         - resolvers awsdns resolve-prefer ipv4 init-addr none         
+       servers:
+         - backstage_agent_api_dev internal-ALB-BackstageAgentApi-Dev-1567630179.ap-southeast-1.elb.amazonaws.com:8080 check 
 
     ###game service###
      game_server_dev:
