@@ -156,7 +156,7 @@ server:
        name: message_center_dev
        mode: http            
        options: 
-         - "httpchk GET /health" 
+         - "httpchk GET /health/live" 
        default-servers:
          - resolvers awsdns resolve-prefer ipv4 init-addr none         
        servers:
