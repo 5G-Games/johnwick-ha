@@ -151,6 +151,39 @@ server:
        servers:
          - backstage_agent_api_dev internal-ALB-BackstageAgentApi-Dev-1567630179.ap-southeast-1.elb.amazonaws.com:8080 check 
 
+    ###message_center###
+     message_center_dev:
+       name: message_center_dev
+       mode: http            
+       options: 
+         - "httpchk GET /health" 
+       default-servers:
+         - resolvers awsdns resolve-prefer ipv4 init-addr none         
+       servers:
+         - message_center_dev internal-ALB-MessageCenterApi-Dev-1238611991.ap-southeast-1.elb.amazonaws.com:8080 check     
+
+    ###tournament###
+     tournament_dev:
+       name: tournament_dev
+       mode: http            
+       options: 
+         - "httpchk GET /health" 
+       default-servers:
+         - resolvers awsdns resolve-prefer ipv4 init-addr none         
+       servers:
+         - tournament_dev internal-ALB-Tournament-Dev-32783444.ap-southeast-1.elb.amazonaws.com:8080 check
+
+    ###campaign###
+     campaign_dev:
+       name: campaign_dev
+       mode: http            
+       options: 
+         - "httpchk GET /health" 
+       default-servers:
+         - resolvers awsdns resolve-prefer ipv4 init-addr none         
+       servers:
+         - campaign_dev internal-ALB-FreeRoundBonusCampaign-Dev-1561839281.ap-southeast-1.elb.amazonaws.com:8080 check
+
     ###game service###
      game_server_dev:
        name: game_server_dev
