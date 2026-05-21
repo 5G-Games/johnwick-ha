@@ -46,8 +46,8 @@ server:
           - 'member_db_std if { dst_port 3306 } 5g_offcie_ip'
           - 'member_db_prod if { dst_port 3366 } 5g_offcie_ip'
           - 'win_test_eric if { dst_port 3389 } 5g_offcie_ip'
-          - 'member_db_std if { dst_port 9406 } 5g_offcie_ip'
-          - 'member_db_prod if { dst_port 9408 } 5g_offcie_ip'
+          - 'warm_db_std if { dst_port 9406 } 5g_offcie_ip'
+          - 'warm_db_prod if { dst_port 9408 } 5g_offcie_ip'
 
     backends:
      member_db_std:
