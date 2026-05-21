@@ -173,6 +173,17 @@ server:
        servers:
          - tournament_dev tournament-dev.5gservice.com:8080 check
 
+    ###bridge###
+     bridge_dev:
+       name: bridge_dev
+       mode: http            
+       options: 
+         - "httpchk GET /alive" 
+       default-servers:
+         - resolvers awsdns resolve-prefer ipv4 init-addr none         
+       servers:
+         - bridge_dev bridge-dev.5gservice.com:8080 check
+
     ###campaign###
      campaign_dev:
        name: campaign_dev
