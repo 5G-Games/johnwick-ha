@@ -1,3 +1,5 @@
+#bridge service#
+bridge-dev.5gg.win bridge_dev
 #backstage service#
 backstage_api-dev.5gg.win backstage_api_dev
 backstage_agent_api-dev.5gg.win backstage_agent_api_dev
@@ -13,4 +15,3 @@ mc-dev.5gg.win message_center_dev
 tournament-dev.5gg.win tournament_dev
 #campaign#
 campaign-dev.5gg.win campaign_dev
-bridge-dev.5gg.win bridge_dev
