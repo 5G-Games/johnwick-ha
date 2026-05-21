@@ -13,3 +13,5 @@ mc-dev
 tournament-dev
 #campaign service#
 campaign-dev
+#bridge service#
+bridge-dev
