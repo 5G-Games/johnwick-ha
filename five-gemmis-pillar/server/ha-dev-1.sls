@@ -26,7 +26,9 @@ server:
           - '*:3366' #member_db_prod
           - '*:3389' #win_test_eric
           - '*:9408' #warm_db_prod
-          - '*:9406' #warm_db_std                     
+          - '*:9406' #warm_db_std
+          - '*:9509' #valkey-dev                    
+
         mode: tcp
         log-formats: "%ci:%cp [%t] %ft %b/%s %Tw/%Tc/%Tt %B %ts %ac/%fc/%bc/%sc/%rc %sq/%bq"        
         maxconn: 500
@@ -48,6 +50,7 @@ server:
           - 'win_test_eric if { dst_port 3389 } 5g_offcie_ip'
           - 'warm_db_std if { dst_port 9406 } 5g_offcie_ip'
           - 'warm_db_prod if { dst_port 9408 } 5g_offcie_ip'
+          - 'dev_valkey if { dst_port 9509 } 5g_offcie_ip'
 
     backends:
      member_db_std:
@@ -93,7 +96,14 @@ server:
          - "tcp-check"                   
        servers:
          - win_test_eric 10.29.15.79:3389 check 
-
+    ###redis valkey###
+     dev_valkey:
+       name: dev_valkey
+       mode: tcp
+       options: 
+         - "tcp-check"                   
+       servers:
+         - dev_valkey redis-oss-dev-yoe3cu.serverless.ape1.cache.amazonaws.com:3389 check 
 
     ## no match any rule"
      no_acl_match:
