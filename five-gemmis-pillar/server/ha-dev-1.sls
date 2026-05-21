@@ -103,7 +103,7 @@ server:
        options: 
          - "tcp-check"                   
        servers:
-         - dev_valkey redis-oss-dev-yoe3cu.serverless.ape1.cache.amazonaws.com:3389 check 
+         - dev_valkey redis-oss-dev-yoe3cu.serverless.ape1.cache.amazonaws.com:6379 check 
 
     ## no match any rule"
      no_acl_match:
