@@ -160,7 +160,7 @@ server:
        default-servers:
          - resolvers awsdns resolve-prefer ipv4 init-addr none         
        servers:
-         - message_center_dev internal-ALB-MessageCenterApi-Dev-1238611991.ap-southeast-1.elb.amazonaws.com:8080 check     
+         - message_center_dev mc-dev.5gservice.com:8080 check     
 
     ###tournament###
      tournament_dev:
@@ -171,7 +171,7 @@ server:
        default-servers:
          - resolvers awsdns resolve-prefer ipv4 init-addr none         
        servers:
-         - tournament_dev internal-ALB-Tournament-Dev-32783444.ap-southeast-1.elb.amazonaws.com:8080 check
+         - tournament_dev tournament-dev.5gservice.com:8080 check
 
     ###campaign###
      campaign_dev:
@@ -182,7 +182,7 @@ server:
        default-servers:
          - resolvers awsdns resolve-prefer ipv4 init-addr none         
        servers:
-         - campaign_dev internal-ALB-FreeRoundBonusCampaign-Dev-1561839281.ap-southeast-1.elb.amazonaws.com:8080 check
+         - campaign_dev campaign-dev.5gservice.com:8080 check
 
     ###game service###
      game_server_dev:

@@ -1,6 +1,15 @@
+#backstage service#
 backstage_api-dev.5gg.win backstage_api_dev
 backstage_agent_api-dev.5gg.win backstage_agent_api_dev
+#api service#
 demoapi-dev.5gg.dev demoapi_dev
 api-dev.5gg.win api_dev
+#game server service#
 ge-dev.5gg.win game_engin_dev
 gs-opt.5gg.win tushar_gs_dev
+#message center#
+mc-dev.5gg.win message_center_dev
+#torunament#
+tournament-dev.5gg.win tournament_dev
+#campaign#
+campaign-dev.5gg.win campaign_dev

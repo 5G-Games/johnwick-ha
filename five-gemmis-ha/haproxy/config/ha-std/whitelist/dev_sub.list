@@ -1,6 +1,15 @@
+#api service#
 demoapi-dev
 api-dev
+#game server service
 ge-dev
 gs-opt
+#backstage service#
 backstage_api-dev
-backstage_agent_api-dev 
+backstage_agent_api-Dev
+#message center#
+mc-dev
+#torunament service#
+tournament-dev
+#campaign service#
+campaign-dev
