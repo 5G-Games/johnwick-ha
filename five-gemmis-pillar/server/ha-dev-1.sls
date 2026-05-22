@@ -60,10 +60,10 @@ server:
           - no_acl_match
 
         acl:
-          - source_is_serious_abuse src_conn_rate(fe_http_gs_in) gt 1000
+          - source_is_serious_abuse src_conn_rate(fe_http_infra_in) gt 1000
           - conn_rate_abuse         sc1_conn_rate gt 30
           - mark_as_abuser          sc1_inc_gpc0  ge 0
-          - source_is_abuser        src_get_gpc0(fe_http_gs_in) gt 50
+          - source_is_abuser        src_get_gpc0(fe_http_infra_in) gt 50
 
         ## deny zone rule ##  
           - block-ip src -f /etc/haproxy/whitelist/blockip.list
