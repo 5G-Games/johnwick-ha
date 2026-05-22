@@ -148,7 +148,10 @@ backend {{ backend.get('name', backend_name) }}
     {%- endif %}
     {%- if 'http_checks' in backend %}
     {{- render_list_of_dictionaries('http-check',backend.http_checks) }}
-    {%- endif %}        
+    {%- endif %}
+    {%- if 'tcp_checks' in backend %}
+    {{- render_list_of_dictionaries('tcp-check',backend.tcp_checks) }}
+    {%- endif %}               
     {%- if 'timeout' in backend %}
     {{- render_list_of_dictionaries('timeout',backend.timeout) }}
     {%- endif %}

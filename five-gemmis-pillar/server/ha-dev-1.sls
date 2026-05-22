@@ -156,7 +156,7 @@ server:
        mode: tcp
        options: 
          - "tcp-check"
-      tcp-checks:
+      tcp_checks:
          # MongoDB Wire Protocol - isMaster command
          - send-binary 3a000000   # Message Length (58 bytes)
          - send-binary EEEEEEEE   # Request ID (random)
