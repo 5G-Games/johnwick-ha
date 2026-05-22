@@ -46,11 +46,14 @@ server:
         #errorfile_503:
          # - /etc/haproxy/html_static/error_503.html
         http_request:
+          - set-header X-Forwarded-Host %[req.hdr(Host)] if !{ req.hdr(X-Forwarded-Host) -m found }
+          - set-header X-Forwarded-Port %[dst_port]
           - set-header X-Real-IP %[src]
           - set-header X-Client-IP %[src]
           - set-header True-Client-IP %[src]
+          - set-header X-Forwarded-For %[src]
           - set-header X-Forwarded-Proto https if { ssl_fc }
-          - set-header X-Forwarded-Proto http if ! { ssl_fc }
+          - set-header X-Forwarded-Proto http if ! { ssl_fc }       
           - add-header cf %[req.hdr(CF-Connecting-IP)]
         http_response:
           - del-header Server
@@ -92,7 +95,6 @@ server:
           - '*:9408' #warm_db_prod
           - '*:9406' #warm_db_std
           - '*:9509' #valkey-dev                    
-
         mode: tcp
         log-formats: "%ci:%cp [%t] %ft %b/%s %Tw/%Tc/%Tt %B %ts %ac/%fc/%bc/%sc/%rc %sq/%bq"        
         maxconn: 500
@@ -153,7 +155,26 @@ server:
        name: warm_db_std
        mode: tcp
        options: 
-         - "tcp-check"                   
+         - "tcp-check"
+      tcp-checks:
+         # MongoDB Wire Protocol - isMaster command
+         - send-binary 3a000000   # Message Length (58 bytes)
+         - send-binary EEEEEEEE   # Request ID (random)
+         - send-binary 00000000   # Response To (nothing)
+         - send-binary d4070000   # OpCode (OP_QUERY)
+         - send-binary 00000000   # Query Flags
+         - send-binary 61646d696e2e  # fullCollectionName: admin.
+         - send-binary 24636d6400    # $cmd\0
+         - send-binary 00000000   # NumToSkip
+         - send-binary FFFFFFFF   # NumToReturn (-1)
+         # BSON Document: { ismaster: 1 }
+         - send-binary 13000000   # Document Length (19)
+         - send-binary 10         # Type: Int32
+         - send-binary 69736d617374657200  # "ismaster\0"
+         - send-binary 01000000   # Value: 1
+         - send-binary 00         # Document terminator
+         # 只有 Primary 才會回傳 ismaster=true (0x01)
+         - expect binary 69736d61737465720001                   
        servers:
          - warm_db_std_1 k8s-stdmongo-mongo0nl-0fe4befbc3-956ffdcd200e944d.elb.ap-southeast-1.amazonaws.com:27017 check    
          - warm_db_std_2 k8s-stdmongo-mongo1nl-ff3964ed12-45fe68d95bda32ad.elb.ap-southeast-1.amazonaws.com:27017 check    
