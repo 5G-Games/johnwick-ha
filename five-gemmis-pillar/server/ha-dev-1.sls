@@ -123,7 +123,7 @@ server:
        options: 
          - "tcp-check"                   
        servers:
-         - kafka_ui_elb_1 af19d2a47346c40b48be8f6d08552faf-4a8185d397df80db.elb.ap-southeast-1.amazonaws.com:8080 check    
+         - kafka_ui_elb_1 af19d2a47346c40b48be8f6d08552faf-4a8185d397df80db.elb.ap-southeast-1.amazonaws.com:80 check    
      #openobserve
      openobserve_elb:
        name: openobserve_elb
