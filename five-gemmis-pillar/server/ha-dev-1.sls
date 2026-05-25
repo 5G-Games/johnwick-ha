@@ -204,12 +204,12 @@ server:
        options: 
          - "tcp-check"    
        tcp_checks:
-         -  tcp-check send PING\r\n
-         -  tcp-check expect string +PONG
-         -  tcp-check send info\ replication\r\n
-         -  tcp-check expect string role:master
-         - tcp-check send QUIT\r\n
-         - tcp-check expect string +OK
+         - send PING\r\n
+         - expect string +PONG
+         - send info\ replication\r\n
+         - expect string role:master
+         - send QUIT\r\n
+         - expect string +OK
        servers:
          - dev_valkey redis-oss-dev-yoe3cu.serverless.ape1.cache.amazonaws.com:6379 check inter 2s rise 2 fall 3
 
