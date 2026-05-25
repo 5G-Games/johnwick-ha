@@ -94,7 +94,7 @@ server:
           - '*:3389' #win_test_eric
           - '*:9408' #warm_db_prod
           - '*:9406' #warm_db_std
-          - '*:9509' #valkey-dev                    
+          - '*:6379' #valkey-dev                    
         mode: tcp
         log-formats: "%ci:%cp [%t] %ft %b/%s %Tw/%Tc/%Tt %B %ts %ac/%fc/%bc/%sc/%rc %sq/%bq"        
         maxconn: 500
@@ -116,7 +116,7 @@ server:
           - 'win_test_eric if { dst_port 3389 } 5g_offcie_ip'
           - 'warm_db_std if { dst_port 9406 } 5g_offcie_ip'
           - 'warm_db_prod if { dst_port 9408 } 5g_offcie_ip'
-          - 'dev_valkey if { dst_port 9509 } 5g_offcie_ip'
+          - 'dev_valkey if { dst_port 6379 } 5g_offcie_ip'
 
     backends:
     #infra service#
@@ -202,9 +202,16 @@ server:
        name: dev_valkey
        mode: tcp
        options: 
-         - "tcp-check"                   
+         - "tcp-check"    
+       tcp_checks:
+         -  tcp-check send PING\r\n
+         -  tcp-check expect string +PONG
+         -  tcp-check send info\ replication\r\n
+         -  tcp-check expect string role:master
+         - tcp-check send QUIT\r\n
+         - tcp-check expect string +OK
        servers:
-         - dev_valkey redis-oss-dev-yoe3cu.serverless.ape1.cache.amazonaws.com:6379 check 
+         - dev_valkey redis-oss-dev-yoe3cu.serverless.ape1.cache.amazonaws.com:6379 check inter 2s rise 2 fall 3
 
 
 
