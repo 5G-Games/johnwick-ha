@@ -210,7 +210,8 @@ server:
        #  - send QUIT\r\n
        #  - expect string +OK
        servers:
-         - dev_valkey redis-oss-dev-yoe3cu.serverless.ape1.cache.amazonaws.com:6379 check 
+         - dev_valkey dev-kd3xbs.serverless.apse1.cache.amazonaws.com:6379 check
+
 
 
 
