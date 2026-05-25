@@ -203,12 +203,12 @@ server:
        mode: tcp
        options: 
          - "tcp-check"    
-       tcp_checks:
-         - send PING\r\n
-         - expect string +PONG
-         - send info\ replication\r\n
-         - send QUIT\r\n
-         - expect string +OK
+       #tcp_checks:
+       #  - send PING\r\n
+       #  - expect string +PONG
+       #  - send info\ replication\r\n
+       #  - send QUIT\r\n
+       #  - expect string +OK
        servers:
          - dev_valkey redis-oss-dev-yoe3cu.serverless.ape1.cache.amazonaws.com:6379 check 
 
