@@ -4,7 +4,7 @@ server:
   haproxy:
     ssl: True
     whitelist: True
-    role: ha-std
+    role: ha-gs
     cfg_dir: ha-gs
     version: '3.2.4'
     patch: False
