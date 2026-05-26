@@ -160,7 +160,27 @@ server:
        default-servers:
          - resolvers awsdns resolve-prefer ipv4 init-addr none         
        servers:
-         - message_center_dev mc-dev.5gservice.com:8080 check     
+         - message_center_dev mc-dev.5gservice.com:8080 check
+
+     message_center_uat:
+       name: message_center_uat
+       mode: http            
+       options: 
+         - "httpchk GET /health" 
+       default-servers:
+         - resolvers awsdns resolve-prefer ipv4 init-addr none         
+       servers:
+         - message_center_uat mc-uat.5gservice.com:80 check
+
+     message_center_stage:
+       name: message_center_stage
+       mode: http            
+       options: 
+         - "httpchk GET /health" 
+       default-servers:
+         - resolvers awsdns resolve-prefer ipv4 init-addr none         
+       servers:
+         - message_center_stage mc-stage.5gservice.com:80 check 
 
     ###tournament###
      tournament_dev:
