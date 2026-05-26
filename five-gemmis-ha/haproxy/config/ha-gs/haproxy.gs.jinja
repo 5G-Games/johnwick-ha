@@ -84,8 +84,8 @@ backend st_dummy
 backend st_ssl_stats_peers
     stick-table type string len 32 size 200 expire 24d store http_req_rate(24d)
     peers push-peers
-    peer ha-gs-1 ip-10-58-21-138.ap-southeast-1.compute.internal:1024
-    peer ha-gs-2 ip-10-58-60-35.ap-southeast-1.compute.internal:1024
+    peer ha-gs-1 ip-10-168-6-219.ap-southeast-1.compute.internal:1024
+    peer ha-gs-2 ip-10-168-43-96.ap-southeast-1.compute.internal:1024
 
 {% for frontend_name, frontend in salt['pillar.get']('server:haproxy:frontends', {})|dictsort %}
 frontend {{ frontend.get('name', frontend_name) }}
@@ -166,6 +166,19 @@ backend {{ backend.get('name', backend_name) }}
     {{- render_list_of_dictionaries('redirect',backend.redirect) }}
     {%- endif %}
 {%- endfor %}
+
+resolvers awsdns
+    nameserver aws 169.254.169.253:53
+    hold valid    10s
+    hold obsolete 30s
+
+frontend frontend_prometheus_in
+    bind  *:8405
+    mode  http
+    acl allowed_prometheus src 10.58.0.0/16
+    http-request deny if !allowed_prometheus
+    http-request use-service prometheus-exporter if { path /metrics }
+    no log
 
 listen admin
     bind *:1936
