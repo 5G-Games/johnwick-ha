@@ -134,6 +134,37 @@ server:
        servers:
          - openobserve_elb a62b17fae956349e59c35aba177dfce5-c087f3f4263d17dd.elb.ap-southeast-1.amazonaws.com:5080 check    
 
+     #grafana
+     grafana_elb:
+       name: grafana_elb
+       options: 
+         - "tcp-check"                   
+       servers:
+         - grafana_elb ae9e38330b71a4e559eda0c9477636b7-76478760af7236c4.elb.ap-southeast-1.amazonaws.com:80 check   
+
+     #influxdb
+     influxdb_elb:
+       name: influxdb_elb
+       options: 
+         - "tcp-check"                   
+       servers:
+         - influxdb_elb ae9e38330b71a4e559eda0c9477636b7-76478760af7236c4.elb.ap-southeast-1.amazonaws.com:80 check 
+
+     #VMSelect
+     vmselect_elb:
+       name: vmselect_elb
+       options: 
+         - "tcp-check"                   
+       servers:
+         - vmselect_elb ae9e38330b71a4e559eda0c9477636b7-76478760af7236c4.elb.ap-southeast-1.amazonaws.com:80 check
+
+     #VMInsert
+     vminsert_elb:
+       name: vminsert_elb
+       options: 
+         - "tcp-check"                   
+       servers:
+         - vminsert_elb ae9e38330b71a4e559eda0c9477636b7-76478760af7236c4.elb.ap-southeast-1.amazonaws.com:80 check 
 
      member_db_std:
        name: member_db_std
@@ -184,7 +215,26 @@ server:
        name: warm_db_prod
        mode: tcp
        options: 
-         - "tcp-check"                   
+         - "tcp-check"
+       tcp_checks:
+         # MongoDB Wire Protocol - isMaster command
+         - send-binary 3a000000   # Message Length (58 bytes)
+         - send-binary EEEEEEEE   # Request ID (random)
+         - send-binary 00000000   # Response To (nothing)
+         - send-binary d4070000   # OpCode (OP_QUERY)
+         - send-binary 00000000   # Query Flags
+         - send-binary 61646d696e2e  # fullCollectionName: admin.
+         - send-binary 24636d6400    # $cmd\0
+         - send-binary 00000000   # NumToSkip
+         - send-binary FFFFFFFF   # NumToReturn (-1)
+         # BSON Document: { ismaster: 1 }
+         - send-binary 13000000   # Document Length (19)
+         - send-binary 10         # Type: Int32
+         - send-binary 69736d617374657200  # "ismaster\0"
+         - send-binary 01000000   # Value: 1
+         - send-binary 00         # Document terminator
+         # 只有 Primary 才會回傳 ismaster=true (0x01)
+         - expect binary 69736d61737465720001                   
        servers:
          - warm_db_prod_1 k8s-mongodbs-mongo0nl-45ad3a8300-62810babae1f4bbb.elb.ap-southeast-1.amazonaws.com:27017 check    
          - warm_db_prod_2 k8s-mongodbs-mongo1nl-f9f5879bcb-6365246bfb43b141.elb.ap-southeast-1.amazonaws.com:27017 check    
@@ -202,13 +252,7 @@ server:
        name: dev_valkey
        mode: tcp
        options: 
-         - "tcp-check"    
-       #tcp_checks:
-       #  - send PING\r\n
-       #  - expect string +PONG
-       #  - send info\ replication\r\n
-       #  - send QUIT\r\n
-       #  - expect string +OK
+         - "tcp-check"
        servers:
          - dev_valkey dev-kd3xbs.serverless.apse1.cache.amazonaws.com:6379 check
 

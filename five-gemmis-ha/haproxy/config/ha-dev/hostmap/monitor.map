@@ -1,2 +1,6 @@
 kafka.5gg.win kafka_ui_elb
 johno2.5gg.win openobserve_elb
+grafana.5gg.win  grafana_elb
+influxdb.5gg.win  influxdb_elb
+vmselect.5gg.win vmselect_elb
+vminsert.5gg.win vminsert_elb
