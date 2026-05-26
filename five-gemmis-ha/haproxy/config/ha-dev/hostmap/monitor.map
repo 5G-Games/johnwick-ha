@@ -1,4 +1,4 @@
-johnkafka.5gg.win kafka_ui_elb
+kafka.5gg.win kafka_ui_elb
 johno2.5gg.win openobserve_elb
 johngrafana.5gg.win  grafana_elb
 johninfluxdb.5gg.win  influxdb_elb
