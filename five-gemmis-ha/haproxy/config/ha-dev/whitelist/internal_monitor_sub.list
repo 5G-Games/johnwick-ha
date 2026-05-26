@@ -1,5 +1,5 @@
-kafka
+johnkafka
 johno2
-influxdb
-vmselect
-vminsert
+johninfluxdb
+johnvmselect
+johnvminsert
