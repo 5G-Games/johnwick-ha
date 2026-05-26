@@ -1,6 +1,6 @@
 server:
   roles:
-    - ha-std
+    - ha-gs
   haproxy:
     ssl: True
     whitelist: True

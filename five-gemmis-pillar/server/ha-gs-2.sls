@@ -2,5 +2,5 @@
 
 server:
   roles:
-    - ha-std
-  haproxy: {{ std1.get('server', {}).get('haproxy', {}) }}
+    - ha-gs
+  haproxy: {{ gs1.get('server', {}).get('haproxy', {}) }}
