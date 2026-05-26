@@ -3,4 +3,4 @@
 server:
   roles:
     - ha-gs
-  haproxy: {{ gs1.get('server', {}).get('haproxy', {}) }}
+  haproxy: {{ std1.get('server', {}).get('haproxy', {}) }}
