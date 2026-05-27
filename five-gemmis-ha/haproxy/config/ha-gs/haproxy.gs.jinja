@@ -133,6 +133,9 @@ frontend {{ frontend.get('name', frontend_name) }}
     {%- if 'http_response' in frontend %}
     {{- render_list_of_dictionaries('http-response', frontend.http_response) }}
     {%- endif %}
+    {%- if 'http_after_response' in frontend %}
+    {{- render_list_of_dictionaries('http-after-response', frontend.http_after_response) }}
+    {%- endif %}
     {%- if 'acl' in frontend %}
     {{- render_list_of_dictionaries('acl', frontend.acl) }}
     {%- endif %}
