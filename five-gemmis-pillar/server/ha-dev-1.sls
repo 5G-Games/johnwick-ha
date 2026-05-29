@@ -132,12 +132,12 @@ server:
        options: 
          - "tcp-check"                   
        servers:
-         - openobserve_elb a62b17fae956349e59c35aba177dfce5-c087f3f4263d17dd.elb.ap-southeast-1.amazonaws.com:5080 check    
+         - openobserve_elb 62b17fae956349e59c35aba177dfce5-c087f3f4263d17dd.elb.ap-southeast-1.amazonaws.com:5080 check    
 
      #grafana
      grafana_elb:
        name: grafana_elb
-       options: 
+       options: a
          - "tcp-check"                   
        servers:
          - grafana_elb ae9e38330b71a4e559eda0c9477636b7-76478760af7236c4.elb.ap-southeast-1.amazonaws.com:80 check   
@@ -149,6 +149,15 @@ server:
          - "tcp-check"                   
        servers:
          - influxdb_elb ae9e38330b71a4e559eda0c9477636b7-76478760af7236c4.elb.ap-southeast-1.amazonaws.com:80 check 
+     
+     #rancher
+     rancher_elb:
+       name: rancher_elb
+       options: 
+         - "tcp-check"                   
+       servers:
+         - rancher_elb_1 ae9e38330b71a4e559eda0c9477636b7-76478760af7236c4.elb.ap-southeast-1.amazonaws.com:443 check ssl verify none        
+
 
      #VMSelect
      vmselect_elb:

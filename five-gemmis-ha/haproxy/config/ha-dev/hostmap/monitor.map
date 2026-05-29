@@ -4,3 +4,4 @@ johngrafana.5gg.win  grafana_elb
 johninfluxdb.5gg.win  influxdb_elb
 johnvmselect.5gg.win vmselect_elb
 johnvminsert.5gg.win vminsert_elb
+meks.5gg.win rancher_elb
