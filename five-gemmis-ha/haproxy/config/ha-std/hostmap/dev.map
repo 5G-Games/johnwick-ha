@@ -5,6 +5,7 @@ backstage_api-dev.5gg.win backstage_api_dev
 backstage_agent_api-dev.5gg.win backstage_agent_api_dev
 #api service#
 demoapi-dev.5gg.dev demoapi_dev
+api-dev.5gg.io api_dev_5gg_io
 api-dev.5gg.win api_dev
 #game server service#
 ge-dev.5gg.win game_engin_dev

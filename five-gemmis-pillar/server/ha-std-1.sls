@@ -129,7 +129,18 @@ server:
        default-servers:
          - resolvers awsdns resolve-prefer ipv4 init-addr none                    
        servers:
-         - api_dev internal-ALB-PlatformApi-Dev-671097587.ap-southeast-1.elb.amazonaws.com:8080 check 
+         - api_dev internal-ALB-PlatformApi-Dev-671097587.ap-southeast-1.elb.amazonaws.com:8080 check
+
+     api_dev_5gg_io:
+       name: api_dev_5gg_io
+       mode: http
+       options: 
+         - "httpchk GET /alive"
+         - forwardfor
+       default-servers:
+         - resolvers awsdns resolve-prefer ipv4 init-addr none                    
+       servers:
+         - api_dev_5gg_io internal-ALB-OfficialWebApi-Dev-522703919.ap-southeast-1.elb.amazonaws.com:8080 check           
      ###backstage service###
      backstage_api_dev:
        name: backstage_api_dev
