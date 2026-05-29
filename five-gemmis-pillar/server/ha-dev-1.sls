@@ -132,12 +132,12 @@ server:
        options: 
          - "tcp-check"                   
        servers:
-         - openobserve_elb 62b17fae956349e59c35aba177dfce5-c087f3f4263d17dd.elb.ap-southeast-1.amazonaws.com:5080 check    
+         - openobserve_elb a62b17fae956349e59c35aba177dfce5-c087f3f4263d17dd.elb.ap-southeast-1.amazonaws.com:5080 check    
 
      #grafana
      grafana_elb:
        name: grafana_elb
-       options: a
+       options: 
          - "tcp-check"                   
        servers:
          - grafana_elb ae9e38330b71a4e559eda0c9477636b7-76478760af7236c4.elb.ap-southeast-1.amazonaws.com:80 check   
