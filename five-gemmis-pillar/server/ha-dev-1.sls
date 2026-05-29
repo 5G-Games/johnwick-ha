@@ -134,6 +134,17 @@ server:
        servers:
          - openobserve_elb a62b17fae956349e59c35aba177dfce5-c087f3f4263d17dd.elb.ap-southeast-1.amazonaws.com:5080 check    
 
+     #certmate#
+     certmate_nlb:
+       name: certmate_nlb
+       options: 
+         - "tcp-check"
+       timeout_servers: 
+         - 300
+       servers:
+         - certmate_nlb ae9e38330b71a4e559eda0c9477636b7-76478760af7236c4.elb.ap-southeast-1.amazonaws.com:80 check
+
+
      #grafana
      grafana_elb:
        name: grafana_elb
