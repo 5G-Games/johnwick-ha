@@ -110,7 +110,8 @@ server:
 
       fe_http_dal_in:
         name: fe_http_dal_in
-        bind:                          
+        bind:
+          - '*:6980'                                  
           - '*:6943 ssl crt /etc/haproxy/ha_ssl alpn h2,http/1.1 strict-sni'
           - '*:6944 ssl crt /etc/haproxy/ha_ssl alpn h2,http/1.1 strict-sni'
           - '*:6945 ssl crt /etc/haproxy/ha_ssl alpn h2,http/1.1 strict-sni'
@@ -134,7 +135,7 @@ server:
           #- connection reject if block-ip
 
         use_backend:
-          - 'dal_dev_elb if { dst_port 6943 } 5g_offcie_ip'
+          - 'dal_dev_elb if { dst_port 6980 } 5g_offcie_ip || { dst_port 6943 } 5g_offcie_ip'
           - 'dal_uat_elb if { dst_port 6944 } 5g_offcie_ip'
           - 'dal_stage_elb if { dst_port 6945 } 5g_offcie_ip'          
           - 'dal_prod_elb if { dst_port 6946 } 5g_offcie_ip'          
