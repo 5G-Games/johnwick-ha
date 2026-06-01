@@ -16,3 +16,5 @@ mc-dev.5gg.win message_center_dev
 tournament-dev.5gg.win tournament_dev
 #campaign#
 campaign-dev.5gg.win campaign_dev
+#qa_chat#
+qa-cheat.5gg.win qaqa_cheat_elb 

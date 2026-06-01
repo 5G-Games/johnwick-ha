@@ -346,6 +346,13 @@ server:
          - resolvers awsdns resolve-prefer ipv4 init-addr none                       
        servers:
          - dal_prod_elb dal-prod.5gfafa.com:6969 check port 9696
+     #qa_chat#
+     qa_cheat_elb:
+       name: qa_cheat_elb
+       options: 
+         - "tcp-check"                   
+       servers:
+         - qa_cheat_elb ae9e38330b71a4e559eda0c9477636b7-76478760af7236c4.elb.ap-southeast-1.amazonaws.com:80 check
 
 
      ####infra service####
