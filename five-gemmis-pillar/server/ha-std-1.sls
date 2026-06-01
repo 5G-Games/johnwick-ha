@@ -297,6 +297,7 @@ server:
      ###dal service### 
      dal_dev_elb:
        name: dal_dev_elb
+       mode: tcp       
        options: 
          - "tcp-check"               
        default-servers:
