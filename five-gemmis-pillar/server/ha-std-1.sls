@@ -108,6 +108,38 @@ server:
           - '"%[req.hdr(host),lower,map_sub(/etc/haproxy/hostmap/dev.map)]" if dev_sub std_domain'
           - '"%[req.hdr(host),lower,map_sub(/etc/haproxy/hostmap/uat.map)]" if uat_sub std_domain'
 
+      fe_http_dal_in:
+        name: fe_http_dal_in
+        bind:                          
+          - '*:6943 ssl crt /etc/haproxy/ha_ssl alpn h2,http/1.1 strict-sni'
+          - '*:6944 ssl crt /etc/haproxy/ha_ssl alpn h2,http/1.1 strict-sni'
+          - '*:6945 ssl crt /etc/haproxy/ha_ssl alpn h2,http/1.1 strict-sni'
+          - '*:6946 ssl crt /etc/haproxy/ha_ssl alpn h2,http/1.1 strict-sni'
+        mode: tcp
+        maxconn: 200000
+        options:
+          - tcplog
+
+        default_backend:
+          - no_acl_match
+        acl:
+        ## deny zone rule ##  
+          - block-ip src -f /etc/haproxy/whitelist/blockip.list
+
+        ## office rule ##     
+          - 5g_offcie_ip src -f /etc/haproxy/whitelist/5g_offcie_ip.list
+
+        tcp_request:
+          - inspect-delay 10s
+          #- connection reject if block-ip
+
+        use_backend:
+          - 'dal_dev_elb if { dst_port 6943 } 5g_offcie_ip'
+          - 'dal_uat_elb if { dst_port 6944 } 5g_offcie_ip'
+          - 'dal_stage_elb if { dst_port 6945 } 5g_offcie_ip'          
+          - 'dal_prod_elb if { dst_port 6946 } 5g_offcie_ip'          
+
+
     backends:
     ###demo service###
      demoapi_dev:
@@ -140,7 +172,8 @@ server:
        default-servers:
          - resolvers awsdns resolve-prefer ipv4 init-addr none                    
        servers:
-         - api_dev_5gg_io internal-ALB-OfficialWebApi-Dev-522703919.ap-southeast-1.elb.amazonaws.com:8080 check           
+         - api_dev_5gg_io internal-ALB-OfficialWebApi-Dev-522703919.ap-southeast-1.elb.amazonaws.com:8080 check
+
      ###backstage service###
      backstage_api_dev:
        name: backstage_api_dev
@@ -270,6 +303,37 @@ server:
          - resolvers awsdns resolve-prefer ipv4 init-addr none              
        servers:
          - dal_dev_elb dal-dev.5gfafa.com:6969 check port 9696
+
+     dal_uat_elb:
+       name: dal_uat_elb
+       mode: tcp
+       options: 
+         - "tcp-check"
+       default-servers:
+         - resolvers awsdns resolve-prefer ipv4 init-addr none              
+       servers:
+         - dal_uat_elb dal-uat.5gfafa.com:6969 check port 9696    
+
+     dal_stage_elb:
+       name: dal_stage_elb
+       mode: tcp
+       options: 
+         - "tcp-check"
+       default-servers:
+         - resolvers awsdns resolve-prefer ipv4 init-addr none              
+       servers:
+         - dal_stage_elb dal-stage.5gfafa.com:6969 check port 9696 
+
+     dal_prod_elb:
+       name: dal_prod_elb
+       mode: tcp
+       options: 
+         - "tcp-check"                  
+       default-servers:
+         - resolvers awsdns resolve-prefer ipv4 init-addr none                       
+       servers:
+         - dal_prod_elb dal-prod.5gfafa.com:6969 check port 9696
+
 
      ####infra service####
      header_print:
