@@ -135,7 +135,8 @@ server:
           #- connection reject if block-ip
 
         use_backend:
-          - 'dal_dev_elb if { dst_port 6980 } 5g_offcie_ip || { dst_port 6943 } 5g_offcie_ip'
+          - 'dal_dev_elb_8080 if { dst_port 6980 } 5g_offcie_ip'
+          - 'dal_dev_elb if { dst_port 6943 } 5g_offcie_ip'
           - 'dal_uat_elb if { dst_port 6944 } 5g_offcie_ip'
           - 'dal_stage_elb if { dst_port 6945 } 5g_offcie_ip'          
           - 'dal_prod_elb if { dst_port 6946 } 5g_offcie_ip'          
@@ -305,6 +306,16 @@ server:
          - resolvers awsdns resolve-prefer ipv4 init-addr none              
        servers:
          - dal_dev_elb dal-dev.5gfafa.com:6969 check port 9696
+
+     dal_dev_elb_8080:
+       name: dal_dev_elb_8080
+       mode: tcp       
+       options: 
+         - "tcp-check"               
+       default-servers:
+         - resolvers awsdns resolve-prefer ipv4 init-addr none              
+       servers:
+         - dal_dev_elb_8080 dal-dev.5gfafa.com:8080 check port 9696
 
      dal_uat_elb:
        name: dal_uat_elb
