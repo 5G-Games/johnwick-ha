@@ -1,12 +1,15 @@
 #api service#
 demoapi-dev
 api-dev
+api-refactor
 #game server service
 ge-dev
 gs-opt
 #backstage service#
 backstage_api-dev
 backstage_agent_api-Dev
+backstage_api-refactor
+backstage_agent_api-refactor
 #message center#
 mc-dev
 #torunament service#
@@ -17,3 +20,5 @@ campaign-dev
 bridge-dev
 #cheat-tool#
 qa-cheat
+#gs-refactor#
+gs-refactor

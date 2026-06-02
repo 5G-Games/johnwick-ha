@@ -176,6 +176,16 @@ server:
        servers:
          - api_dev_5gg_io internal-ALB-OfficialWebApi-Dev-522703919.ap-southeast-1.elb.amazonaws.com:8080 check
 
+     api_refactor_dev:
+       name: api_refactor_dev
+       mode: http            
+       options: 
+         - "httpchk GET /alive" 
+       default-servers:
+         - resolvers awsdns resolve-prefer ipv4 init-addr none         
+       servers:
+         - api_refactor_dev internal-ALB-PlatformApi-Refactor-1867007938.ap-southeast-1.elb.amazonaws.com:8080 check 
+
      ###backstage service###
      backstage_api_dev:
        name: backstage_api_dev
@@ -196,6 +206,26 @@ server:
          - resolvers awsdns resolve-prefer ipv4 init-addr none         
        servers:
          - backstage_agent_api_dev internal-ALB-BackstageAgentApi-Dev-1567630179.ap-southeast-1.elb.amazonaws.com:8080 check 
+
+     backstage_api_refactor_dev:
+       name: backstage_api_refactor_dev
+       mode: http            
+       options: 
+         - "httpchk GET /alive" 
+       default-servers:
+         - resolvers awsdns resolve-prefer ipv4 init-addr none         
+       servers:
+         - backstage_api_refactor_dev internal-ALB-BackstageApi-Refactor-654211116.ap-southeast-1.elb.amazonaws.com:8080 check 
+
+     backstage_agent_api_refactor_dev:
+       name: backstage_agent_api_refactor_dev
+       mode: http            
+       options: 
+         - "httpchk GET /alive" 
+       default-servers:
+         - resolvers awsdns resolve-prefer ipv4 init-addr none         
+       servers:
+         - backstage_agent_api_refactor_dev internal-ALB-BackstageAgentApi-Refactor-532391851.ap-southeast-1.elb.amazonaws.com:8080 check 
 
     ###message_center###
      message_center_dev:
@@ -271,6 +301,16 @@ server:
          - resolvers awsdns resolve-prefer ipv4 init-addr none         
        servers:
          - game_server_dev internal-ALB-GameServer-Dev-1498468321.ap-southeast-1.elb.amazonaws.com:8080 check 
+
+     gs_refactor_dev:
+       name: gs_refactor_dev
+       mode: http            
+       options: 
+         - "httpchk GET /alive" 
+       default-servers:
+         - resolvers awsdns resolve-prefer ipv4 init-addr none         
+       servers:
+         - gs_refactor_dev internal-ALB-GameServer-Refactor-754804591.ap-southeast-1.elb.amazonaws.com:8080 check 
 
      tushar_gs_dev:
        name: tushar_gs_dev
