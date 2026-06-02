@@ -94,7 +94,11 @@ server:
           - '*:3389' #win_test_eric
           - '*:9408' #warm_db_prod
           - '*:9406' #warm_db_std
-          - '*:9509' #valkey-dev                    
+          - '*:9509' #valkey-dev          
+          - '*:6943 ssl crt /etc/haproxy/ha_ssl alpn h2,http/1.1 strict-sni'
+          - '*:6944 ssl crt /etc/haproxy/ha_ssl alpn h2,http/1.1 strict-sni'
+          - '*:6945 ssl crt /etc/haproxy/ha_ssl alpn h2,http/1.1 strict-sni'
+          - '*:6946 ssl crt /etc/haproxy/ha_ssl alpn h2,http/1.1 strict-sni'                    
         mode: tcp
         log-formats: "%ci:%cp [%t] %ft %b/%s %Tw/%Tc/%Tt %B %ts %ac/%fc/%bc/%sc/%rc %sq/%bq"        
         maxconn: 500
@@ -116,7 +120,7 @@ server:
           - 'win_test_eric if { dst_port 3389 } 5g_offcie_ip'
           - 'warm_db_std if { dst_port 9406 } 5g_offcie_ip'
           - 'warm_db_prod if { dst_port 9408 } 5g_offcie_ip'
-          - 'dev_valkey if { dst_port 9509 } 5g_offcie_ip'
+          - 'dev_valkey if { dst_port 9509 } 5g_offcie_ip'     
 
     backends:
     #infra service#
@@ -125,7 +129,7 @@ server:
        options: 
          - "tcp-check"                   
        servers:
-         - kafka_ui_elb_1 ae9e38330b71a4e559eda0c9477636b7-76478760af7236c4.elb.ap-southeast-1.amazonaws.com:80 check    
+         - kafka_ui_elb_1 a5f71736ba4d945b69ac0cf8c84079e5-bfefc137668a4c18.elb.ap-southeast-1.amazonaws.com:80 check    
      #openobserve
      openobserve_elb:
        name: openobserve_elb
