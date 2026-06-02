@@ -392,7 +392,7 @@ server:
        options: 
          - "tcp-check"                   
        servers:
-         - qa_cheat_elb ae9e38330b71a4e559eda0c9477636b7-76478760af7236c4.elb.ap-southeast-1.amazonaws.com:80 check
+         - qa_cheat_elb a5f71736ba4d945b69ac0cf8c84079e5-bfefc137668a4c18.elb.ap-southeast-1.amazonaws.com:80 check
 
 
      ####infra service####

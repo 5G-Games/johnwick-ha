@@ -95,7 +95,7 @@ server:
           - '*:9408' #warm_db_prod
           - '*:9406' #warm_db_std
           - '*:9509' #valkey-dev                             
-          
+
         mode: tcp
         log-formats: "%ci:%cp [%t] %ft %b/%s %Tw/%Tc/%Tt %B %ts %ac/%fc/%bc/%sc/%rc %sq/%bq"        
         maxconn: 500
@@ -143,7 +143,7 @@ server:
        timeout_servers: 
          - 300
        servers:
-         - certmate_nlb ae9e38330b71a4e559eda0c9477636b7-76478760af7236c4.elb.ap-southeast-1.amazonaws.com:80 check
+         - certmate_nlb a5f71736ba4d945b69ac0cf8c84079e5-bfefc137668a4c18.elb.ap-southeast-1.amazonaws.com:80 check
 
 
      #grafana
@@ -152,7 +152,7 @@ server:
        options: 
          - "tcp-check"                   
        servers:
-         - grafana_elb ae9e38330b71a4e559eda0c9477636b7-76478760af7236c4.elb.ap-southeast-1.amazonaws.com:80 check   
+         - grafana_elb a5f71736ba4d945b69ac0cf8c84079e5-bfefc137668a4c18.elb.ap-southeast-1.amazonaws.com:80 check   
 
      #influxdb
      influxdb_elb:
@@ -160,7 +160,7 @@ server:
        options: 
          - "tcp-check"                   
        servers:
-         - influxdb_elb ae9e38330b71a4e559eda0c9477636b7-76478760af7236c4.elb.ap-southeast-1.amazonaws.com:80 check 
+         - influxdb_elb a5f71736ba4d945b69ac0cf8c84079e5-bfefc137668a4c18.elb.ap-southeast-1.amazonaws.com:80 check 
      
      #rancher
      rancher_elb:
@@ -168,7 +168,7 @@ server:
        options: 
          - "tcp-check"                   
        servers:
-         - rancher_elb_1 ae9e38330b71a4e559eda0c9477636b7-76478760af7236c4.elb.ap-southeast-1.amazonaws.com:443 check ssl verify none        
+         - rancher_elb_1 a5f71736ba4d945b69ac0cf8c84079e5-bfefc137668a4c18.elb.ap-southeast-1.amazonaws.com:443 check ssl verify none        
 
 
      #VMSelect
@@ -177,7 +177,7 @@ server:
        options: 
          - "tcp-check"                   
        servers:
-         - vmselect_elb ae9e38330b71a4e559eda0c9477636b7-76478760af7236c4.elb.ap-southeast-1.amazonaws.com:80 check
+         - vmselect_elb a5f71736ba4d945b69ac0cf8c84079e5-bfefc137668a4c18.elb.ap-southeast-1.amazonaws.com:80 check
 
      #VMInsert
      vminsert_elb:
@@ -185,7 +185,7 @@ server:
        options: 
          - "tcp-check"                   
        servers:
-         - vminsert_elb ae9e38330b71a4e559eda0c9477636b7-76478760af7236c4.elb.ap-southeast-1.amazonaws.com:80 check 
+         - vminsert_elb a5f71736ba4d945b69ac0cf8c84079e5-bfefc137668a4c18.elb.ap-southeast-1.amazonaws.com:80 check 
 
      member_db_std:
        name: member_db_std
