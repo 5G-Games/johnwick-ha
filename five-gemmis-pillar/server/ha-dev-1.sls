@@ -94,11 +94,8 @@ server:
           - '*:3389' #win_test_eric
           - '*:9408' #warm_db_prod
           - '*:9406' #warm_db_std
-          - '*:9509' #valkey-dev          
-          - '*:6943 ssl crt /etc/haproxy/ha_ssl alpn h2,http/1.1 strict-sni'
-          - '*:6944 ssl crt /etc/haproxy/ha_ssl alpn h2,http/1.1 strict-sni'
-          - '*:6945 ssl crt /etc/haproxy/ha_ssl alpn h2,http/1.1 strict-sni'
-          - '*:6946 ssl crt /etc/haproxy/ha_ssl alpn h2,http/1.1 strict-sni'                    
+          - '*:9509' #valkey-dev                             
+          
         mode: tcp
         log-formats: "%ci:%cp [%t] %ft %b/%s %Tw/%Tc/%Tt %B %ts %ac/%fc/%bc/%sc/%rc %sq/%bq"        
         maxconn: 500
