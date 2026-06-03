@@ -16,9 +16,12 @@ gs-opt.5gg.win tushar_gs_dev
 gs-refactor.5gg.win gs_refactor_dev
 #message center#
 mc-dev.5gg.win message_center_dev
+mc-refactor.5gg.win message_center_refactor
 #torunament#
 tournament-dev.5gg.win tournament_dev
+tournament-refactor.5gg.win tournament_refactor
 #campaign#
 campaign-dev.5gg.win campaign_dev
+campaign-refactor.5gg.win campaign_refactor
 #qa_chat#
 qa-cheat.5gg.win qa_cheat_elb 

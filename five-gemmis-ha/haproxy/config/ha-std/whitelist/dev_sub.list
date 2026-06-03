@@ -12,10 +12,13 @@ backstage_api-refactor
 backstage_agent_api-refactor
 #message center#
 mc-dev
+mc-refactor
 #torunament service#
 tournament-dev
+tournament-refactor
 #campaign service#
 campaign-dev
+campaign-refactor
 #bridge service#
 bridge-dev
 #cheat-tool#

@@ -258,6 +258,16 @@ server:
        servers:
          - message_center_stage mc-stage.5gservice.com:80 check 
 
+     message_center_refactor:
+       name: message_center_refactor
+       mode: http            
+       options: 
+         - "httpchk GET /health" 
+       default-servers:
+         - resolvers awsdns resolve-prefer ipv4 init-addr none         
+       servers:
+         - message_center_refactor mc-refactor.5gservice.com:8080 check
+
     ###tournament###
      tournament_dev:
        name: tournament_dev
@@ -268,6 +278,16 @@ server:
          - resolvers awsdns resolve-prefer ipv4 init-addr none         
        servers:
          - tournament_dev tournament-dev.5gservice.com:8080 check
+
+     tournament_refactor:
+       name: tournament_refactor
+       mode: http            
+       options: 
+         - "httpchk GET /health" 
+       default-servers:
+         - resolvers awsdns resolve-prefer ipv4 init-addr none         
+       servers:
+         - tournament_refactor tournament-refactor.5gservice.com:8080 check
 
     ###bridge###
      bridge_dev:
@@ -290,6 +310,16 @@ server:
          - resolvers awsdns resolve-prefer ipv4 init-addr none         
        servers:
          - campaign_dev campaign-dev.5gservice.com:8080 check
+
+     campaign_refactor:
+       name: campaign_refactor
+       mode: http            
+       options: 
+         - "httpchk GET /health" 
+       default-servers:
+         - resolvers awsdns resolve-prefer ipv4 init-addr none         
+       servers:
+         - campaign_refactor campaign-refactor.5gservice.com:8080 check
 
     ###game service###
      game_server_dev:
