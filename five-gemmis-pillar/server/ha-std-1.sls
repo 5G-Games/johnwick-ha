@@ -262,7 +262,7 @@ server:
        name: message_center_refactor
        mode: http            
        options: 
-         - "httpchk GET /alive" 
+         - "httpchk GET /health" 
        default-servers:
          - resolvers awsdns resolve-prefer ipv4 init-addr none         
        servers:
@@ -283,7 +283,7 @@ server:
        name: tournament_refactor
        mode: http            
        options: 
-         - "httpchk GET /alive" 
+         - "httpchk GET /health" 
        default-servers:
          - resolvers awsdns resolve-prefer ipv4 init-addr none         
        servers:
@@ -315,7 +315,7 @@ server:
        name: campaign_refactor
        mode: http            
        options: 
-         - "httpchk GET /alive" 
+         - "httpchk GET /health" 
        default-servers:
          - resolvers awsdns resolve-prefer ipv4 init-addr none         
        servers:
