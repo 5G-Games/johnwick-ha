@@ -292,7 +292,7 @@ server:
          - uat_valkey redis-oss-uat-yoe3cu.serverless.ape1.cache.amazonaws.com:6379 check
 
      stage_valkey:
-       name: uat_valkey
+       name: stage_valkey
        mode: tcp
        options: 
          - "tcp-check"
