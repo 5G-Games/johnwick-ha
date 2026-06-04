@@ -95,6 +95,8 @@ server:
           - '*:9408' #warm_db_prod
           - '*:9406' #warm_db_std
           - '*:9509' #valkey-dev                             
+          - '*:9510' #valkey-uat
+          - '*:9511' #valkey-stage
 
         mode: tcp
         log-formats: "%ci:%cp [%t] %ft %b/%s %Tw/%Tc/%Tt %B %ts %ac/%fc/%bc/%sc/%rc %sq/%bq"        
@@ -118,6 +120,10 @@ server:
           - 'warm_db_std if { dst_port 9406 } 5g_offcie_ip'
           - 'warm_db_prod if { dst_port 9408 } 5g_offcie_ip'
           - 'dev_valkey if { dst_port 9509 } 5g_offcie_ip'     
+          - 'uat_valkey if { dst_port 9510 } 5g_offcie_ip'     
+          - 'stage_valkey if { dst_port 9511 } 5g_offcie_ip'     
+
+
 
     backends:
     #infra service#
@@ -277,7 +283,21 @@ server:
        servers:
          - dev_valkey dev-kd3xbs.serverless.apse1.cache.amazonaws.com:6379 check
 
+     uat_valkey:
+       name: uat_valkey
+       mode: tcp
+       options: 
+         - "tcp-check"
+       servers:
+         - uat_valkey redis-oss-uat-yoe3cu.serverless.ape1.cache.amazonaws.com:6379 check
 
+     stage_valkey:
+       name: uat_valkey
+       mode: tcp
+       options: 
+         - "tcp-check"
+       servers:
+         - stage_valkey redis-oss-stage-yoe3cu.serverless.ape1.cache.amazonaws.com:6379 check
 
 
     ## no match any rule"
