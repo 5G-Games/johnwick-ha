@@ -139,7 +139,7 @@ server:
        options: 
          - "tcp-check"                   
        servers:
-         - openobserve_elb a62b17fae956349e59c35aba177dfce5-c087f3f4263d17dd.elb.ap-southeast-1.amazonaws.com:5080 check    
+         - openobserve_elb a5f71736ba4d945b69ac0cf8c84079e5-bfefc137668a4c18.elb.ap-southeast-1.amazonaws.com:80 check    
 
      #certmate#
      certmate_nlb:
