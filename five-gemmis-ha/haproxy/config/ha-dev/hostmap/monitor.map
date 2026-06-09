@@ -6,3 +6,8 @@ johnvmselect.5gg.win vmselect_elb
 johnvminsert.5gg.win vminsert_elb
 rancher.5gg.win rancher_elb
 certmate.5gg.win certmate_nlb
+dev-tracing-api.5gg.dev funnel_dev
+uat-tracing-api.5gg.dev funnel_dev
+prod-tracing-api.5gg.dev funnel_prod
+prod-tracing-api.5gg.dev funnel_prod
+funnel.figoogoo.com funnel_prod
