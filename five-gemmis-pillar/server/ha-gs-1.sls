@@ -113,6 +113,14 @@ server:
        servers:
          - message_center_prod mc.5gservice.com:80 check
 
+    ###funnel service###
+     funnel_prod:
+       name: funnel_prod
+       options: 
+         - "tcp-check"                   
+       servers:
+         - funnel_prod a5f71736ba4d945b69ac0cf8c84079e5-bfefc137668a4c18.elb.ap-southeast-1.amazonaws.com:8602 check
+
     ## no match any rule"
      no_acl_match:
        name: no_acl_match
