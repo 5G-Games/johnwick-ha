@@ -432,12 +432,6 @@ server:
        servers:
          - funnel_dev a5f71736ba4d945b69ac0cf8c84079e5-bfefc137668a4c18.elb.ap-southeast-1.amazonaws.com:8601 check
 
-     funnel_prod:
-       name: funnel_prod
-       options: 
-         - "tcp-check"                   
-       servers:
-         - funnel_prod a5f71736ba4d945b69ac0cf8c84079e5-bfefc137668a4c18.elb.ap-southeast-1.amazonaws.com:8602 check
 
      ####infra service####
      header_print:
