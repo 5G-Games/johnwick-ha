@@ -3,3 +3,4 @@ mc-stage.5gg.dev message_center_stage
 #funnel service#
 dev-tracing-api.5gg.dev funnel_dev
 uat-tracing-api.5gg.dev funnel_dev
+prod-tracing-api.5gg.dev funnel_dev
