@@ -121,6 +121,15 @@ server:
        servers:
          - funnel_prod a5f71736ba4d945b69ac0cf8c84079e5-bfefc137668a4c18.elb.ap-southeast-1.amazonaws.com:8602 check
 
+    ###singzno service###
+     singzo_api_elb:
+       name: singzo_api_elb
+       options: 
+         - "tcp-check"                   
+       servers:
+         - singzo_api_elb a34b88004054c4b02a2efb394a2179de-7e40569043206b87.elb.ap-southeast-1.amazonaws.com:4318 check
+
+
     ## no match any rule"
      no_acl_match:
        name: no_acl_match

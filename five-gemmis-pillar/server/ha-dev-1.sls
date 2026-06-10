@@ -298,6 +298,13 @@ server:
          - "tcp-check"
        servers:
          - stage_valkey redis-oss-stage-yoe3cu.serverless.ape1.cache.amazonaws.com:6379 check
+    ###singzo service### 
+     singzo_ui_elb:
+       name: singzo_ui_elb
+       options: 
+         - "tcp-check"                   
+       servers:
+         - singzo_ui_elb a65d5798cd527469cb9465c618c132ac-3f00a0216a64c583.elb.ap-southeast-1.amazonaws.com:8088 check
 
 
     ## no match any rule"
