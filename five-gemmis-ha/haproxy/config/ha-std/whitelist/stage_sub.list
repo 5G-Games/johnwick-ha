@@ -2,3 +2,6 @@ mc-stage
 dev-tracing-api
 uat-tracing-api
 prod-tracing-api
+funnel-dev
+funnel-uat
+funnel-stage

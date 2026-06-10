@@ -4,3 +4,6 @@ mc-stage.5gg.dev message_center_stage
 dev-tracing-api.5gg.dev funnel_dev
 uat-tracing-api.5gg.dev funnel_dev
 prod-tracing-api.5gg.dev funnel_dev
+funnel-dev.5gg.dev funnel_dev
+funnel-uat.5gg.dev funnel_dev
+funnel-stage.5gg.dev funnel_dev
