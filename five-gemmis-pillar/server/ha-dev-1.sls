@@ -132,7 +132,22 @@ server:
        options: 
          - "tcp-check"                   
        servers:
-         - kafka_ui_elb_1 a5f71736ba4d945b69ac0cf8c84079e5-bfefc137668a4c18.elb.ap-southeast-1.amazonaws.com:80 check    
+         - kafka_ui_elb_1 a5f71736ba4d945b69ac0cf8c84079e5-bfefc137668a4c18.elb.ap-southeast-1.amazonaws.com:80 check
+
+     kafka_dal_uat_elb:
+       name: kafka_dal_uat_elb
+       options: 
+         - "tcp-check"                   
+       servers:
+         - kafka_dal_uat_elb a1ddd20531d8e4fb69d34d263bbe9028-f2ae1a6e739467d4.elb.ap-southeast-1.amazonaws.com:8080 check
+
+     kafka_dal_prod_elb:
+       name: kafka_dal_prod_elb
+       options: 
+         - "tcp-check"                   
+       servers:
+         - kafka_dal_prod_elb a20383fb7594b49258852b60f8f54b31-f550bf4829519b5e.elb.ap-southeast-1.amazonaws.com:8080 check
+
      #openobserve
      openobserve_elb:
        name: openobserve_elb
