@@ -320,6 +320,17 @@ server:
          - "tcp-check"                   
        servers:
          - singzo_ui_elb a65d5798cd527469cb9465c618c132ac-3f00a0216a64c583.elb.ap-southeast-1.amazonaws.com:8080 check
+     ###jms service###
+     jms_ec2:
+       name: jms_ec2
+       mode: http
+       options: 
+         - "httpchk"
+       http_checks:
+         - "send meth GET uri / ver HTTP/1.1 hdr Host 10.168.67.170"
+         - "expect status 200"                  
+       servers:
+         - jms_ec2 10.168.67.170:80 check  
 
 
     ## no match any rule"
