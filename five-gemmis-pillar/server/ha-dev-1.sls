@@ -97,6 +97,7 @@ server:
           - '*:9509' #valkey-dev                             
           - '*:9510' #valkey-uat
           - '*:9511' #valkey-stage
+          - '*:9512' #valkey-stage          
 
         mode: tcp
         log-formats: "%ci:%cp [%t] %ft %b/%s %Tw/%Tc/%Tt %B %ts %ac/%fc/%bc/%sc/%rc %sq/%bq"        
@@ -122,7 +123,7 @@ server:
           - 'dev_valkey if { dst_port 9509 } 5g_offcie_ip'     
           - 'uat_valkey if { dst_port 9510 } 5g_offcie_ip'     
           - 'stage_valkey if { dst_port 9511 } 5g_offcie_ip'     
-
+          - 'prod_valkey if { dst_port 9512 } 5g_offcie_ip'
 
 
     backends:
@@ -313,6 +314,15 @@ server:
          - "tcp-check"
        servers:
          - stage_valkey redis-oss-stage-yoe3cu.serverless.ape1.cache.amazonaws.com:6379 check
+
+     prod_valkey:
+       name: prod_valkey
+       mode: tcp
+       options: 
+         - "tcp-check"
+       servers:
+         - prod_valkey redis-oss-prod-a01cf3.serverless.apse1.cache.amazonaws.com:6379 check
+       
     ###singzo service### 
      singzo_ui_elb:
        name: singzo_ui_elb
@@ -320,6 +330,7 @@ server:
          - "tcp-check"                   
        servers:
          - singzo_ui_elb a65d5798cd527469cb9465c618c132ac-3f00a0216a64c583.elb.ap-southeast-1.amazonaws.com:8080 check
+
      ###jms service###
      jms_ec2:
        name: jms_ec2
