@@ -37,7 +37,7 @@ server:
           - declare capture request len 16  # id-5-Body
           - declare capture request len 16  # id-6-cf
           - declare capture request len 16  # id-7-5g-client-ip
-          - declare capture request len 16  # id-8-5g-client-ip          
+          - declare capture request len 128  # id-8-5g-unique-id         
           - http-request capture req.hdr(Host) id 0             
           - http-request capture req.fhdr(User-Agent) id 1
           - http-request capture req.hdr(Referer) id 2
