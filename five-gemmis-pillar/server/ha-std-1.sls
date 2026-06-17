@@ -53,7 +53,7 @@ server:
         http_request:
           ###unique_id_check###
           - set-header 5g-unique-id %[unique-id] if ! { req.hdr(5g-unique-id) -m found }
-          - set-var(txn.unique_id) req.hdr(hj-unique-id)
+          - set-var(txn.unique_id) req.hdr(5g-unique-id)
         ###Layer 7 header###                
           - set-header X-Forwarded-Host %[req.hdr(Host)] if !{ req.hdr(X-Forwarded-Host) -m found }
           - set-header X-Forwarded-Port %[dst_port]
