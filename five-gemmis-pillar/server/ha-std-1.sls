@@ -47,6 +47,9 @@ server:
         errorfile_503:
           - /etc/haproxy/html_static/error_503.html
         http_request:
+          ###unique_id_check###
+          - set-header 5g-unique-id %[unique-id] if ! { req.hdr(5g-unique-id) -m found }
+          - set-var(txn.unique_id) req.hdr(hj-unique-id)      
           - set-header X-Forwarded-Host %[req.hdr(Host)] if !{ req.hdr(X-Forwarded-Host) -m found }
           - set-header X-Forwarded-Port %[dst_port]
           - set-header X-Real-IP %[src]
@@ -54,7 +57,9 @@ server:
           - set-header True-Client-IP %[src]
           - set-header X-Forwarded-For %[src]
           - set-header X-Forwarded-Proto https if { ssl_fc }
-          - set-header X-Forwarded-Proto http if ! { ssl_fc }       
+          - set-header X-Forwarded-Proto http if ! { ssl_fc }
+          - set-header 5g-client-ip %[src]
+          - set-header 5g-client-ip %[req.hdr(CF-Connecting-IP)] if { hdr(CF-Connecting-IP) -m found }                 
           - add-header cf %[req.hdr(CF-Connecting-IP)]
         ###CORS domain role###  
           - set-var(txn.origin) req.hdr(Origin) 
