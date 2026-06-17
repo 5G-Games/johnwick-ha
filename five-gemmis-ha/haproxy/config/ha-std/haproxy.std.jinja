@@ -66,6 +66,8 @@ defaults
     timeout queue           30s
     timeout tarpit          60s
     default-server inter 3s fastinter 1s downinter 1s rise 2 fall 3
+    unique-id-format %[uuid()]
+    unique-id-header 5g-unique-id
 
 backend st_src_global
     stick-table type ip size 1m expire 10s store http_req_rate(10s)
