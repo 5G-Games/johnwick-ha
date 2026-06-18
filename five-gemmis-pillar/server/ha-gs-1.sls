@@ -29,24 +29,32 @@ server:
         options:
           - forwardfor
         captures:
-          - declare capture request len 128
-          - http-request capture req.hdr(Host) id 0
-          - declare capture request len 512
+          - declare capture request len 128 # id-0-host
+          - declare capture request len 512 # id-1-User-Agent
+          - declare capture request len 128 # id-2-Referer
+          - declare capture request len 64  # id-3-X-Client-IP
+          - declare capture request len 15  # id-4-X-Forwarded-For
+          - declare capture request len 16  # id-5-Body
+          - declare capture request len 16  # id-6-cf
+          - declare capture request len 16  # id-7-5g-client-ip
+          - declare capture request len 128  # id-8-5g-unique-id         
+          - http-request capture req.hdr(Host) id 0             
           - http-request capture req.fhdr(User-Agent) id 1
-          - declare capture request len 128
           - http-request capture req.hdr(Referer) id 2
-          - declare capture request len 64
           - http-request capture req.hdr(X-Client-IP) id 3
-          - declare capture request len 15
           - http-request capture req.hdr(X-Forwarded-For) id 4
-          - declare capture request len 16
           - http-request capture req.body id 5
-          - declare capture request len 16
           - http-request capture req.hdr(cf) id 6
+          - http-request capture req.hdr(5g-client-ip) id 7
+          - http-request capture req.hdr(5g-unique-id) id 8   
 
         errorfile_503:
           - /etc/haproxy/html_static/error_503.html
         http_request:
+        ###unique_id_check###
+          - set-header 5g-unique-id %[unique-id] if ! { req.hdr(5g-unique-id) -m found }
+          - set-var(txn.unique_id) req.hdr(5g-unique-id)
+        ###Layer 7 header###                          
           - set-header X-Forwarded-Host %[req.hdr(Host)] if !{ req.hdr(X-Forwarded-Host) -m found }
           - set-header X-Forwarded-Port %[dst_port]
           - set-header X-Real-IP %[src]
@@ -54,7 +62,11 @@ server:
           - set-header True-Client-IP %[src]
           - set-header X-Forwarded-For %[src]
           - set-header X-Forwarded-Proto https if { ssl_fc }
-          - set-header X-Forwarded-Proto http if ! { ssl_fc }       
+          - set-header X-Forwarded-Proto http if ! { ssl_fc }    
+        ###Consumers header###                 
+          - set-header 5g-client-ip %[src]
+          - set-header 5g-client-ip %[req.hdr(CF-Connecting-IP)] if { hdr(CF-Connecting-IP) -m found }
+        ###add cdn header###                       
           - add-header cf %[req.hdr(CF-Connecting-IP)]
         ###CORS domain role###  
           - set-var(txn.origin) req.hdr(Origin) 
