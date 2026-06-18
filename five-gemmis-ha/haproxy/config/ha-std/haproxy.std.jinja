@@ -191,8 +191,13 @@ backend {{ backend.get('name', backend_name) }}
 
 resolvers awsdns
     nameserver aws 169.254.169.253:53
-    hold valid    10s
-    hold obsolete 30s
+    accepted_payload_size 8192   # 支援大型 DNS 回應（ALB 多 IP）
+    hold valid    10s            # 成功解析後快取 10s（配合 ALB TTL=60s 可調高）
+    hold nx       3s             # NXDOMAIN 後 3s 重試（預設 30s 太久）
+    hold timeout  1s             # DNS timeout 後 1s 重試
+    hold refused  1s             # DNS refused 後 1s 重試
+    hold other    3s             # 其他錯誤後 3s 重試
+    hold obsolete 30s            # 舊紀錄保留 30s（你原本就有）
 
 frontend frontend_prometheus_in
     bind  *:8405
