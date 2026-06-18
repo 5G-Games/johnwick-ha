@@ -109,7 +109,7 @@ server:
        options: 
          - "httpchk GET /health" 
        default-servers:
-         - resolvers awsdns resolve-prefer ipv4 init-addr none allow-dup-ip         
+         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions       
        servers:
          - message_center_prod mc.5gservice.com:80 check
 
