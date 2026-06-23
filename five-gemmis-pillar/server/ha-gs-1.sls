@@ -68,7 +68,7 @@ server:
         ###Consumers header###                 
           - set-header 5g-client-ip %[src]
           - set-header 5g-client-ip %[req.hdr(CF-Connecting-IP)] if { hdr(CF-Connecting-IP) -m found }
-          - set-header 5g-client-ip %[req.hdr(CF-Connecting-IP)] if { hdr(BY-Connecting-IP) -m found }          
+          - set-header 5g-client-ip %[req.hdr(BY-Connecting-IP)] if { hdr(BY-Connecting-IP) -m found }          
         ###add cdn header###                       
           - add-header cf %[req.hdr(CF-Connecting-IP)]
           - add-header by %[req.hdr(BY-Connecting-IP)]          
