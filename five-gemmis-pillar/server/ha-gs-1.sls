@@ -32,21 +32,23 @@ server:
           - declare capture request len 128 # id-0-host
           - declare capture request len 512 # id-1-User-Agent
           - declare capture request len 128 # id-2-Referer
-          - declare capture request len 64  # id-3-X-Client-IP
-          - declare capture request len 15  # id-4-X-Forwarded-For
-          - declare capture request len 16  # id-5-Body
+          - declare capture request len 64  # id-3-Body
+          - declare capture request len 16  # id-4-X-Forwarded-For
+          - declare capture request len 16  # id-5-X-Client-IP
           - declare capture request len 16  # id-6-cf
-          - declare capture request len 16  # id-7-5g-client-ip
-          - declare capture request len 128  # id-8-5g-unique-id         
+          - declare capture request len 16  # id-7-byteplus          
+          - declare capture request len 16  # id-8-5g-client-ip
+          - declare capture request len 128  # id-9-5g-unique-id         
           - http-request capture req.hdr(Host) id 0             
           - http-request capture req.fhdr(User-Agent) id 1
           - http-request capture req.hdr(Referer) id 2
-          - http-request capture req.hdr(X-Client-IP) id 3
-          - http-request capture req.hdr(X-Forwarded-For) id 4
-          - http-request capture req.body id 5
+          - http-request capture req.body id 3          
+          - http-request capture req.hdr(X-Client-IP) id 4
+          - http-request capture req.hdr(X-Forwarded-For) id 5
           - http-request capture req.hdr(cf) id 6
-          - http-request capture req.hdr(5g-client-ip) id 7
-          - http-request capture req.hdr(5g-unique-id) id 8   
+          - http-request capture req.hdr(by) id 7
+          - http-request capture req.hdr(5g-client-ip) id 8
+          - http-request capture req.hdr(5g-unique-id) id 9   
 
         errorfile_503:
           - /etc/haproxy/html_static/error_503.html
@@ -66,8 +68,10 @@ server:
         ###Consumers header###                 
           - set-header 5g-client-ip %[src]
           - set-header 5g-client-ip %[req.hdr(CF-Connecting-IP)] if { hdr(CF-Connecting-IP) -m found }
+          - set-header 5g-client-ip %[req.hdr(CF-Connecting-IP)] if { hdr(BY-Connecting-IP) -m found }          
         ###add cdn header###                       
           - add-header cf %[req.hdr(CF-Connecting-IP)]
+          - add-header by %[req.hdr(BY-Connecting-IP)]          
         ###CORS domain role###  
           - set-var(txn.origin) req.hdr(Origin) 
           - return status 204 hdr Access-Control-Allow-Origin "%[var(txn.origin)]" hdr Access-Control-Allow-Methods "PUT, GET, POST, OPTIONS" hdr Access-Control-Allow-Headers "Origin, X-Requested-With, Content-Type, Accept, Authorization, sentry-trace, baggage accept-timezone" hdr Access-Control-Allow-Credentials "true" if { method OPTIONS }
@@ -140,6 +144,15 @@ server:
          - "tcp-check"                   
        servers:
          - singzo_api_elb a34b88004054c4b02a2efb394a2179de-7e40569043206b87.elb.ap-southeast-1.amazonaws.com:4318 check
+
+    ###game server sevice###
+     game_server_elb:
+       name: game_server_elb
+       options: 
+         - "tcp-check"                   
+       servers:
+         - game_server_elb alb-gameserver-prod-368955091.ap-southeast-1.elb.amazonaws.com:443 check
+
 
 
     ## no match any rule"
