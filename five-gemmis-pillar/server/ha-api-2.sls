@@ -1,4 +1,4 @@
-{% import_yaml "server/ha-gs-1.sls" as std1 %}
+{% import_yaml "server/ha-api-1.sls" as std1 %}
 
 server:
   roles:
