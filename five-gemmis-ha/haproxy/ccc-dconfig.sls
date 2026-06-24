@@ -85,6 +85,8 @@ haproxy-deploy-config:
     - mode: 644
 {% if salt['pillar.get']('server:haproxy:role') == 'ha-gs' %}
     - source: salt://haproxy/config/{{ cfg_dir }}/haproxy.gs.jinja
+{% if salt['pillar.get']('server:haproxy:role') == 'ha-api' %}
+    - source: salt://haproxy/config/{{ cfg_dir }}/haproxy.api.jinja    
 {% elif salt['pillar.get']('server:haproxy:role') == 'ha-dev' %}
     - source: salt://haproxy/config/{{ cfg_dir }}/haproxy.dev.jinja
 {% elif salt['pillar.get']('server:haproxy:role') == 'ha-std' %}

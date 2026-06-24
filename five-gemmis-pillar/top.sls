@@ -7,3 +7,5 @@ base:
     - server.{{ grains['id'] }}
   'ha-gs-*':
     - server.{{ grains['id'] }}
+  'ha-api-*':
+    - server.{{ grains['id'] }}    
