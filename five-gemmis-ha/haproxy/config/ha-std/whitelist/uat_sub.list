@@ -9,3 +9,5 @@ backstage-uat
 backstage-agent-uat
 #platform service
 platform-uat
+#game server
+gs-uat
