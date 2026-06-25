@@ -1,5 +1,5 @@
 #backstage agent service
-backstage-agent-uat.5gg.win backstage_agent_api_uat
+backstage_agent_api-dev.5gg.win backstage_agent_api_uat
 #backstage service
 backstage-api-uat.5gg.win backstage_api_uat
 #message center
