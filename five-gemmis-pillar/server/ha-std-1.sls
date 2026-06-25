@@ -181,6 +181,17 @@ server:
        servers:
          - api_dev internal-ALB-PlatformApi-Dev-671097587.ap-southeast-1.elb.amazonaws.com:8080 check
 
+     api_uat:
+       name: api_uat
+       mode: http
+       options: 
+         - "httpchk GET /alive"
+         - forwardfor
+       default-servers:
+         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions                  
+       servers:
+         - api_uat internal-ALB-PlatformApi-Uat-57992648.ap-southeast-1.elb.amazonaws.com:8080 check
+
      api_dev_5gg_io:
        name: api_dev_5gg_io
        mode: http
@@ -213,6 +224,16 @@ server:
        servers:
          - backstage_api_dev internal-ALB-BackstageApi-Dev-2107151475.ap-southeast-1.elb.amazonaws.com:8080 check          
 
+     backstage_api_uat:
+       name: backstage_api_uat
+       mode: http            
+       options: 
+         - "httpchk GET /alive" 
+       default-servers:
+         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions       
+       servers:
+         - backstage_api_uat internal-ALB-BackstageApi-Uat-720955944.ap-southeast-1.elb.amazonaws.com:8080 check  
+
      backstage_agent_api_dev:
        name: backstage_agent_api_dev
        mode: http            
@@ -222,6 +243,16 @@ server:
          - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions       
        servers:
          - backstage_agent_api_dev internal-ALB-BackstageAgentApi-Dev-1567630179.ap-southeast-1.elb.amazonaws.com:8080 check 
+
+     backstage_agent_api_uat:
+       name: backstage_agent_api_uat
+       mode: http            
+       options: 
+         - "httpchk GET /alive" 
+       default-servers:
+         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions       
+       servers:
+         - backstage_agent_api_uat internal-ALB-BackstageAgentApi-Uat-889927419.ap-southeast-1.elb.amazonaws.com:8080 check   
 
      backstage_api_refactor_dev:
        name: backstage_api_refactor_dev
@@ -295,6 +326,16 @@ server:
        servers:
          - tournament_dev tournament-dev.5gservice.com:8080 check
 
+     tournament_uat:
+       name: tournament_uat
+       mode: http            
+       options: 
+         - "httpchk GET /health" 
+       default-servers:
+         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions       
+       servers:
+         - tournament_uat internal-ALB-Tournament-Uat-709669374.ap-southeast-1.elb.amazonaws.com:8080 check
+
      tournament_refactor:
        name: tournament_refactor
        mode: http            
@@ -316,6 +357,16 @@ server:
        servers:
          - bridge_dev bridge-dev.5gservice.com:8080 check
 
+     bridge_uat:
+       name: bridge_uat
+       mode: http            
+       options: 
+         - "httpchk GET /alive" 
+       default-servers:
+         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions       
+       servers:
+         - bridge_uat internal-ALB-BridgeApi-Uat-1287411251.ap-southeast-1.elb.amazonaws.com:8080 check
+
     ###campaign###
      campaign_dev:
        name: campaign_dev
@@ -326,6 +377,16 @@ server:
          - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions       
        servers:
          - campaign_dev campaign-dev.5gservice.com:8080 check
+
+     campaign_uat:
+       name: campaign_uat
+       mode: http            
+       options: 
+         - "httpchk GET /health" 
+       default-servers:
+         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions       
+       servers:
+         - campaign_uat internal-ALB-FrbCampaign-Uat-1338635269.ap-southeast-1.elb.amazonaws.com:8080 check
 
      campaign_refactor:
        name: campaign_refactor
@@ -347,6 +408,16 @@ server:
          - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions       
        servers:
          - game_server_dev internal-ALB-GameServer-Dev-1498468321.ap-southeast-1.elb.amazonaws.com:8080 check 
+
+     game_server_uat:
+       name: game_server_uat
+       mode: http            
+       options: 
+         - "httpchk GET /alive" 
+       default-servers:
+         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions       
+       servers:
+         - game_server_uat internal-ALB-GameServer-Uat-2116443273.ap-southeast-1.elb.amazonaws.com :8080 check 
 
      gs_refactor_dev:
        name: gs_refactor_dev

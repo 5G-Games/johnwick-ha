@@ -1,7 +1,16 @@
+#message_center stage uat dev
 mc-stage
+#funnel stage uat dev
 dev-tracing-api
 uat-tracing-api
 prod-tracing-api
 funnel-dev
 funnel-uat
 funnel-stage
+#api service stage uat dev
+api-stage
+#backstage service
+backstage_api-stage
+backstage-stage
+#platform service
+platform-stage

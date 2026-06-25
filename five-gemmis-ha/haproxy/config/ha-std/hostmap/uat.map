@@ -1,3 +1,12 @@
+#message center
 mc-uat.5gg.win message_center_uat
+#funnel service
 dev-tracing-api.5gg.dev funnel_dev
 uat-tracing-api.5gg.dev funnel_dev
+#api service
+api-uat.5gg.win 
+#backstage service
+backstage_api-uat.5gg.win
+backstage-uat.5gg.win
+#platform service
+platform-uat.5gg.win

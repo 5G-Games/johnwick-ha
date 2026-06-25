@@ -1,2 +1,20 @@
+#message center
 mc
+#api service
 api
+api-hk01
+api-sg01
+api-sp01
+api-us01
+api-us02
+api-sgamb
+api-hkbp
+api-hkbb
+#backstage service
+backstage_api
+backstage
+#backstage agent service
+backstage_agent_api
+backstage-agent
+#platform service
+platform

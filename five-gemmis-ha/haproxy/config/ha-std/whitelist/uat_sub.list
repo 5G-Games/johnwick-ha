@@ -1,1 +1,9 @@
+#message center
 mc-uat
+#api service
+api-uat
+#backstage service
+backstage_api-uat
+backstage-uat
+#platform service
+platform-uat
