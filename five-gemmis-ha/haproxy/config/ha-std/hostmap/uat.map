@@ -1,3 +1,7 @@
+#backstage agent service
+backstage_agent_api-uat.5gg.win backstage_agent_api_uat
+#backstage service
+backstage_api-uat.5gg.win backstage_api_uat
 #message center
 mc-uat.5gg.win message_center_uat
 #funnel service
@@ -5,7 +9,4 @@ dev-tracing-api.5gg.dev funnel_dev
 uat-tracing-api.5gg.dev funnel_dev
 #api service
 api-uat.5gg.win api_uat
-#backstage service
-backstage_api-uat.5gg.win backstage_api_uat
-#backstage agent service
-backstage_agent_api-uat.5gg.win backstage_agent_api_uat
+
