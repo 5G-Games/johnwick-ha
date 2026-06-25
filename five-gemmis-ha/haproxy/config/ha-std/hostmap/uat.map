@@ -9,6 +9,3 @@ api-uat.5gg.win api_uat
 backstage_api-uat.5gg.win backstage_api_uat
 #backstage agent service
 backstage_agent_api-uat.5gg.win backstage_agent_api_uat
-backstage-agent-uat.5gg.win backstage_agent_uat
-#platform service
-platform-uat.5gg.win platform_uat
