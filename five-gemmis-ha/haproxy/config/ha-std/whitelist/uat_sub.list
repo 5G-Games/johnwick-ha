@@ -6,5 +6,6 @@ api-uat
 backstage_api-uat
 backstage_agent_api-uat
 backstage-uat
+backstage-agent-uat
 #platform service
 platform-uat
