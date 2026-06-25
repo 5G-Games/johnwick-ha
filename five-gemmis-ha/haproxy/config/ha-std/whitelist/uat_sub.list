@@ -4,6 +4,7 @@ mc-uat
 api-uat
 #backstage service
 backstage_api-uat
+backstage_agent_api-uat
 backstage-uat
 #platform service
 platform-uat
