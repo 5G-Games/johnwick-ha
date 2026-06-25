@@ -9,4 +9,5 @@ dev-tracing-api.5gg.dev funnel_dev
 uat-tracing-api.5gg.dev funnel_dev
 #api service
 api-uat.5gg.win api_uat
-
+#game server
+gs-uat.5gg.win game_server_uat
