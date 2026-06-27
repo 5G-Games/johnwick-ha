@@ -243,7 +243,7 @@ server:
        options: 
          - "tcp-check"                   
        servers:
-         - member_db_prod prodmysql-instance-1.cdgm8426ylrz.ap-southeast-1.rds.amazonaws.com:3306 check 
+         - member_db_prod prodmysql.cluster-cdgm8426ylrz.ap-southeast-1.rds.amazonaws.com:3306 check 
 
      warm_db_std:
        name: warm_db_std
