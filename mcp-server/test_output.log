@@ -1,0 +1,22 @@
+Starting MCP Client...
+HAProxy Salt MCP Server running on stdio
+✅ Successfully connected to MCP Server!
+
+🧪 Test 1: get_map_entries (ha-std/hostmap/uat.map)
+Result:
+[
+  {
+    "type": "text",
+    "text": "[\n  {\n    \"domain\": \"backstage_agent_api-uat.5gg.win\",\n    \"backend\": \"backstage_agent_api_uat\"\n  },\n  {\n    \"domain\": \"backstage_api-uat.5gg.win\",\n    \"backend\": \"backstage_api_uat\"\n  },\n  {\n    \"domain\": \"mc-uat.5gg.win\",\n    \"backend\": \"message_center_uat\"\n  },\n  {\n    \"domain\": \"dev-tracing-api.5gg.dev\",\n    \"backend\": \"funnel_dev\"\n  },\n  {\n    \"domain\": \"uat-tracing-api.5gg.dev\",\n    \"backend\": \"funnel_dev\"\n  },\n  {\n    \"domain\": \"api-uat.5gg.win\",\n    \"backend\": \"api_uat\"\n  },\n  {\n    \"domain\": \"gs-uat.5gg.win\",\n    \"backend\": \"game_server_uat\"\n  }\n]"
+  }
+]
+
+🧪 Test 2: get_pillar_value (ha-std-1.sls)
+Result (First 500 chars):
+[
+  {
+    "type": "text",
+    "text": "{\n  \"server\": {\n    \"roles\": [\n      \"ha-std\"\n    ],\n    \"haproxy\": {\n      \"ssl\": true,\n      \"whitelist\": true,\n      \"role\": \"ha-std\",\n      \"cfg_dir\": \"ha-std\",\n      \"version\": \"3.2.4\",\n      \"patch\": false,\n      \"host_map\": true,\n      \"quictls\": false,\n      \"openssl\": true,\n      \"dataplaneapi\": false,\n      \"html_static\": true,\n      \"install_from_source\": true,\n      \"promexporter\": true,\...
+(Truncated for output)
+
+🎉 All tests passed successfully!
