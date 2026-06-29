@@ -1,14 +1,14 @@
 {%- set server_name = grains.host %}
 {%- set os_version = grains.osrelease %}
 {#%- macro render_list_of_dictionaries(name, list, indent = '    ', infix = ' ', postfix = '\t') %#}
-{%- macro render_list_of_dictionaries(name, list, indent = '    ', infix = ' ', postfix = ' ') %}
+{%- macro render_list_of_dictionaries(name, list, indent = '    ', infix = ' ', postfix = '\n') %}
 {%- if list is not iterable or list is string %}
-{{ indent ~ name ~ postfix ~ list }}
+{{ indent ~ name ~ infix ~ list }}
 {%- else %}{% for item in list %}
 {%- if item is not iterable or item is string %}
-{{ indent ~ name ~ postfix ~ item }}
+{{ indent ~ name ~ infix ~ item }}
 {%- else %}{% for key, value in item.items() %}
-{{- render_list_of_dictionaries(indent ~ name ~ infix ~ key, value, '', infix, postfix) }}
+{{- render_list_of_dictionaries(name ~ infix ~ key, value, indent, infix, postfix) }}
         {%- endfor %}
       {%- endif %}
     {%- endfor %}
@@ -106,19 +106,22 @@ backend st_ssl_stats_peers
 {% for frontend_name, frontend in salt['pillar.get']('server:haproxy:frontends', {})|dictsort %}
 frontend {{ frontend.get('name', frontend_name) }}
     {%- if 'bind' in frontend %}
-    {{- render_list_of_dictionaries('bind         ',frontend.bind) }}
+    {{- render_list_of_dictionaries('bind', frontend.bind) }}
     {%- endif %}
     {%- if 'stick_table' in frontend %}
-    {{- render_list_of_dictionaries('stick-table  ', frontend.stick_table) }}
+    {{- render_list_of_dictionaries('stick-table', frontend.stick_table) }}
     {%- endif %}
+    {%- if 'log-formats' in frontend %}
+    {{- render_list_of_dictionaries('log-format', frontend.log-format) }}
+    {%- endif %}    
     {%- if 'mode' in frontend %}
-    {{- render_list_of_dictionaries('mode      ', frontend.mode) }}
+    {{- render_list_of_dictionaries('mode', frontend.mode) }}
     {%- endif %}
     {%- if 'option' in frontend %}
-    {{- render_list_of_dictionaries('option      ', frontend.option) }}
+    {{- render_list_of_dictionaries('option', frontend.option) }}
     {%- endif %}
     {%- if 'maxconn' in frontend %}
-    {{- render_list_of_dictionaries('maxconn      ', frontend.maxconn) }}
+    {{- render_list_of_dictionaries('maxconn', frontend.maxconn) }}
     {%- endif %}
     {%- if 'options' in frontend %}
     {{- render_list_of_dictionaries('option', frontend.options) }}
@@ -127,17 +130,17 @@ frontend {{ frontend.get('name', frontend_name) }}
     {{- render_list_of_dictionaries('http-request', frontend.http_request) }}
     {%- endif %}
     {%- if 'captures' in frontend %}
-    {{- render_list_of_dictionaries(' ',frontend.captures) }}
+    {{- render_list_of_dictionaries(' ', frontend.captures) }}
     {%- endif %}
     {%- if 'errorfile_503' in frontend %}
-    {{- render_list_of_dictionaries('errorfile 503',frontend.errorfile_503) }}
+    {{- render_list_of_dictionaries('errorfile 503', frontend.errorfile_503) }}
     {%- endif %}
     {%- if 'http_response' in frontend %}
     {{- render_list_of_dictionaries('http-response', frontend.http_response) }}
     {%- endif %}
     {%- if 'http_after_response' in frontend %}
     {{- render_list_of_dictionaries('http-after-response', frontend.http_after_response) }}
-    {%- endif %}
+    {%- endif %}    
     {%- if 'acl' in frontend %}
     {{- render_list_of_dictionaries('acl', frontend.acl) }}
     {%- endif %}
@@ -158,31 +161,43 @@ frontend {{ frontend.get('name', frontend_name) }}
 {% for backend_name, backend in salt['pillar.get']('server:haproxy:backends', {})|dictsort %}
 backend {{ backend.get('name', backend_name) }}
     {%- if 'options' in backend %}
-    {{- render_list_of_dictionaries('option',backend.options) }}
+    {{- render_list_of_dictionaries('option', backend.options) }}
     {%- endif %}
+    {%- if 'mode' in backend %}
+    {{- render_list_of_dictionaries('mode', backend.mode) }}
+    {%- endif %}
+    {%- if 'http_check' in backend %}
+    {{- render_list_of_dictionaries('http-check', backend.http_check) }}
+    {%- endif %}    
+    {%- if 'default-servers' in backend %}
+    {{- render_list_of_dictionaries('default-server', backend['default-servers']) }}
+    {%- endif %}           
     {%- if 'balance' in backend %}
-    {{- render_list_of_dictionaries('balance',backend.balance) }}
+    {{- render_list_of_dictionaries('balance', backend.balance) }}
     {%- endif %}
     {%- if 'timeout' in backend %}
-    {{- render_list_of_dictionaries('timeout',backend.timeout) }}
+    {{- render_list_of_dictionaries('timeout', backend.timeout) }}
     {%- endif %}
     {%- if 'stick_table' in backend %}
-    {{- render_list_of_dictionaries('stick-table',backend.stick_table) }}
+    {{- render_list_of_dictionaries('stick-table', backend.stick_table) }}
     {%- endif %}
     {%- if 'stick_on' in backend %}
-    {{- render_list_of_dictionaries('stick on',backend.stick_on) }}
+    {{- render_list_of_dictionaries('stick on', backend.stick_on) }}
     {%- endif %}
+    {%- if 'http_request' in backend %}
+    {{- render_list_of_dictionaries('http-request', backend.http_request) }}
+    {%- endif %}    
     {%- if 'http_reuse' in backend %}
-    {{- render_list_of_dictionaries('http-reuse',backend.http_reuse) }}
+    {{- render_list_of_dictionaries('http-reuse', backend.http_reuse) }}
     {%- endif %}
     {%- if 'cookie' in backend %}
-    {{- render_list_of_dictionaries('cookie',backend.cookie) }}
+    {{- render_list_of_dictionaries('cookie', backend.cookie) }}
     {%- endif %}
     {%- if 'servers' in backend %}
-    {{- render_list_of_dictionaries('server',backend.servers) }}
+    {{- render_list_of_dictionaries('server', backend.servers) }}
     {%- endif %}
     {%- if 'redirect' in backend %}
-    {{- render_list_of_dictionaries('redirect',backend.redirect) }}
+    {{- render_list_of_dictionaries('redirect', backend.redirect) }}
     {%- endif %}
 {%- endfor %}
 

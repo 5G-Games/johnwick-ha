@@ -7,6 +7,9 @@ import { exec } from "child_process";
 import { promisify } from "util";
 import * as yaml from "yaml";
 import * as os from "os";
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const execAsync = promisify(exec);
 // 設定基礎路徑 (依據當前專案結構)
 const REPO_ROOT = path.resolve(process.cwd(), ".."); // 當用 Inspector 跑時，cwd 可能是 johnwick-ha 或 mcp-server
@@ -81,27 +84,23 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
                 },
             },
             {
-                name: "apply_salt_state",
-                description: "執行 Salt 指令進行 HAProxy 部署",
+                name: "test_haproxy_in_docker",
+                description: "本地全模擬：自動讀取 Pillar 與 Jinja 模板，渲染出 HAProxy config 後放進 Docker Sandbox 驗證語法。",
                 inputSchema: {
                     type: "object",
                     properties: {
-                        target: { type: "string", description: "目標機器，例如 ha-gs-1 或 ha-*" },
-                        state: { type: "string", description: "要執行的 state，例如 haproxy.ccc-dconfig", default: "haproxy.ccc-dconfig" },
-                        testMode: { type: "boolean", description: "是否只做 test=True 測試", default: false },
+                        envDir: { type: "string", description: "環境名稱，例如: ha-std, ha-gs, ha-dev" }
                     },
-                    required: ["target"],
+                    required: ["envDir"]
                 },
             },
             {
-                name: "test_haproxy_in_docker",
-                description: "啟動 Docker 沙盒測試 HAProxy 設定檔 (haproxy -c)。會自動掛載本機 Repo 內的 hostmap 與 whitelist 進行驗證。",
+                name: "verify_all_domain_routes",
+                description: "進階路由驗證：讀取 hostmap 內所有 domain，啟動 HAProxy Docker，並對每個 domain 發送真實 HTTP 請求，驗證是否路由至正確的 Backend。",
                 inputSchema: {
                     type: "object",
                     properties: {
-                        envDir: { type: "string", description: "環境目錄名稱，例如: ha-std, ha-gs, ha-dev" },
-                        target: { type: "string", description: "若不提供 cfgContent，會透過 Salt 抓取目標機器的 haproxy.cfg，例如: ha-std-1" },
-                        cfgContent: { type: "string", description: "自訂的 haproxy.cfg 完整內容 (可選)" }
+                        envDir: { type: "string", description: "環境名稱，例如: ha-std, ha-gs, ha-dev" }
                     },
                     required: ["envDir"]
                 },
@@ -183,75 +182,184 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
                 content: [{ type: "text", text: `Successfully updated ${yamlPath} to ${parsedValue} in ${fileName}` }],
             };
         }
-        if (name === "apply_salt_state") {
-            const { target, state = "haproxy.ccc-dconfig", testMode = false } = args;
-            if (!/^[a-zA-Z0-9_\-\*]+$/.test(target)) {
-                throw new Error("Invalid target format");
-            }
-            const testFlag = testMode ? " test=True" : "";
-            const cmd = `sudo salt '${target}' state.apply ${state}${testFlag}`;
+        if (name === "test_haproxy_in_docker") {
+            const { envDir } = args;
+            const pillarPath = path.join(ACTUAL_REPO_ROOT, `five-gemmis-pillar/server/${envDir}-1.sls`);
+            const suffix = envDir.replace("ha-", "");
+            const templatePath = path.join(ACTUAL_REPO_ROOT, `five-gemmis-ha/haproxy/config/${envDir}/haproxy.${suffix}.jinja`);
+            // 因為編譯後的檔案在 dist 內，而 Python 腳本在 src 內，所以往上一層找
+            const renderScript = path.join(__dirname, "../src/utils/render.py");
+            let renderedConfig = "";
             try {
-                const { stdout, stderr } = await execAsync(cmd);
-                const hasFailed = stdout.includes("Failed:    0") === false && stdout.includes("Failed:");
-                return {
-                    isError: hasFailed,
-                    content: [{
-                            type: "text",
-                            text: `Command: ${cmd}\n\nResult:\n${stdout || stderr}`
-                        }],
-                };
+                const { stdout } = await execAsync(`python3 "${renderScript}" "${pillarPath}" "${templatePath}" "${envDir}-1"`);
+                renderedConfig = stdout;
             }
-            catch (error) {
+            catch (err) {
                 return {
                     isError: true,
-                    content: [{ type: "text", text: `Salt execution failed:\n${error.message}\n${error.stdout}\n${error.stderr}` }],
+                    content: [{ type: "text", text: `❌ 本地渲染 Jinja 失敗：\n${err.stderr || err.message}` }]
                 };
             }
-        }
-        if (name === "test_haproxy_in_docker") {
-            const { envDir, target, cfgContent } = args;
-            let finalCfgContent = cfgContent;
-            // 如果沒有傳入自訂 config，透過 Salt 去目標機器抓目前的設定檔
-            if (!finalCfgContent && target) {
-                if (!/^[a-zA-Z0-9_\-\*]+$/.test(target))
-                    throw new Error("Invalid target format");
-                const { stdout } = await execAsync(`sudo salt '${target}' cmd.run 'cat /etc/haproxy/haproxy.cfg'`);
-                const lines = stdout.split('\n');
-                // Salt cmd.run 會在第一行印出機器名稱，例如 "ha-std-1:"，必須移除
-                if (lines[0].includes(':'))
-                    lines.shift();
-                finalCfgContent = lines.join('\n');
-            }
-            if (!finalCfgContent) {
-                throw new Error("Must provide either cfgContent or a valid target to fetch from.");
-            }
-            // Hack: 移除設定檔中的 ssl crt 路徑檢查
-            // 因為 Docker Sandbox 內沒有掛載實際憑證，保留會導致 `haproxy -c` 報錯
-            finalCfgContent = finalCfgContent.replace(/ssl crt \S+/g, "");
             // 建立暫存檔存放 config
             const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "haproxy-sandbox-"));
             const tmpCfgPath = path.join(tmpDir, "haproxy.cfg");
-            await fs.writeFile(tmpCfgPath, finalCfgContent, "utf-8");
+            await fs.writeFile(tmpCfgPath, renderedConfig, "utf-8");
             // 取得對應環境的 map 與 whitelist 路徑
             const localEnvDir = path.join(ACTUAL_REPO_ROOT, "five-gemmis-ha/haproxy/config", envDir);
             const hostmapDir = path.join(localEnvDir, "hostmap");
             const whitelistDir = path.join(localEnvDir, "whitelist");
-            // 組合 Docker 指令，將設定檔與目錄掛載進去驗證
-            const dockerCmd = `docker run --rm -v "${tmpCfgPath}:/etc/haproxy/haproxy.cfg:ro" -v "${hostmapDir}:/etc/haproxy/hostmap:ro" -v "${whitelistDir}:/etc/haproxy/whitelist:ro" haproxy:alpine haproxy -c -f /etc/haproxy/haproxy.cfg`;
+            // 組合 Docker 指令，將設定檔與目錄掛載進去驗證 (指定使用 3.2 版與線上環境對齊)
+            const dockerCmd = `docker run --rm -v "${tmpCfgPath}:/etc/haproxy/haproxy.cfg:ro" -v "${hostmapDir}:/etc/haproxy/hostmap:ro" -v "${whitelistDir}:/etc/haproxy/whitelist:ro" haproxy:3.2-alpine haproxy -c -f /etc/haproxy/haproxy.cfg`;
             try {
                 const { stdout, stderr } = await execAsync(dockerCmd);
+                const preview = renderedConfig.split('\n').slice(0, 15).join('\n');
                 return {
-                    content: [{ type: "text", text: `✅ Sandbox Validation Passed!\n\n${stdout || stderr}` }]
+                    content: [{ type: "text", text: `✅ 本地渲染與 Sandbox 驗證成功！\n\n${stdout || stderr}\n\n[產生的 Config 前 15 行預覽]\n${preview}...` }]
                 };
             }
             catch (error) {
                 return {
                     isError: true,
-                    content: [{ type: "text", text: `❌ Sandbox Validation Failed:\n${error.stderr || error.stdout || error.message}` }]
+                    content: [{ type: "text", text: `❌ Sandbox 驗證失敗：\n${error.stderr || error.stdout || error.message}` }]
                 };
             }
             finally {
                 // 清理暫存檔
+                await fs.rm(tmpDir, { recursive: true, force: true }).catch(() => { });
+            }
+        }
+        if (name === "verify_all_domain_routes") {
+            const { envDir } = args;
+            const pillarPath = path.join(ACTUAL_REPO_ROOT, `five-gemmis-pillar/server/${envDir}-1.sls`);
+            const suffix = envDir.replace("ha-", "");
+            const templatePath = path.join(ACTUAL_REPO_ROOT, `five-gemmis-ha/haproxy/config/${envDir}/haproxy.${suffix}.jinja`);
+            const renderScript = path.join(__dirname, "../src/utils/render.py");
+            let renderedConfig = "";
+            try {
+                const { stdout } = await execAsync(`python3 "${renderScript}" "${pillarPath}" "${templatePath}" "${envDir}-1"`);
+                renderedConfig = stdout;
+            }
+            catch (err) {
+                return { isError: true, content: [{ type: "text", text: `❌ 本地渲染 Jinja 失敗：\n${err.stderr || err.message}` }] };
+            }
+            // 為了測試路由，我們需要開啟 HAProxy stdout debug log
+            renderedConfig = renderedConfig.replace("global\n", "global\n    log stdout format raw local0 debug\n");
+            const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "haproxy-sandbox-"));
+            const tmpCfgPath = path.join(tmpDir, "haproxy.cfg");
+            await fs.writeFile(tmpCfgPath, renderedConfig, "utf-8");
+            const localEnvDir = path.join(ACTUAL_REPO_ROOT, "five-gemmis-ha/haproxy/config", envDir);
+            const hostmapDir = path.join(localEnvDir, "hostmap");
+            const whitelistDir = path.join(localEnvDir, "whitelist");
+            // 背景啟動 HAProxy (-d daemon flag 移除，使用 docker run -d)
+            const containerName = `haproxy-route-test-${Date.now()}`;
+            const port80 = Math.floor(Math.random() * 10000) + 20000; // 隨機分配 20000~29999
+            const port443 = port80 + 1;
+            const dockerCmd = `docker run -d --name ${containerName} -p ${port80}:80 -p ${port443}:443 -v "${tmpCfgPath}:/etc/haproxy/haproxy.cfg:ro" -v "${hostmapDir}:/etc/haproxy/hostmap:ro" -v "${whitelistDir}:/etc/haproxy/whitelist:ro" haproxy:3.2-alpine haproxy -f /etc/haproxy/haproxy.cfg`;
+            try {
+                await execAsync(dockerCmd);
+                await new Promise(r => setTimeout(r, 2000)); // 等待啟動
+                // 讀取 map 檔案取得所有要測試的 domains
+                const mapFiles = await fs.readdir(hostmapDir);
+                const testCases = [];
+                for (const mapFile of mapFiles) {
+                    if (!mapFile.endsWith(".map"))
+                        continue;
+                    const content = await fs.readFile(path.join(hostmapDir, mapFile), "utf-8");
+                    for (const line of content.split("\n")) {
+                        const [domain, expectedBackend] = line.trim().split(/\s+/);
+                        if (domain && expectedBackend && !domain.startsWith("#")) {
+                            testCases.push({ mapFile, domain, expectedBackend });
+                        }
+                    }
+                }
+                // 對每個 domain 送出 curl 請求 (包含 X-Forwarded-For 模擬允許的 Office IP)
+                for (const tc of testCases) {
+                    const uniquePath = `/?test=${tc.domain}`;
+                    tc.uniquePath = uniquePath;
+                    try {
+                        await execAsync(`curl -s -H "Host: ${tc.domain}" -H "X-Forwarded-For: 125.228.105.246" "http://localhost:${port80}${uniquePath}"`);
+                    }
+                    catch (e) { }
+                }
+                await new Promise(r => setTimeout(r, 1000)); // 等待日誌寫入
+                const { stdout: dockerLogs } = await execAsync(`docker logs ${containerName}`);
+                // 解析日誌找出實際路由的 Backend
+                const results = [];
+                for (const tc of testCases) {
+                    const logLine = dockerLogs.split("\n").find((l) => l.includes(`GET ${tc.uniquePath}`));
+                    if (logLine) {
+                        // Regex 提取 <frontend>/<backend>/<server> 格式中的 backend
+                        const match = logLine.match(/\s(\w+)\/([^\/]+)\/<NOSRV>/);
+                        if (match) {
+                            const actualBackend = match[2];
+                            results.push({ ...tc, actualBackend, passed: actualBackend === tc.expectedBackend });
+                        }
+                        else {
+                            results.push({ ...tc, actualBackend: "unknown", passed: false });
+                        }
+                    }
+                    else {
+                        results.push({ ...tc, actualBackend: "no log found", passed: false });
+                    }
+                }
+                const passedCount = results.filter((r) => r.passed).length;
+                const failedCases = results.filter((r) => !r.passed);
+                // 解析 Backend Servers
+                const backendServers = {};
+                let currentBackend = null;
+                for (const line of renderedConfig.split('\n')) {
+                    const match = line.match(/^backend\s+(\S+)/);
+                    if (match) {
+                        currentBackend = match[1];
+                        backendServers[currentBackend] = [];
+                    }
+                    else if (currentBackend && line.trim().startsWith('server ')) {
+                        backendServers[currentBackend].push(line.trim());
+                    }
+                    else if (line.match(/^(frontend|listen|global|defaults)/)) {
+                        currentBackend = null;
+                    }
+                }
+                // 解析 Map Rules
+                const mapRules = {};
+                for (const line of renderedConfig.split('\n')) {
+                    if (line.includes('use_backend') && line.includes('map_sub')) {
+                        const mapMatch = line.match(/hostmap\/([a-zA-Z0-9_.-]+\.map)/);
+                        if (mapMatch) {
+                            mapRules[mapMatch[1]] = line.trim();
+                        }
+                    }
+                }
+                let report = `✅ 路由驗證完成！共測試了 ${testCases.length} 個 Domains，通過 ${passedCount} 個。\n\n`;
+                report += `### 🔬 測試與追蹤細節\n`;
+                report += `- **驗證方式**: 啟動 HAProxy Sandbox，對每個 Domain 發送帶有 \`Host: <domain>\` 與 \`X-Forwarded-For: 125.228.105.246\` 的真實請求，並分析日誌確認路由。\n`;
+                report += `- **追蹤鏈路**: Domain ➡️ Map 檔案 ➡️ HAProxy 規則 ➡️ Backend ➡️ Server 與 Port\n\n`;
+                if (failedCases.length > 0) {
+                    report += `### ❌ 失敗的 Domains:\n`;
+                    for (const f of failedCases) {
+                        report += `- **${f.domain}**: 預期 \`${f.expectedBackend}\`，實際路由至 \`${f.actualBackend}\`\n`;
+                    }
+                    report += `\n`;
+                }
+                report += `### 📊 完整路由對應表\n\n`;
+                for (const r of results) {
+                    const rule = mapRules[r.mapFile] || 'Rule not found';
+                    const servers = backendServers[r.actualBackend] ? backendServers[r.actualBackend].join('\n  ') : 'No server found';
+                    const status = r.passed ? '✅ Pass' : '❌ Fail';
+                    report += `#### Domain: \`${r.domain}\` ${status}\n`;
+                    report += `- **來源 Map**: \`${r.mapFile}\`\n`;
+                    report += `- **匹配規則**: \`${rule}\`\n`;
+                    report += `- **實際 Backend**: \`${r.actualBackend}\`\n`;
+                    report += `- **指向 Server & Port**:\n  \`\`\`\n  ${servers}\n  \`\`\`\n`;
+                    report += `---\n\n`;
+                }
+                return { content: [{ type: "text", text: report }] };
+            }
+            catch (error) {
+                return { isError: true, content: [{ type: "text", text: `❌ 路由測試過程發生錯誤：\n${error.message}` }] };
+            }
+            finally {
+                await execAsync(`docker rm -f ${containerName}`).catch(() => { });
                 await fs.rm(tmpDir, { recursive: true, force: true }).catch(() => { });
             }
         }

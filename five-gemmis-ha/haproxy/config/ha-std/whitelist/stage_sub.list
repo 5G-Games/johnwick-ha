@@ -7,10 +7,13 @@ prod-tracing-api
 funnel-dev
 funnel-uat
 funnel-stage
-#api service stage uat dev
+#api service
 api-stage
 #backstage service
 backstage_api-stage
 backstage-stage
+#backstage agent service
+backstage_agent_api-stage
+backstage-agent-stage
 #platform service
 platform-stage
