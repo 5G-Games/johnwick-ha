@@ -5,7 +5,7 @@ backstage_api-stage.5gg.win backstage_api_stage
 #demoapi-dev.5gg.dev demoapi_dev
 mc-stage.5gg.dev message_center_stage
 #api service
-api-stage.5gg.win api_stage
+api-stage.5gg.dev api_stage
 #game server
 gs-stage.5gg.win game_server_stage
 #funnel service#
