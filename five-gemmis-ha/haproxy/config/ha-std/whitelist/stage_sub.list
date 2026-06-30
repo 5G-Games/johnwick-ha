@@ -17,3 +17,5 @@ backstage_agent_api-stage
 backstage-agent-stage
 #platform service
 platform-stage
+#game server
+gs-stage
