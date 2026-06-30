@@ -335,7 +335,7 @@ server:
        default-servers:
          - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions       
        servers:
-         - message_center_stage mc-stage.5gservice.com:80 check 
+         - message_center_stage mc-stage.5gservice.com:8080 check 
 
      message_center_refactor:
        name: message_center_refactor
