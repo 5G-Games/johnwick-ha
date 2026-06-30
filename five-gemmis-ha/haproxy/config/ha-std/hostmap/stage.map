@@ -1,13 +1,14 @@
-#backstage agent service
-backstage_agent_api-stage.5gg.dev backstage_agent_api_stage
-#backstage service
-backstage_api-stage.5gg.dev backstage_api_stage
-#demoapi-dev.5gg.dev demoapi_dev
-mc-stage.5gg.dev message_center_stage
 #api service
 api-stage.5gg.dev api_stage
 #game server
 gs-stage.5gg.dev game_server_stage
+#demoapi-dev.5gg.dev demoapi_dev
+#message center
+mc-stage.5gg.dev message_center_stage
+#backstage agent service
+backstage_agent_api-stage.5gg.dev backstage_agent_api_stage
+#backstage service
+backstage_api-stage.5gg.dev backstage_api_stage
 #funnel service#
 dev-tracing-api.5gg.dev funnel_dev
 uat-tracing-api.5gg.dev funnel_dev
