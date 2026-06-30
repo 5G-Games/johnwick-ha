@@ -13,5 +13,6 @@ funnel-stage.5gg.dev funnel_dev
 api-stage.5gg.dev api_stage
 #game server
 gs-stage.5gg.dev game_server_stage
+gs-stage.5gg.ai game_server_stage
 #message center
 mc-stage.5gg.dev message_center_stage
