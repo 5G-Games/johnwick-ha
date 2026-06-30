@@ -1,7 +1,7 @@
 #backstage agent service
-backstage_agent_api-stage.5gg.win backstage_agent_api_stage
+backstage_agent_api-stage.5gg.dev backstage_agent_api_stage
 #backstage service
-backstage_api-stage.5gg.win backstage_api_stage
+backstage_api-stage.5gg.dev backstage_api_stage
 #demoapi-dev.5gg.dev demoapi_dev
 mc-stage.5gg.dev message_center_stage
 #api service
