@@ -40,19 +40,6 @@ global
     tune.ssl.lifetime 2h
     tune.ssl.maxrecord 1500
 
-    user haproxy
-    group haproxy
-    maxconn 200000
-    spread-checks 4
-    tune.bufsize 32768
-    log-send-hostname {{ server_name }}
-    ssl-default-bind-options ssl-min-ver TLSv1.2 no-tls-tickets
-    ssl-default-bind-ciphers !EDH:!RC4:!ADH:!DSS:HIGH:+AES128:+AES256-SHA256:+AES128-SHA256:+SHA:!3DES:!aNULL:!eNULL
-    tune.ssl.default-dh-param 2048
-    tune.ssl.cachesize 1000000
-    tune.ssl.lifetime 2h
-    tune.ssl.maxrecord 1500
-
 defaults
     log global
     mode http
