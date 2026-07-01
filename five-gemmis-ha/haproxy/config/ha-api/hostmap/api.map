@@ -1,2 +1,12 @@
+#message center
 mc. message_center_prod
+#api service
 api. api_prod
+api-hk01.
+api-sg01.
+api-sp01.
+api-us01.
+api-us02.
+api-sgamb.
+api-hkbp.
+api-hkbb.
