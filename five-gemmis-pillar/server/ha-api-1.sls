@@ -123,6 +123,17 @@ server:
        servers:
          - message_center_prod mc.5gservice.com:80 check
 
+     api_prod:
+       name: api_prod
+       mode: http
+       options: 
+         - "httpchk GET /alive"
+         - forwardfor
+       default-servers:
+         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions                  
+       servers:
+         - api_prod internal-ALB-BackstageApi-Prod-512251903.ap-southeast-1.elb.amazonaws.com:8080 check
+
     ## no match any rule"
      no_acl_match:
        name: no_acl_match
