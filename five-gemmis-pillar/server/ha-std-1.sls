@@ -561,6 +561,13 @@ server:
        servers:
          - funnel_dev a5f71736ba4d945b69ac0cf8c84079e5-bfefc137668a4c18.elb.ap-southeast-1.amazonaws.com:8601 check
 
+     #dataaggregator_dev
+     dataaggregator_dev:
+       name: dataaggregator_dev
+       options: 
+         - "tcp-check"                   
+       servers:
+         - dataaggregator_dev a1ddd20531d8e4fb69d34d263bbe9028-f2ae1a6e739467d4.elb.ap-southeast-1.amazonaws.com:8089 check
 
      ####infra service####
      header_print:
