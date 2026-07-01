@@ -567,7 +567,7 @@ server:
        options: 
          - "tcp-check"                   
        servers:
-         - dataaggregator_dev a1ddd20531d8e4fb69d34d263bbe9028-f2ae1a6e739467d4.elb.ap-southeast-1.amazonaws.com:8089 check
+         - dataaggregator_dev a8801acc85b4b4985abbd9e756b2305f-5ca8652a72afd3ca.elb.ap-southeast-1.amazonaws.com:8089 check
 
      ####infra service####
      header_print:
