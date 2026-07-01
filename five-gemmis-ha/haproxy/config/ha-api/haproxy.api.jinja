@@ -86,9 +86,10 @@ backend st_dummy
 
 backend st_ssl_stats_peers
     stick-table type string len 32 size 200 expire 24d store http_req_rate(24d)
+    
     peers push-peers
-    peer ip-10-168-10-220 ip-10-168-10-220.ap-southeast-1.compute.internal:1024
-    peer ip-10-168-36-218 ip-10-168-36-218.ap-southeast-1.compute.internal:1024
+    peer ha-api-1 ip-10-168-10-220.ap-southeast-1.compute.internal:1024
+    peer ha-api-2 ip-10-168-36-218.ap-southeast-1.compute.internal:1024
 
 {% for frontend_name, frontend in salt['pillar.get']('server:haproxy:frontends', {})|dictsort %}
 frontend {{ frontend.get('name', frontend_name) }}
