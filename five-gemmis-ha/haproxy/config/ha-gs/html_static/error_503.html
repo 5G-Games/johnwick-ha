@@ -4,88 +4,146 @@ Connection: close
 Content-Type: text/html; charset=UTF-8
 
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
-    <title>5G Network Calibration</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>503 Service Unavailable</title>
     <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
-            background-color: #ffffff;
-            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft JhengHei", sans-serif;
+            background-color: #f4f7f9;
+            color: #333333;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            font-family: "Microsoft JhengHei", Arial, sans-serif;
+            min-height: 100vh;
+            padding: 20px;
         }
+
+        /* 保持 2K 畫質下的良好視覺比例 */
         .container {
+            background-color: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            padding: 60px 40px;
             text-align: center;
+            max-width: 800px;
             width: 100%;
-            max-width: 900px;
+            border: 1px solid #eef2f5;
         }
-        .main-layout {
+
+        .error-code {
+            font-size: 96px;
+            font-weight: 800;
+            color: #0f2d59;
+            line-height: 1;
+            margin-bottom: 10px;
+            position: relative;
+            display: inline-block;
+        }
+
+        /* 警告小圖示 */
+        .error-code::after {
+            content: "!";
+            position: absolute;
+            top: 10px;
+            right: -35px;
+            font-size: 22px;
+            background-color: #e05252;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 30px;
-            margin-top: 20px;
         }
-        .text-group h1 {
-            font-size: 36px;
-            margin: 0;
-            color: #1a202c;
+
+        .error-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #0f2d59;
+            margin-bottom: 40px;
         }
-        .text-group p {
-            font-size: 18px;
-            color: #4a5568;
-            margin-top: 10px;
-            border-top: 2px solid #3182ce;
-            padding-top: 10px;
+
+        .divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, #e0e6ed, transparent);
+            margin: 30px 0;
         }
-        svg {
-            display: block;
+
+        /* 多國語言區塊 */
+        .lang-group {
+            margin-bottom: 35px;
+        }
+
+        .lang-zh {
+            font-size: 32px;
+            font-weight: 700;
+            color: #222222;
+            margin-bottom: 8px;
+        }
+
+        .lang-en {
+            font-size: 24px;
+            font-weight: 600;
+            color: #444444;
+            line-height: 1.4;
+            margin-bottom: 8px;
+        }
+
+        .lang-id {
+            font-size: 24px;
+            font-weight: 600;
+            color: #444444;
+            line-height: 1.4;
+        }
+
+        .sub-text {
+            font-size: 16px;
+            color: #777777;
+            line-height: 1.6;
+            max-width: 600px;
             margin: 0 auto;
+        }
+
+        .footer {
+            margin-top: 50px;
+            font-size: 14px;
+            color: #999999;
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <svg width="60" height="80" viewBox="0 0 60 80">
-        <rect x="20" y="0" width="18" height="18" fill="#f6e05e"/>
-        <rect x="40" y="0" width="18" height="18" fill="#68d391"/>
-        <rect x="20" y="20" width="18" height="18" fill="#f6ad55"/>
-        <rect x="45" y="35" width="18" height="18" fill="#4fd1c5"/>
-        <rect x="35" y="55" width="18" height="18" fill="#f687b3"/>
-    </svg>
 
-    <div class="main-layout">
-        <svg width="150" height="150" viewBox="0 0 200 200">
-            <ellipse cx="100" cy="120" rx="60" ry="70" fill="#fbd38d"/>
-            <circle cx="70" cy="60" r="25" fill="#fbd38d"/>
-            <circle cx="130" cy="60" r="25" fill="#fbd38d"/>
-            <circle cx="100" cy="120" rx="40" ry="50" fill="#fff" opacity="0.4"/>
-            <circle cx="80" cy="85" r="5" fill="#333"/>
-            <circle cx="120" cy="85" r="5" fill="#333"/>
-            <path d="M90 105 Q100 115 110 105" stroke="#e53e3e" fill="none" stroke-width="3"/>
-            <rect x="150" y="80" width="25" height="40" rx="10" fill="#fbd38d" transform="rotate(-20 150 80)"/>
-        </svg>
+    <div class="container">
+        <div class="error-code">503</div>
+        <div class="error-title">Error: Service Unavailable</div>
 
-        <div class="text-group">
-            <h1>請稍待等候...</h1>
-            <p>5G Gemmis - SERVICE RESUMING SHORTLY</p>
+        <div class="lang-group">
+            <div class="lang-zh">目前服務不可用，請稍候</div>
+            <div class="divider"></div>
+            <div class="lang-en">Service Temporarily Unavailable.<br>Please Wait.</div>
+            <div class="divider"></div>
+            <div class="lang-id">Layanan Sementara Tidak Tersedia.<br>Silakan Tunggu.</div>
         </div>
 
-        <svg width="150" height="150" viewBox="0 0 200 200">
-            <ellipse cx="100" cy="120" rx="60" ry="70" fill="#fbd38d"/>
-            <circle cx="70" cy="60" r="25" fill="#fbd38d"/>
-            <circle cx="130" cy="60" r="25" fill="#fbd38d"/>
-            <circle cx="100" cy="120" rx="40" ry="50" fill="#fff" opacity="0.4"/>
-            <circle cx="80" cy="85" r="5" fill="#333"/>
-            <circle cx="120" cy="85" r="5" fill="#333"/>
-            <path d="M90 105 Q100 115 110 105" stroke="#e53e3e" fill="none" stroke-width="3"/>
-            <rect x="25" y="80" width="25" height="40" rx="10" fill="#fbd38d" transform="rotate(20 25 80)"/>
-        </svg>
+        <p class="sub-text">
+            Our team is working to restore service. The site will be back soon.<br>
+            We apologize for the inconvenience.
+        </p>
+
+        <div class="footer">
+            &copy; 2026 YourCompany | Powered by Server
+        </div>
     </div>
-</div>
+
 </body>
 </html>
