@@ -109,7 +109,7 @@ server:
           - inspect-delay 10s
 
         use_backend:     
-          - '"%[req.hdr(host),lower,map_sub(/etc/haproxy/hostmap/api.map)]" if api_sub api_domain'
+          - '"%[req.hdr(host),lower,map_beg(/etc/haproxy/hostmap/api.map)]" if api_sub api_domain'
 
     backends:
     ###message_center###

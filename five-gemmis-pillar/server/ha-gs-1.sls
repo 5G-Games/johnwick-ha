@@ -114,8 +114,8 @@ server:
 
         use_backend:
           #- header_print if header_print 5g_offcie_ip
-          - '"%[req.hdr(host),lower,map_sub(/etc/haproxy/hostmap/game.map)]" if gs_sub gs_domain'        
-          - '"%[req.hdr(host),lower,map_sub(/etc/haproxy/hostmap/api.map)]" if api_sub api_domain'
+          - '"%[req.hdr(host),lower,map_beg(/etc/haproxy/hostmap/game.map)]" if gs_sub gs_domain'        
+          - '"%[req.hdr(host),lower,map_beg(/etc/haproxy/hostmap/api.map)]" if api_sub api_domain'
 
     backends:
     ###message_center###

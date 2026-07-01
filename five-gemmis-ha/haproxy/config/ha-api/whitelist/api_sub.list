@@ -1,7 +1,6 @@
 #message center
 mc
 #api service
-api
 api-hk01
 api-sg01
 api-sp01
@@ -10,6 +9,7 @@ api-us02
 api-sgamb
 api-hkbp
 api-hkbb
+api
 #backstage service
 backstage_api
 backstage
