@@ -138,7 +138,8 @@ server:
        name: backstage_api_prod
        mode: http            
        options: 
-         - "httpchk GET /alive" 
+         - "httpchk GET /alive"
+         - forwardfor
        default-servers:
          - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions       
        servers:
