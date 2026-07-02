@@ -12,3 +12,5 @@ mc. message_center_prod
 #api-hkbb.
 #backstage service
 backstage_api backstage_api_prod
+#backstage agent service
+backstage_agent_api. backstage_agent_api_prod
