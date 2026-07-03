@@ -135,6 +135,12 @@ server:
           - '*:6946 ssl crt /etc/haproxy/ha_ssl alpn h2,http/1.1 strict-sni'
           - '*:6947 ssl crt /etc/haproxy/ha_ssl alpn h2,http/1.1 strict-sni'
           - '*:6948 ssl crt /etc/haproxy/ha_ssl alpn h2,http/1.1 strict-sni'
+          - '*:6949 ssl crt /etc/haproxy/ha_ssl alpn h2,http/1.1 strict-sni'
+          - '*:6950 ssl crt /etc/haproxy/ha_ssl alpn h2,http/1.1 strict-sni'
+          - '*:6951 ssl crt /etc/haproxy/ha_ssl alpn h2,http/1.1 strict-sni'
+          - '*:6952 ssl crt /etc/haproxy/ha_ssl alpn h2,http/1.1 strict-sni'
+          - '*:6953 ssl crt /etc/haproxy/ha_ssl alpn h2,http/1.1 strict-sni'
+          - '*:6954 ssl crt /etc/haproxy/ha_ssl alpn h2,http/1.1 strict-sni'
 
         mode: tcp
         maxconn: 200000
@@ -159,9 +165,15 @@ server:
           - 'dal_dev_elb if { dst_port 6943 } 5g_offcie_ip'
           - 'dal_uat_elb if { dst_port 6944 } 5g_offcie_ip'
           - 'dal_stage_elb if { dst_port 6945 } 5g_offcie_ip'          
-          - 'dal_prod_elb if { dst_port 6946 } 5g_offcie_ip'          
-          - 'platfrom_dal_uat_elb if { dst_port 6947 } 5g_offcie_ip'   
-          - 'backstage_dal_uat_elb if { dst_port 6948 } 5g_offcie_ip'
+          - 'dal_prod_elb if { dst_port 6946 } 5g_offcie_ip'
+          - 'platfrom_dal_dev_elb if { dst_port 6947 } 5g_offcie_ip'   
+          - 'backstage_dal_dev_elb if { dst_port 6948 } 5g_offcie_ip'                    
+          - 'platfrom_dal_uat_elb if { dst_port 6949 } 5g_offcie_ip'   
+          - 'backstage_dal_uat_elb if { dst_port 6950 } 5g_offcie_ip'
+          - 'platfrom_dal_stage_elb if { dst_port 6951 } 5g_offcie_ip'   
+          - 'backstage_dal_stage_elb if { dst_port 6952 } 5g_offcie_ip'
+          - 'platfrom_dal_prod_elb if { dst_port 6953 } 5g_offcie_ip'   
+          - 'backstage_dal_prod_elb if { dst_port 6954 } 5g_offcie_ip'                    
 
     backends:
     ###demo service###
@@ -510,6 +522,26 @@ server:
        servers:
          - dal_dev_elb dal-dev.5gfafa.com:6969 check port 9696
 
+     platfrom_dal_dev_elb:
+       name: platfrom_dal_dev_elb
+       mode: tcp
+       options: 
+         - "tcp-check"
+       default-servers:
+         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions            
+       servers:
+         - platfrom_dal_dev_elb platform-dal-dev.5gfafa.com:6969 check port 9696
+
+     backstage_dal_dev_elb:
+       name: backstage_dal_dev_elb
+       mode: tcp
+       options: 
+         - "tcp-check"
+       default-servers:
+         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions            
+       servers:
+         - backstage_dal_dev_elb backstage-dal-dev.5gfafa.com:6969 check port 9696   
+
      dal_dev_elb_8080:
        name: dal_dev_elb_8080
        mode: tcp       
@@ -560,6 +592,26 @@ server:
        servers:
          - dal_stage_elb dal-stage.5gfafa.com:6969 check port 9696 
 
+     platfrom_dal_stage_elb:
+       name: platfrom_dal_stage_elb
+       mode: tcp
+       options: 
+         - "tcp-check"
+       default-servers:
+         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions            
+       servers:
+         - platfrom_dal_stage_elb platform-dal-stage.5gfafa.com:6969 check port 9696
+
+     backstage_dal_stage_elb:
+       name: backstage_dal_stage_elb
+       mode: tcp
+       options: 
+         - "tcp-check"
+       default-servers:
+         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions            
+       servers:
+         - backstage_dal_stage_elb backstage-dal-stage.5gfafa.com:6969 check port 9696      
+
      dal_prod_elb:
        name: dal_prod_elb
        mode: tcp
@@ -569,6 +621,26 @@ server:
          - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions                     
        servers:
          - dal_prod_elb dal-prod.5gfafa.com:6969 check port 9696
+
+    platfrom_dal_prod_elb:
+       name: platfrom_dal_prod_elb
+       mode: tcp
+       options: 
+         - "tcp-check"
+       default-servers:
+         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions            
+       servers:
+         - platfrom_dal_prod_elb platform-dal-prod.5gfafa.com:6969 check port 9696
+
+     backstage_dal_prod_elb:
+       name: backstage_dal_prod_elb
+       mode: tcp
+       options: 
+         - "tcp-check"
+       default-servers:
+         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions            
+       servers:
+         - backstage_dal_prod_elb backstage-dal-prod.5gfafa.com:6969 check port 9696     
 
      #qa_chat#
      qa_cheat_elb:
