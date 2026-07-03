@@ -122,7 +122,8 @@ server:
          - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions       
        servers:
          - message_center_prod mc.5gservice.com:80 check
-
+         
+     ###api service###
      api_prod:
        name: api_prod
        mode: http
@@ -132,8 +133,20 @@ server:
        default-servers:
          - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions                  
        servers:
-         - api_prod internal-ALB-BackstageApi-Prod-512251903.ap-southeast-1.elb.amazonaws.com:8080 check
+         - api_prod internal-ALB-PlatformApi-Prod-33510122.ap-southeast-1.elb.amazonaws.com:8080 check
 
+     api_canary_prod:
+       name: api_canary_prod
+       mode: http
+       options: 
+         - "httpchk GET /alive"
+         - forwardfor
+       default-servers:
+         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions                  
+       servers:
+         - api_canary_prod internal-ALB-PlatformApi-Canary-1731154435.ap-southeast-1.elb.amazonaws.com:8080 check
+
+     ###backstage service###
      backstage_api_prod:
        name: backstage_api_prod
        mode: http            
@@ -143,8 +156,9 @@ server:
        default-servers:
          - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions       
        servers:
-         - backstage_api_prod internal-ALB-BackstageApi-Prod-512251903.ap-southeast-1.elb.amazonaws.com:8080 check  
+         - backstage_api_prod internal-ALB-BackstageApi-Prod-512251903.ap-southeast-1.elb.amazonaws.com:8080 check
 
+     ###backstage_agent_service###
      backstage_agent_api_prod:
        name: backstage_agent_api_prod
        mode: http            

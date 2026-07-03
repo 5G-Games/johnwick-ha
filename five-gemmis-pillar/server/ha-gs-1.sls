@@ -151,8 +151,14 @@ server:
        options: 
          - "tcp-check"                   
        servers:
-         - game_server_elb internal-ALB-GameServer-Dev-1498468321.ap-southeast-1.elb.amazonaws.com:8080 check
+         - game_server_elb internal-ALB-GameServer-Prod-657632584.ap-southeast-1.elb.amazonaws.com:8080 check
 
+     game_canary_server_elb:
+       name: game_canary_server_elb
+       options: 
+         - "tcp-check"                   
+       servers:
+         - game_canary_server_elb internal-ALB-GameServer-Canary-52864939.ap-southeast-1.elb.amazonaws.com:8080 check
 
 
     ## no match any rule"
