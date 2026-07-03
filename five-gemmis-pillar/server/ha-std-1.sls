@@ -135,7 +135,7 @@ server:
           - '*:6946 ssl crt /etc/haproxy/ha_ssl alpn h2,http/1.1 strict-sni'
           - '*:6947 ssl crt /etc/haproxy/ha_ssl alpn h2,http/1.1 strict-sni'
           - '*:6948 ssl crt /etc/haproxy/ha_ssl alpn h2,http/1.1 strict-sni'
-                              
+
         mode: tcp
         maxconn: 200000
         options:
@@ -160,7 +160,8 @@ server:
           - 'dal_uat_elb if { dst_port 6944 } 5g_offcie_ip'
           - 'dal_stage_elb if { dst_port 6945 } 5g_offcie_ip'          
           - 'dal_prod_elb if { dst_port 6946 } 5g_offcie_ip'          
-
+          - 'platfrom_dal_uat_elb if { dst_port 6947 } 5g_offcie_ip'   
+          - 'backstage_dal_uat_elb if { dst_port 6948 } 5g_offcie_ip'
 
     backends:
     ###demo service###
@@ -586,12 +587,12 @@ server:
          - funnel_dev a5f71736ba4d945b69ac0cf8c84079e5-bfefc137668a4c18.elb.ap-southeast-1.amazonaws.com:8601 check
 
      #dataaggregator_dev
-     dataaggregator_dev:
-       name: dataaggregator_dev
-       options: 
-         - "tcp-check"                   
-       servers:
-         - dataaggregator_dev a8801acc85b4b4985abbd9e756b2305f-5ca8652a72afd3ca.elb.ap-southeast-1.amazonaws.com:8089 check
+     #dataaggregator_dev:
+       #name: dataaggregator_dev
+       #options: 
+         #- "tcp-check"                   
+       #servers:
+         #- dataaggregator_dev a8801acc85b4b4985abbd9e756b2305f-5ca8652a72afd3ca.elb.ap-southeast-1.amazonaws.com:8089 check
 
      ####infra service####
      header_print:
