@@ -133,6 +133,9 @@ server:
           - '*:6944 ssl crt /etc/haproxy/ha_ssl alpn h2,http/1.1 strict-sni'
           - '*:6945 ssl crt /etc/haproxy/ha_ssl alpn h2,http/1.1 strict-sni'
           - '*:6946 ssl crt /etc/haproxy/ha_ssl alpn h2,http/1.1 strict-sni'
+          - '*:6947 ssl crt /etc/haproxy/ha_ssl alpn h2,http/1.1 strict-sni'
+          - '*:6948 ssl crt /etc/haproxy/ha_ssl alpn h2,http/1.1 strict-sni'
+                              
         mode: tcp
         maxconn: 200000
         options:
@@ -524,7 +527,27 @@ server:
        default-servers:
          - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions            
        servers:
-         - dal_uat_elb dal-uat.5gfafa.com:6969 check port 9696    
+         - dal_uat_elb dal-uat.5gfafa.com:6969 check port 9696
+
+     platfrom_dal_uat_elb:
+       name: platfrom_dal_uat_elb
+       mode: tcp
+       options: 
+         - "tcp-check"
+       default-servers:
+         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions            
+       servers:
+         - platfrom_dal_uat_elb platform-dal-uat.5gfafa.com:6969 check port 9696
+
+     backstage_dal_uat_elb:
+       name: backstage_dal_uat_elb
+       mode: tcp
+       options: 
+         - "tcp-check"
+       default-servers:
+         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions            
+       servers:
+         - backstage_dal_uat_elb backstage-dal-uat.5gfafa.com:6969 check port 9696               
 
      dal_stage_elb:
        name: dal_stage_elb
@@ -545,6 +568,7 @@ server:
          - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions                     
        servers:
          - dal_prod_elb dal-prod.5gfafa.com:6969 check port 9696
+
      #qa_chat#
      qa_cheat_elb:
        name: qa_cheat_elb
