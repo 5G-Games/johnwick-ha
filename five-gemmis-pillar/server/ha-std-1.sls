@@ -622,7 +622,7 @@ server:
        servers:
          - dal_prod_elb dal-prod.5gfafa.com:6969 check port 9696
 
-    platfrom_dal_prod_elb:
+     platfrom_dal_prod_elb:
        name: platfrom_dal_prod_elb
        mode: tcp
        options: 
