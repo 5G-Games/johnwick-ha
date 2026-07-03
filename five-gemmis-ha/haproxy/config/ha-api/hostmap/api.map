@@ -1,16 +1,16 @@
 #message center
 mc. message_center_prod
 #api service
-#api. api_prod
-#api-hk01.
-#api-sg01.
-#api-sp01.
-#api-us01.
-#api-us02.
-#api-sgamb.
-#api-hkbp.
-#api-hkbb.
+api. api_prod
+api-hk01. api_prod
+api-sg01. api_prod
+api-sp01. api_prod
+api-us01. api_prod
+api-us02. api_canary_prod
+api-sgamb. api_prod
+api-hkbp. api_prod
+api-hkbb. api_prod
 #backstage service
-backstage_api backstage_api_prod
+backstage_api. backstage_api_prod
 #backstage agent service
 backstage_agent_api. backstage_agent_api_prod
