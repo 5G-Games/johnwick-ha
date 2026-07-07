@@ -117,7 +117,8 @@ server:
           - '*:9509' #valkey-dev                             
           - '*:9510' #valkey-uat
           - '*:9511' #valkey-stage
-          - '*:9512' #valkey-stage          
+          - '*:9512' #valkey-prod          
+          - '*:9513' #gaia-valkey-prod          
 
         mode: tcp
         log-formats: "%ci:%cp [%t] %ft %b/%s %Tw/%Tc/%Tt %B %ts %ac/%fc/%bc/%sc/%rc %sq/%bq"        
@@ -144,6 +145,7 @@ server:
           - 'uat_valkey if { dst_port 9510 } 5g_offcie_ip'     
           - 'stage_valkey if { dst_port 9511 } 5g_offcie_ip'     
           - 'prod_valkey if { dst_port 9512 } 5g_offcie_ip'
+          - 'omni_prod_valkey if { dst_port 9512 } 5g_offcie_ip'
 
 
     backends:
@@ -342,6 +344,14 @@ server:
          - "tcp-check"
        servers:
          - prod_valkey redis-oss-prod-a01cf3.serverless.apse1.cache.amazonaws.com:6379 check
+
+     omni_prod_valkey:
+       name: omni_prod_valkey
+       mode: tcp
+       options: 
+         - "tcp-check"
+       servers:
+         - omni_prod_valkey prod-kd3xbs.serverless.apse1.cache.amazonaws.com:6379 check         
        
     ###singzo service### 
      singzo_ui_elb:
