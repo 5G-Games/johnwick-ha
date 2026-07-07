@@ -248,12 +248,13 @@ server:
          - member_db_prod prodmysql.cluster-cdgm8426ylrz.ap-southeast-1.rds.amazonaws.com:3306 check 
 
      midgard_dev_elb:
-      name: midgard_dev_elb
-      mode: tcp
-      options:
-        - "tcp-check" 
-      servers:
-        - midgard_dev_elb midgard-dev.5gfafa.com:8080 check
+       name: midgard_dev_elb
+       options:
+         - "tcp-check"
+       default-servers:
+         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions
+       servers:
+         - midgard_dev_elb midgard-dev.5gfafa.com:8080 check
 
      warm_db_std:
        name: warm_db_std
