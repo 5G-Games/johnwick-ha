@@ -10,6 +10,7 @@ api-sgamb
 api-hkbp
 api-hkbb
 api
+apitest
 #backstage service
 backstage_api
 backstage
