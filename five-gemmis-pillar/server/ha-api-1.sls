@@ -121,7 +121,7 @@ server:
        default-servers:
          - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions       
        servers:
-         - message_center_prod mc.5gservice.com:80 check
+         - message_center_prod mc.5gservice.com:8080 check
          
      ###api service###
      api_prod:
