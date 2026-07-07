@@ -11,6 +11,7 @@ api-hkbp
 api-hkbb
 api
 apitest
+api-prodtest
 #backstage service
 backstage_api
 backstage
