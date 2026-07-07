@@ -145,7 +145,7 @@ server:
           - 'uat_valkey if { dst_port 9510 } 5g_offcie_ip'     
           - 'stage_valkey if { dst_port 9511 } 5g_offcie_ip'     
           - 'prod_valkey if { dst_port 9512 } 5g_offcie_ip'
-          - 'omni_prod_valkey if { dst_port 9512 } 5g_offcie_ip'
+          - 'omni_prod_valkey if { dst_port 9513 } 5g_offcie_ip'
 
 
     backends:
