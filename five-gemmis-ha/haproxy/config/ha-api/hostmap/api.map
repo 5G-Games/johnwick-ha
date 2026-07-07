@@ -6,6 +6,7 @@ api-hk01. api_prod
 api-sg01. api_prod
 api-sp01. api_prod
 api-us01. api_prod
+api-prodtest. api_prod
 api-us02. api_canary_prod
 apitest. api_canary_prod
 api-sgamb. api_prod
