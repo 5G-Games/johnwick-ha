@@ -57,11 +57,11 @@ defaults
     log-format "[%tr] %ft/%b/%s %TR/%Tw/%Th/%Tc/%Tr/%Ta %ST %B %CC %CS %tsc %ci:%cp/%fi:%fp %sslv/%sslc %ac/%fc/%bc/%sc/%rc %sq/%bq %{+Q}r {%[capture.req.hdr(0)]|%[capture.req.hdr(3)]|%[capture.req.hdr(2)]|%[capture.req.hdr(1)]|%[capture.req.hdr(4)]|%[capture.req.hdr(5)]|%[capture.req.hdr(6)]|%[capture.req.hdr(7)]|%[capture.req.hdr(8)]|%[capture.req.hdr(9)]}"
 {% endraw %}
     timeout client          60s
-    timeout connect         5s
+    timeout connect         6s
     timeout server          60s
     timeout check           3s
     timeout tunnel          36000s
-    timeout http-keep-alive 10s
+    timeout http-keep-alive 30s
     timeout http-request    30s
     timeout queue           30s
     timeout tarpit          60s
