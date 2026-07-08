@@ -11,3 +11,4 @@ certmate.5gg.win certmate_nlb
 signoz.5gg.win singzo_ui_elb
 jms.5gg.win jms_ec2
 midgard-dev.5gg.win midgard_dev_elb
+midgard-prod.5gg.win midgard_prod_elb
