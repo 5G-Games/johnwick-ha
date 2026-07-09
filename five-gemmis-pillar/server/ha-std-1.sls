@@ -449,13 +449,15 @@ server:
     ###game service###
      game_server_dev:
        name: game_server_dev
-       mode: http            
+       mode: http
+       balance: roundrobin                   
        options: 
          - "httpchk GET /alive" 
        default-servers:
          - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions       
-       servers:
-         - game_server_dev internal-ALB-GameServer-Dev-1498468321.ap-southeast-1.elb.amazonaws.com:8080 check 
+       server_template:
+         - game_server_dev ecs- 10 internal-ALB-GameServer-Dev-1498468321.ap-southeast-1.elb.amazonaws.com:8080 check       
+         #- game_server_dev internal-ALB-GameServer-Dev-1498468321.ap-southeast-1.elb.amazonaws.com:8080 check 
 
      game_server_uat:
        name: game_server_uat
@@ -466,6 +468,7 @@ server:
          - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions       
        servers:
          - game_server_uat internal-ALB-GameServer-Uat-2116443273.ap-southeast-1.elb.amazonaws.com:8080 check
+
 
      game_server_stage:
        name: game_server_stage

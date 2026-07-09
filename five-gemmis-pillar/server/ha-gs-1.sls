@@ -149,14 +149,18 @@ server:
      game_server_elb:
        name: game_server_elb
        options: 
-         - "tcp-check"                   
+         - "tcp-check"
+       default-servers:
+         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions                                
        servers:
          - game_server_elb internal-ALB-GameServer-Prod-657632584.ap-southeast-1.elb.amazonaws.com:8080 check maxconn 30000
 
      game_canary_server_elb:
        name: game_canary_server_elb
        options: 
-         - "tcp-check"                   
+         - "tcp-check"
+       default-servers:
+         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions                            
        servers:
          - game_canary_server_elb internal-ALB-GameServer-Canary-52864939.ap-southeast-1.elb.amazonaws.com:8080 check
 
