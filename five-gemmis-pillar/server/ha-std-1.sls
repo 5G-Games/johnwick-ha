@@ -456,7 +456,7 @@ server:
        default-servers:
          - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions       
        server_template:
-         - game_server_dev ecs- 10 internal-ALB-GameServer-Dev-1498468321.ap-southeast-1.elb.amazonaws.com:8080 check       
+         - game_server_dev- 10 internal-ALB-GameServer-Dev-1498468321.ap-southeast-1.elb.amazonaws.com:8080 check       
          #- game_server_dev internal-ALB-GameServer-Dev-1498468321.ap-southeast-1.elb.amazonaws.com:8080 check 
 
      game_server_uat:
