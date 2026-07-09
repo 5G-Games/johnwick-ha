@@ -19,3 +19,6 @@ backstage-agent-stage
 platform-stage
 #game server
 gs-stage
+#demo service
+api.
+demoapi.

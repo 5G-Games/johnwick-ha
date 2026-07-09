@@ -666,6 +666,30 @@ server:
        #servers:
          #- dataaggregator_dev a8801acc85b4b4985abbd9e756b2305f-5ca8652a72afd3ca.elb.ap-southeast-1.amazonaws.com:8089 check
 
+     #demo service
+     api_5gg_io_prod:
+       name: api_5gg_io_prod
+       mode: http
+       options: 
+         - "httpchk GET /alive"
+         - forwardfor
+       default-servers:
+         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions                  
+       servers:
+         - api_5gg_io_prod internal-ALB-OfficialWebApi-Prod-1088976402.ap-southeast-1.elb.amazonaws.com:8080 check
+
+     demo_api_prod:
+       name: demo_api_prod
+       mode: http
+       options: 
+         - "httpchk GET /alive"
+         - forwardfor
+       default-servers:
+         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions                  
+       servers:
+         - demo_api_prod internal-ALB-DemoApi-Prod-1527402091.ap-southeast-1.elb.amazonaws.com:8080 check
+
+
      ####infra service####
      header_print:
        name: header_print

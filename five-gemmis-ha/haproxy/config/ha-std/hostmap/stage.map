@@ -16,3 +16,6 @@ gs-stage.5gg.dev game_server_stage
 gs-stage.5gg.ai game_server_stage
 #message center
 mc-stage.5gg.dev message_center_stage
+#demo service
+api.5gg.io api_5gg_io_prod
+demoapi.5gg.dev demo_api_prod
