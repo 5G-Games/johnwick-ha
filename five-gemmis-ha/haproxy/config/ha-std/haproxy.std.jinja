@@ -183,8 +183,9 @@ backend {{ backend.get('name', backend_name) }}
     {%- endif %}
     {%- if 'servers' in backend %}
     {{- render_list_of_dictionaries('server',backend.servers) }}
+    {%- endif %}    
     {%- if 'server_template' in backend %}
-    {{- render_list_of_dictionaries('server-template',backend.server_template) }}    
+    {{- render_list_of_dictionaries('server-template',backend.server_template) }}
     {%- endif %}
     {%- if 'redirect' in backend %}
     {{- render_list_of_dictionaries('redirect',backend.redirect) }}
