@@ -153,7 +153,7 @@ server:
        default-servers:
          - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions                                
        servers:
-         - game_server_elb internal-ALB-GameServer-Prod-657632584.ap-southeast-1.elb.amazonaws.com:8080 check maxconn 30000
+         - game_server_elb internal-ALB-GameServer-Prod-657632584.ap-southeast-1.elb.amazonaws.com:8080 check maxconn 50000
 
      game_canary_server_elb:
        name: game_canary_server_elb
