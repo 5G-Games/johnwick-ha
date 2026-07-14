@@ -118,17 +118,6 @@ server:
           - '"%[req.hdr(host),lower,map_beg(/etc/haproxy/hostmap/api.map)]" if api_sub api_domain'
 
     backends:
-    ###message_center###
-     message_center_prod:
-       name: message_center_prod
-       mode: http            
-       options: 
-         - "httpchk GET /health" 
-       default-servers:
-         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions       
-       servers:
-         - message_center_prod mc.5gservice.com:80 check
-
     ###funnel service###
      funnel_prod:
        name: funnel_prod
