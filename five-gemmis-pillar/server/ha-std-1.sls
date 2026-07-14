@@ -124,7 +124,7 @@ server:
           - '"%[req.hdr(host),lower,map_sub(/etc/haproxy/hostmap/game.map)]" if gs_sub gs_domain'        
           - '"%[req.hdr(host),lower,map_sub(/etc/haproxy/hostmap/api.map)]" if api_sub api_domain'         
 
-      fe_http_dal_in:
+      #fe_http_dal_in:
         name: fe_http_dal_in
         bind:
           - '*:6980'                                  
@@ -135,12 +135,12 @@ server:
           - '*:6946 ssl crt /etc/haproxy/ha_ssl alpn h2,http/1.1 strict-sni'
           - '*:6947 ssl crt /etc/haproxy/ha_ssl alpn h2,http/1.1 strict-sni'
           - '*:6948 ssl crt /etc/haproxy/ha_ssl alpn h2,http/1.1 strict-sni'
-          - '*:6949 ssl crt /etc/haproxy/ha_ssl alpn h2,http/1.1 strict-sni'
-          - '*:6950 ssl crt /etc/haproxy/ha_ssl alpn h2,http/1.1 strict-sni'
-          - '*:6951 ssl crt /etc/haproxy/ha_ssl alpn h2,http/1.1 strict-sni'
-          - '*:6952 ssl crt /etc/haproxy/ha_ssl alpn h2,http/1.1 strict-sni'
-          - '*:6953 ssl crt /etc/haproxy/ha_ssl alpn h2,http/1.1 strict-sni'
-          - '*:6954 ssl crt /etc/haproxy/ha_ssl alpn h2,http/1.1 strict-sni'
+          #- '*:6949 ssl crt /etc/haproxy/ha_ssl alpn h2,http/1.1 strict-sni'
+          #- '*:6950 ssl crt /etc/haproxy/ha_ssl alpn h2,http/1.1 strict-sni'
+          #- '*:6951 ssl crt /etc/haproxy/ha_ssl alpn h2,http/1.1 strict-sni'
+          #- '*:6952 ssl crt /etc/haproxy/ha_ssl alpn h2,http/1.1 strict-sni'
+          #- '*:6953 ssl crt /etc/haproxy/ha_ssl alpn h2,http/1.1 strict-sni'
+          #- '*:6954 ssl crt /etc/haproxy/ha_ssl alpn h2,http/1.1 strict-sni'
 
         mode: tcp
         maxconn: 200000
@@ -168,12 +168,12 @@ server:
           - 'dal_prod_elb if { dst_port 6946 } 5g_offcie_ip'
           - 'platfrom_dal_dev_elb if { dst_port 6947 } 5g_offcie_ip'   
           - 'backstage_dal_dev_elb if { dst_port 6948 } 5g_offcie_ip'                    
-          - 'platfrom_dal_uat_elb if { dst_port 6949 } 5g_offcie_ip'   
-          - 'backstage_dal_uat_elb if { dst_port 6950 } 5g_offcie_ip'
-          - 'platfrom_dal_stage_elb if { dst_port 6951 } 5g_offcie_ip'   
-          - 'backstage_dal_stage_elb if { dst_port 6952 } 5g_offcie_ip'
-          - 'platfrom_dal_prod_elb if { dst_port 6953 } 5g_offcie_ip'   
-          - 'backstage_dal_prod_elb if { dst_port 6954 } 5g_offcie_ip'                    
+          #- 'platfrom_dal_uat_elb if { dst_port 6949 } 5g_offcie_ip'   
+          #- 'backstage_dal_uat_elb if { dst_port 6950 } 5g_offcie_ip'
+          #- 'platfrom_dal_stage_elb if { dst_port 6951 } 5g_offcie_ip'   
+          #- 'backstage_dal_stage_elb if { dst_port 6952 } 5g_offcie_ip'
+          #- 'platfrom_dal_prod_elb if { dst_port 6953 } 5g_offcie_ip'   
+          #- 'backstage_dal_prod_elb if { dst_port 6954 } 5g_offcie_ip'                    
 
     backends:
     ###demo service###
