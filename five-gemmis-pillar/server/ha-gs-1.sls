@@ -138,7 +138,7 @@ server:
      game_server_elb:
        name: game_server_elb
        options: 
-         - "tcp-check"
+         - "httpchk GET /alive" 
        balance: roundrobin         
        default-servers:
          - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions                                
@@ -150,7 +150,7 @@ server:
      game_canary_server_elb:
        name: game_canary_server_elb
        options: 
-         - "tcp-check"
+         - "httpchk GET /alive" 
        balance: roundrobin          
        default-servers:
          - resolvers awsdns resolve-prefer ipv4 init-addr none                           
