@@ -118,10 +118,13 @@ server:
        mode: http            
        options: 
          - "httpchk GET /health" 
+       balance: roundrobin         
        default-servers:
-         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions       
-       servers:
-         - message_center_prod mc.5gservice.com:8080 check
+         - resolvers awsdns resolve-prefer ipv4 init-addr none      
+       #servers:
+         #- message_center_prod mc.5gservice.com:8080 check
+       server_template:
+         - message_center_prod- 10 mc.5gservice.com:8080 check maxconn 30000          
          
      ###api service###
      api_prod:
@@ -130,10 +133,13 @@ server:
        options: 
          - "httpchk GET /alive"
          - forwardfor
+       balance: roundrobin         
        default-servers:
-         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions                  
-       servers:
-         - api_prod internal-ALB-PlatformApi-Prod-33510122.ap-southeast-1.elb.amazonaws.com:8080 check
+         - resolvers awsdns resolve-prefer ipv4 init-addr none
+       #servers:
+         #- api_prod internal-ALB-PlatformApi-Prod-33510122.ap-southeast-1.elb.amazonaws.com:8080 check
+       server_template:
+         - api_prod- 10 internal-ALB-PlatformApi-Prod-33510122.ap-southeast-1.elb.amazonaws.com:8080 check maxconn 30000   
 
      api_canary_prod:
        name: api_canary_prod
@@ -141,10 +147,14 @@ server:
        options: 
          - "httpchk GET /alive"
          - forwardfor
+       balance: roundrobin          
        default-servers:
-         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions                  
-       servers:
-         - api_canary_prod internal-ALB-PlatformApi-Canary-1731154435.ap-southeast-1.elb.amazonaws.com:8080 check
+         - resolvers awsdns resolve-prefer ipv4 init-addr none                 
+       #servers:
+         #- api_canary_prod internal-ALB-PlatformApi-Canary-1731154435.ap-southeast-1.elb.amazonaws.com:8080 check
+       server_template:
+         - api_canary_prod- 10 internal-ALB-PlatformApi-Canary-1731154435.ap-southeast-1.elb.amazonaws.com:8080 check maxconn 30000   
+
 
      ###backstage service###
      backstage_api_prod:
@@ -153,21 +163,28 @@ server:
        options: 
          - "httpchk GET /alive"
          - forwardfor
+       balance: roundrobin         
        default-servers:
-         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions       
-       servers:
-         - backstage_api_prod internal-ALB-BackstageApi-Prod-512251903.ap-southeast-1.elb.amazonaws.com:8080 check
+         - resolvers awsdns resolve-prefer ipv4 init-addr none       
+       #servers:
+         #- backstage_api_prod internal-ALB-BackstageApi-Prod-512251903.ap-southeast-1.elb.amazonaws.com:8080 check
+       server_template:         
+         - backstage_api_prod- 10 internal-ALB-BackstageApi-Prod-512251903.ap-southeast-1.elb.amazonaws.com:8080 check maxconn 30000   
 
      ###backstage_agent_service###
      backstage_agent_api_prod:
        name: backstage_agent_api_prod
        mode: http            
        options: 
-         - "httpchk GET /alive" 
+         - "httpchk GET /alive"
+       balance: roundrobin           
        default-servers:
-         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions       
-       servers:
-         - backstage_agent_api_prod internal-ALB-BackstageAgentApi-Prod-1099782546.ap-southeast-1.elb.amazonaws.com:8080 check
+         - resolvers awsdns resolve-prefer ipv4 init-addr none     
+       #servers:
+         #- backstage_agent_api_prod internal-ALB-BackstageAgentApi-Prod-1099782546.ap-southeast-1.elb.amazonaws.com:8080 check
+       server_template:         
+         - backstage_agent_api_prod- 10 internal-ALB-BackstageAgentApi-Prod-1099782546.ap-southeast-1.elb.amazonaws.com:8080 check maxconn 30000   
+
 
 
     ## no match any rule"

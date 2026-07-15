@@ -168,6 +168,9 @@ backend {{ backend.get('name', backend_name) }}
     {%- if 'servers' in backend %}
     {{- render_list_of_dictionaries('server',backend.servers) }}
     {%- endif %}
+    {%- if 'server_template' in backend %}
+    {{- render_list_of_dictionaries('server-template',backend.server_template) }}
+    {%- endif %}     
     {%- if 'redirect' in backend %}
     {{- render_list_of_dictionaries('redirect',backend.redirect) }}
     {%- endif %}
@@ -181,7 +184,7 @@ resolvers awsdns
     hold timeout  1s             # DNS timeout 後 1s 重試
     hold refused  1s             # DNS refused 後 1s 重試
     hold other    3s             # 其他錯誤後 3s 重試
-    hold obsolete 30s            # 舊紀錄保留 30s
+    hold obsolete 10s            # 舊紀錄保留 10s
 
 frontend frontend_prometheus_in
     bind  *:8405
