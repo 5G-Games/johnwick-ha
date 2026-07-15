@@ -153,7 +153,7 @@ server:
          - "tcp-check"
        balance: roundrobin          
        default-servers:
-         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions                            
+         - resolvers awsdns resolve-prefer ipv4 init-addr none                           
        #servers:
          #- game_canary_server_elb internal-ALB-GameServer-Canary-52864939.ap-southeast-1.elb.amazonaws.com:8080 check
        server_template:         
