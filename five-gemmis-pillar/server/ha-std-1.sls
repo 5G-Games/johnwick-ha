@@ -103,7 +103,7 @@ server:
         ## game rule ##
           - gs_domain hdr_dom(host) -i -f /etc/haproxy/whitelist/gs_domain.list
           - gs_sub hdr_beg(host) -i -f /etc/haproxy/whitelist/gs_sub.list
-
+          - gs_path path_beg -i /slot
         ## api domain rule ##
           - api_domain hdr_dom(host) -i -f /etc/haproxy/whitelist/api_domain.list
           - api_sub hdr_beg(host) -i -f /etc/haproxy/whitelist/api_sub.list
@@ -121,7 +121,7 @@ server:
           - '"%[req.hdr(host),lower,map_sub(/etc/haproxy/hostmap/dev.map)]" if dev_sub std_domain'          
           - '"%[req.hdr(host),lower,map_sub(/etc/haproxy/hostmap/uat.map)]" if uat_sub std_domain'
           - '"%[req.hdr(host),lower,map_sub(/etc/haproxy/hostmap/stage.map)]" if stage_sub std_domain'                  
-          - '"%[req.hdr(host),lower,map_sub(/etc/haproxy/hostmap/game.map)]" if gs_sub gs_domain'        
+          - '"%[req.hdr(host),lower,map_sub(/etc/haproxy/hostmap/game.map)]" if gs_sub gs_domain gs_path'        
           - '"%[req.hdr(host),lower,map_sub(/etc/haproxy/hostmap/api.map)]" if api_sub api_domain'         
 
       fe_http_dal_in:
