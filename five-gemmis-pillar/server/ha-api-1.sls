@@ -120,9 +120,7 @@ server:
          - "httpchk GET /health" 
        balance: roundrobin         
        default-servers:
-         - resolvers awsdns resolve-prefer ipv4 init-addr none      
-       #servers:
-         #- message_center_prod mc.5gservice.com:8080 check
+         - resolvers awsdns resolve-prefer ipv4 init-addr last,libc,none
        server_template:
          - message_center_prod- 10 mc.5gservice.com:8080 check maxconn 30000          
          
@@ -135,9 +133,7 @@ server:
          - forwardfor
        balance: roundrobin         
        default-servers:
-         - resolvers awsdns resolve-prefer ipv4 init-addr none
-       #servers:
-         #- api_prod internal-ALB-PlatformApi-Prod-33510122.ap-southeast-1.elb.amazonaws.com:8080 check
+         - resolvers awsdns resolve-prefer ipv4 init-addr last,libc,none
        server_template:
          - api_prod- 10 internal-ALB-PlatformApi-Prod-33510122.ap-southeast-1.elb.amazonaws.com:8080 check maxconn 30000   
 
@@ -165,9 +161,7 @@ server:
          - forwardfor
        balance: roundrobin         
        default-servers:
-         - resolvers awsdns resolve-prefer ipv4 init-addr none       
-       #servers:
-         #- backstage_api_prod internal-ALB-BackstageApi-Prod-512251903.ap-southeast-1.elb.amazonaws.com:8080 check
+         - resolvers awsdns resolve-prefer ipv4 init-addr last,libc,none
        server_template:         
          - backstage_api_prod- 10 internal-ALB-BackstageApi-Prod-512251903.ap-southeast-1.elb.amazonaws.com:8080 check maxconn 30000   
 
@@ -179,9 +173,7 @@ server:
          - "httpchk GET /alive"
        balance: roundrobin           
        default-servers:
-         - resolvers awsdns resolve-prefer ipv4 init-addr none     
-       #servers:
-         #- backstage_agent_api_prod internal-ALB-BackstageAgentApi-Prod-1099782546.ap-southeast-1.elb.amazonaws.com:8080 check
+         - resolvers awsdns resolve-prefer ipv4 init-addr last,libc,none     
        server_template:         
          - backstage_agent_api_prod- 10 internal-ALB-BackstageAgentApi-Prod-1099782546.ap-southeast-1.elb.amazonaws.com:8080 check maxconn 30000   
 

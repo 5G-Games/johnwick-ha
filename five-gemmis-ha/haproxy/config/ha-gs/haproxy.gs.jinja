@@ -207,7 +207,7 @@ resolvers awsdns
     hold timeout  1s             # DNS timeout 後 1s 重試
     hold refused  1s             # DNS refused 後 1s 重試
     hold other    3s             # 其他錯誤後 3s 重試
-    hold obsolete 10s            # 舊紀錄保留 30s
+    hold obsolete 1h            # 舊紀錄保留 1h
 
 frontend frontend_prometheus_in
     bind  *:8405

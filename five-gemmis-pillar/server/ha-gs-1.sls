@@ -103,6 +103,8 @@ server:
         ## game rule ##
           - gs_domain hdr_dom(host) -i -f /etc/haproxy/whitelist/gs_domain.list
           - gs_sub hdr_beg(host) -i -f /etc/haproxy/whitelist/gs_sub.list
+          - gs_path path_beg -i /slot
+          - alive_path path_beg -i /alive                    
 
         ## api domain rule ##
           - api_domain hdr_dom(host) -i -f /etc/haproxy/whitelist/api_domain.list
@@ -114,7 +116,7 @@ server:
 
         use_backend:
           #- header_print if header_print 5g_offcie_ip
-          - '"%[req.hdr(host),lower,map_beg(/etc/haproxy/hostmap/game.map)]" if gs_sub gs_domain'        
+          - '"%[req.hdr(host),lower,map_beg(/etc/haproxy/hostmap/game.map)]" if gs_sub gs_domain gs_path || gs_sub gs_domain api_sub 5g_offcie_ip'        
           - '"%[req.hdr(host),lower,map_beg(/etc/haproxy/hostmap/api.map)]" if api_sub api_domain'
 
     backends:
@@ -141,9 +143,7 @@ server:
          - "httpchk GET /alive" 
        balance: roundrobin         
        default-servers:
-         - resolvers awsdns resolve-prefer ipv4 init-addr none                                
-       #servers:
-         #- game_server_elb internal-ALB-GameServer-Prod-657632584.ap-southeast-1.elb.amazonaws.com:8080 check maxconn 50000
+         - resolvers awsdns resolve-prefer ipv4 init-addr last,libc,none                                
        server_template:
          - game_server_elb- 10 internal-ALB-GameServer-Prod-657632584.ap-southeast-1.elb.amazonaws.com:8080 check maxconn 30000          
 
