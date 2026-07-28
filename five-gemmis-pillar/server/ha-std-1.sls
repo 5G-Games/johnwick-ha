@@ -661,13 +661,13 @@ server:
        servers:
          - funnel_dev a5f71736ba4d945b69ac0cf8c84079e5-bfefc137668a4c18.elb.ap-southeast-1.amazonaws.com:8601 check
 
-     #dataaggregator_dev
-     #dataaggregator_dev:
-       #name: dataaggregator_dev
-       #options: 
-         #- "tcp-check"                   
-       #servers:
-         #- dataaggregator_dev a8801acc85b4b4985abbd9e756b2305f-5ca8652a72afd3ca.elb.ap-southeast-1.amazonaws.com:8089 check
+     #dataaggregator_prod
+     dataaggregator_prod:
+       name: dataaggregator_prod
+       options: 
+         - "tcp-check"                   
+       servers:
+         - dataaggregator_prod a5d6ab88f16ed4064ae07414f5672613-86d5f303ed3094ec.elb.ap-southeast-1.amazonaws.com:80 check
 
      #demo service
      api_5gg_io_prod:
