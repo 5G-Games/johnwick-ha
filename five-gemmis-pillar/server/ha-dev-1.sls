@@ -111,6 +111,8 @@ server:
         bind:
           - '*:3306' #member_db_std
           - '*:3366' #member_db_prod
+          - '*:5533' #member_std_5gfafa
+          - '*:5544' #member_prod_5gfafa
           - '*:3389' #win_test_eric
           - '*:9408' #warm_db_prod
           - '*:9406' #warm_db_std
@@ -138,6 +140,8 @@ server:
         use_backend:
           - 'member_db_std if { dst_port 3306 } 5g_offcie_ip'
           - 'member_db_prod if { dst_port 3366 } 5g_offcie_ip'
+          - 'member_std_5gfafa if { dst_port 5533 } 5g_offcie_ip'
+          - 'member_prod_5gfafa if { dst_port 5544 } 5g_offcie_ip'
           - 'win_test_eric if { dst_port 3389 } 5g_offcie_ip'
           - 'warm_db_std if { dst_port 9406 } 5g_offcie_ip'
           - 'warm_db_prod if { dst_port 9408 } 5g_offcie_ip'
@@ -246,6 +250,27 @@ server:
          - "tcp-check"                   
        servers:
          - member_db_prod prodmysql.cluster-cdgm8426ylrz.ap-southeast-1.rds.amazonaws.com:3306 check 
+
+     member_std_5gfafa:
+       name: member_std_5gfafa
+       mode: tcp
+       options: 
+         - "tcp-check"
+       default-servers:
+         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions
+       servers:
+         - member_std_5gfafa member-std.5gfafa.com:3306 check
+
+     member_prod_5gfafa:
+       name: member_prod_5gfafa
+       mode: tcp
+       options: 
+         - "tcp-check"
+       default-servers:
+         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions
+       servers:
+         - member_prod_5gfafa member-prod.5gfafa.com:3306 check
+
     #session-num
      midgard_dev_elb:
        name: midgard_dev_elb
