@@ -116,7 +116,7 @@ server:
           - '*:3389' #win_test_eric
           - '*:9408' #warm_db_prod
           - '*:9406' #warm_db_std
-          #- '*:9509' #valkey-dev                             
+          - '*:9509' #valkey-dev                             
           #- '*:9510' #valkey-uat
           #- '*:9511' #valkey-stage
           #- '*:9512' #valkey-prod          
