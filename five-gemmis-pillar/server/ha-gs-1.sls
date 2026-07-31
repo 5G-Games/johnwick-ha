@@ -144,9 +144,9 @@ server:
          - "httpchk GET /alive" 
        balance: roundrobin         
        default-servers:
-         - resolvers awsdns resolve-prefer ipv4 init-addr last,libc,none                                
+         - resolvers awsdns resolve-prefer ipv4 init-addr last,none                                
        server_template:
-         - game_server_elb- 10 internal-ALB-GameServer-Prod-657632584.ap-southeast-1.elb.amazonaws.com:8080 check maxconn 30000          
+         - game_server_elb- 5 internal-ALB-GameServer-Prod-657632584.ap-southeast-1.elb.amazonaws.com:8080 check maxconn 30000          
 
      game_canary_server_elb:
        name: game_canary_server_elb
