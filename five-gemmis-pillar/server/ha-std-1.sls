@@ -499,7 +499,7 @@ server:
        default-servers:
          - resolvers awsdns resolve-prefer ipv4 init-addr last,none       
        server_template:
-         - gs_rust-5 internal-ALB-GameServerRust-Test-1646335697.ap-southeast-1.elb.amazonaws.com:8080 check   
+         - gs_rust- 5 internal-ALB-GameServerRust-Test-1646335697.ap-southeast-1.elb.amazonaws.com:8080 check   
 
      tushar_gs_dev:
        name: tushar_gs_dev
