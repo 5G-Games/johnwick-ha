@@ -183,7 +183,7 @@ server:
        options: 
          - "httpchk GET /alive"
        default-servers:
-         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions                  
+         - resolvers awsdns resolve-prefer ipv4 init-addr last,none                  
        servers:
          - demoapi_dev internal-ALB-DemoApi-Dev-990969710.ap-southeast-1.elb.amazonaws.com:8080 check 
     ###api service###
@@ -194,7 +194,7 @@ server:
          - "httpchk GET /alive"
          - forwardfor
        default-servers:
-         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions                  
+         - resolvers awsdns resolve-prefer ipv4 init-addr last,none                  
        servers:
          - api_dev internal-ALB-PlatformApi-Dev-671097587.ap-southeast-1.elb.amazonaws.com:8080 check
 
@@ -205,7 +205,7 @@ server:
          - "httpchk GET /alive"
          - forwardfor
        default-servers:
-         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions                  
+         - resolvers awsdns resolve-prefer ipv4 init-addr last,none                  
        servers:
          - api_uat internal-ALB-PlatformApi-Uat-57992648.ap-southeast-1.elb.amazonaws.com:8080 check
 
@@ -216,7 +216,7 @@ server:
          - "httpchk GET /alive"
          - forwardfor
        default-servers:
-         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions                  
+         - resolvers awsdns resolve-prefer ipv4 init-addr last,none                  
        servers:
          - api_stage internal-ALB-PlatformApi-Stage-1312367995.ap-southeast-1.elb.amazonaws.com:8080 check
 
@@ -227,7 +227,7 @@ server:
          - "httpchk GET /alive"
          - forwardfor
        default-servers:
-         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions                  
+         - resolvers awsdns resolve-prefer ipv4 init-addr last,none                  
        servers:
          - api_dev_5gg_io internal-ALB-OfficialWebApi-Dev-522703919.ap-southeast-1.elb.amazonaws.com:8080 check
 
@@ -237,7 +237,7 @@ server:
        options: 
          - "httpchk GET /alive" 
        default-servers:
-         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions       
+         - resolvers awsdns resolve-prefer ipv4 init-addr last,none       
        servers:
          - api_refactor_dev internal-ALB-PlatformApi-Refactor-1867007938.ap-southeast-1.elb.amazonaws.com:8080 check 
 
@@ -248,7 +248,7 @@ server:
        options: 
          - "httpchk GET /alive" 
        default-servers:
-         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions       
+         - resolvers awsdns resolve-prefer ipv4 init-addr last,none       
        servers:
          - backstage_api_dev internal-ALB-BackstageApi-Dev-2107151475.ap-southeast-1.elb.amazonaws.com:8080 check          
 
@@ -258,7 +258,7 @@ server:
        options: 
          - "httpchk GET /alive" 
        default-servers:
-         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions       
+         - resolvers awsdns resolve-prefer ipv4 init-addr last,none       
        servers:
          - backstage_api_uat internal-ALB-BackstageApi-Uat-720955944.ap-southeast-1.elb.amazonaws.com:8080 check  
 
@@ -268,7 +268,7 @@ server:
        options: 
          - "httpchk GET /alive" 
        default-servers:
-         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions       
+         - resolvers awsdns resolve-prefer ipv4 init-addr last,none       
        servers:
          - backstage_api_stage internal-ALB-BackstageApi-Stage-55134287.ap-southeast-1.elb.amazonaws.com:8080 check  
 
@@ -278,7 +278,7 @@ server:
        options: 
          - "httpchk GET /alive" 
        default-servers:
-         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions       
+         - resolvers awsdns resolve-prefer ipv4 init-addr last,none       
        servers:
          - backstage_agent_api_dev internal-ALB-BackstageAgentApi-Dev-1567630179.ap-southeast-1.elb.amazonaws.com:8080 check 
 
@@ -288,7 +288,7 @@ server:
        options: 
          - "httpchk GET /alive" 
        default-servers:
-         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions       
+         - resolvers awsdns resolve-prefer ipv4 init-addr last,none       
        servers:
          - backstage_agent_api_uat internal-ALB-BackstageAgentApi-Uat-889927419.ap-southeast-1.elb.amazonaws.com:8080 check   
 
@@ -298,7 +298,7 @@ server:
        options: 
          - "httpchk GET /alive" 
        default-servers:
-         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions       
+         - resolvers awsdns resolve-prefer ipv4 init-addr last,none       
        servers:
          - backstage_agent_api_stage internal-ALB-BackstageAgentApi-Stage-230462263.ap-southeast-1.elb.amazonaws.com:8080 check 
 
@@ -308,7 +308,7 @@ server:
        options: 
          - "httpchk GET /alive" 
        default-servers:
-         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions       
+         - resolvers awsdns resolve-prefer ipv4 init-addr last,none       
        servers:
          - backstage_api_refactor_dev internal-ALB-BackstageApi-Refactor-654211116.ap-southeast-1.elb.amazonaws.com:8080 check 
 
@@ -318,7 +318,7 @@ server:
        options: 
          - "httpchk GET /alive" 
        default-servers:
-         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions       
+         - resolvers awsdns resolve-prefer ipv4 init-addr last,none       
        servers:
          - backstage_agent_api_refactor_dev internal-ALB-BackstageAgentApi-Refactor-532391851.ap-southeast-1.elb.amazonaws.com:8080 check 
 
@@ -329,7 +329,7 @@ server:
        options: 
          - "httpchk GET /health" 
        default-servers:
-         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions       
+         - resolvers awsdns resolve-prefer ipv4 init-addr last,none       
        servers:
          - message_center_dev mc-dev.5gservice.com:8080 check
 
@@ -339,7 +339,7 @@ server:
        options: 
          - "httpchk GET /health" 
        default-servers:
-         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions       
+         - resolvers awsdns resolve-prefer ipv4 init-addr last,none       
        servers:
          - message_center_uat mc-uat.5gservice.com:8080 check
 
@@ -349,7 +349,7 @@ server:
        options: 
          - "httpchk GET /health" 
        default-servers:
-         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions       
+         - resolvers awsdns resolve-prefer ipv4 init-addr last,none       
        servers:
          - message_center_stage mc-stage.5gservice.com:8080 check 
 
@@ -359,7 +359,7 @@ server:
        options: 
          - "httpchk GET /health" 
        default-servers:
-         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions       
+         - resolvers awsdns resolve-prefer ipv4 init-addr last,none       
        servers:
          - message_center_refactor mc-refactor.5gservice.com:8080 check
 
@@ -370,7 +370,7 @@ server:
        options: 
          - "httpchk GET /health" 
        default-servers:
-         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions       
+         - resolvers awsdns resolve-prefer ipv4 init-addr last,none       
        servers:
          - tournament_dev tournament-dev.5gservice.com:8080 check
 
@@ -380,7 +380,7 @@ server:
        options: 
          - "httpchk GET /health" 
        default-servers:
-         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions       
+         - resolvers awsdns resolve-prefer ipv4 init-addr last,none       
        servers:
          - tournament_uat internal-ALB-Tournament-Uat-709669374.ap-southeast-1.elb.amazonaws.com:8080 check
 
@@ -390,7 +390,7 @@ server:
        options: 
          - "httpchk GET /health" 
        default-servers:
-         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions       
+         - resolvers awsdns resolve-prefer ipv4 init-addr last,none       
        servers:
          - tournament_refactor tournament-refactor.5gservice.com:8080 check
 
@@ -401,7 +401,7 @@ server:
        options: 
          - "httpchk GET /alive" 
        default-servers:
-         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions       
+         - resolvers awsdns resolve-prefer ipv4 init-addr last,none       
        servers:
          - bridge_dev bridge-dev.5gservice.com:8080 check
 
@@ -411,7 +411,7 @@ server:
        options: 
          - "httpchk GET /alive" 
        default-servers:
-         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions       
+         - resolvers awsdns resolve-prefer ipv4 init-addr last,none       
        servers:
          - bridge_uat internal-ALB-BridgeApi-Uat-1287411251.ap-southeast-1.elb.amazonaws.com:8080 check
 
@@ -422,7 +422,7 @@ server:
        options: 
          - "httpchk GET /health" 
        default-servers:
-         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions       
+         - resolvers awsdns resolve-prefer ipv4 init-addr last,none       
        servers:
          - campaign_dev campaign-dev.5gservice.com:8080 check
 
@@ -432,7 +432,7 @@ server:
        options: 
          - "httpchk GET /health" 
        default-servers:
-         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions       
+         - resolvers awsdns resolve-prefer ipv4 init-addr last,none       
        servers:
          - campaign_uat internal-ALB-FrbCampaign-Uat-1338635269.ap-southeast-1.elb.amazonaws.com:8080 check
 
@@ -442,7 +442,7 @@ server:
        options: 
          - "httpchk GET /health" 
        default-servers:
-         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions       
+         - resolvers awsdns resolve-prefer ipv4 init-addr last,none       
        servers:
          - campaign_refactor campaign-refactor.5gservice.com:8080 check
 
@@ -454,10 +454,10 @@ server:
        options: 
          - "httpchk GET /alive" 
        default-servers:
-         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions       
+         - resolvers awsdns resolve-prefer ipv4 init-addr last,none       
        server_template:
          - game_server_dev- 10 internal-ALB-GameServer-Dev-1498468321.ap-southeast-1.elb.amazonaws.com:8080 check       
-         #- game_server_dev internal-ALB-GameServer-Dev-1498468321.ap-southeast-1.elb.amazonaws.com:8080 check 
+      
 
      game_server_uat:
        name: game_server_uat
@@ -465,7 +465,7 @@ server:
        options: 
          - "httpchk GET /alive" 
        default-servers:
-         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions       
+         - resolvers awsdns resolve-prefer ipv4 init-addr last,none       
        servers:
          - game_server_uat internal-ALB-GameServer-Uat-2116443273.ap-southeast-1.elb.amazonaws.com:8080 check
 
@@ -476,7 +476,7 @@ server:
        options: 
          - "httpchk GET /alive" 
        default-servers:
-         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions       
+         - resolvers awsdns resolve-prefer ipv4 init-addr last,none       
        servers:
          - game_server_stage internal-ALB-GameServer-Stage-1007126180.ap-southeast-1.elb.amazonaws.com:8080 check           
 
@@ -486,9 +486,19 @@ server:
        options: 
          - "httpchk GET /alive" 
        default-servers:
-         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions       
+         - resolvers awsdns resolve-prefer ipv4 init-addr last,none       
        servers:
          - gs_refactor_dev internal-ALB-GameServer-Refactor-754804591.ap-southeast-1.elb.amazonaws.com:8080 check 
+
+     gs_rust:
+       name: gs_rust
+       mode: http            
+       options: 
+         - "httpchk GET /alive" 
+       default-servers:
+         - resolvers awsdns resolve-prefer ipv4 init-addr last,none       
+       server_template:
+         - gs_rust-5 internal-ALB-GameServerRust-Test-1646335697.ap-southeast-1.elb.amazonaws.com:8080 check   
 
      tushar_gs_dev:
        name: tushar_gs_dev
@@ -496,7 +506,7 @@ server:
        options: 
          - "httpchk GET /alive" 
        default-servers:
-         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions       
+         - resolvers awsdns resolve-prefer ipv4 init-addr last,none       
        servers:
          - tushar_gs_dev internal-ALB-GameServer-Optimized-827801056.ap-southeast-1.elb.amazonaws.com:8080 check 
 
@@ -510,7 +520,7 @@ server:
          - "send meth POST uri /grpc.health.v1.Health/Check ver HTTP/2 hdr host ge-dev.5gstatic.com hdr content-type application/grpc"
          - "expect status 200"
        default-servers:
-         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions       
+         - resolvers awsdns resolve-prefer ipv4 init-addr last,none       
        servers:
          - game_engin_dev internal-ALB-GameEngine-Dev-494097733.ap-southeast-1.elb.amazonaws.com:443 ssl verify none check check-ssl alpn h2
 
@@ -521,7 +531,7 @@ server:
        options: 
          - "tcp-check"               
        default-servers:
-         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions            
+         - resolvers awsdns resolve-prefer ipv4 init-addr last,none            
        servers:
          - dal_dev_elb dal-dev.5gfafa.com:6969 check port 9696
 
@@ -531,7 +541,7 @@ server:
        options: 
          - "tcp-check"
        default-servers:
-         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions            
+         - resolvers awsdns resolve-prefer ipv4 init-addr last,none            
        servers:
          - platfrom_dal_dev_elb platform-dal-dev.5gfafa.com:6969 check port 9696
 
@@ -541,7 +551,7 @@ server:
        options: 
          - "tcp-check"
        default-servers:
-         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions            
+         - resolvers awsdns resolve-prefer ipv4 init-addr last,none            
        servers:
          - backstage_dal_dev_elb backstage-dal-dev.5gfafa.com:6969 check port 9696   
 
@@ -551,7 +561,7 @@ server:
        options: 
          - "tcp-check"               
        default-servers:
-         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions            
+         - resolvers awsdns resolve-prefer ipv4 init-addr last,none            
        servers:
          - dal_dev_elb_8080 dal-dev.5gfafa.com:8080 check port 9696
 
@@ -561,7 +571,7 @@ server:
        options: 
          - "tcp-check"
        default-servers:
-         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions            
+         - resolvers awsdns resolve-prefer ipv4 init-addr last,none            
        servers:
          - dal_uat_elb dal-uat.5gfafa.com:6969 check port 9696
 
@@ -571,7 +581,7 @@ server:
        options: 
          - "tcp-check"
        default-servers:
-         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions            
+         - resolvers awsdns resolve-prefer ipv4 init-addr last,none            
        servers:
          - platfrom_dal_uat_elb platform-dal-uat.5gfafa.com:6969 check port 9696
 
@@ -581,7 +591,7 @@ server:
        options: 
          - "tcp-check"
        default-servers:
-         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions            
+         - resolvers awsdns resolve-prefer ipv4 init-addr last,none            
        servers:
          - backstage_dal_uat_elb backstage-dal-uat.5gfafa.com:6969 check port 9696               
 
@@ -591,7 +601,7 @@ server:
        options: 
          - "tcp-check"
        default-servers:
-         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions            
+         - resolvers awsdns resolve-prefer ipv4 init-addr last,none            
        servers:
          - dal_stage_elb dal-stage.5gfafa.com:6969 check port 9696 
 
@@ -601,7 +611,7 @@ server:
        options: 
          - "tcp-check"
        default-servers:
-         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions            
+         - resolvers awsdns resolve-prefer ipv4 init-addr last,none            
        servers:
          - platfrom_dal_stage_elb platform-dal-stage.5gfafa.com:6969 check port 9696
 
@@ -611,7 +621,7 @@ server:
        options: 
          - "tcp-check"
        default-servers:
-         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions            
+         - resolvers awsdns resolve-prefer ipv4 init-addr last,none            
        servers:
          - backstage_dal_stage_elb backstage-dal-stage.5gfafa.com:6969 check port 9696      
 
@@ -621,7 +631,7 @@ server:
        options: 
          - "tcp-check"                  
        default-servers:
-         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions                     
+         - resolvers awsdns resolve-prefer ipv4 init-addr last,none                     
        servers:
          - dal_prod_elb dal-prod.5gfafa.com:6969 check port 9696
 
@@ -631,7 +641,7 @@ server:
        options: 
          - "tcp-check"
        default-servers:
-         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions            
+         - resolvers awsdns resolve-prefer ipv4 init-addr last,none            
        servers:
          - platfrom_dal_prod_elb platform-dal-prod.5gfafa.com:6969 check port 9696
 
@@ -641,7 +651,7 @@ server:
        options: 
          - "tcp-check"
        default-servers:
-         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions            
+         - resolvers awsdns resolve-prefer ipv4 init-addr last,none            
        servers:
          - backstage_dal_prod_elb backstage-dal-prod.5gfafa.com:6969 check port 9696     
 
@@ -677,7 +687,7 @@ server:
          - "httpchk GET /alive"
          - forwardfor
        default-servers:
-         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions                  
+         - resolvers awsdns resolve-prefer ipv4 init-addr last,none                  
        servers:
          - api_5gg_io_prod internal-ALB-OfficialWebApi-Prod-1088976402.ap-southeast-1.elb.amazonaws.com:8080 check
 
@@ -688,7 +698,7 @@ server:
          - "httpchk GET /alive"
          - forwardfor
        default-servers:
-         - resolvers awsdns resolve-prefer ipv4 init-addr none on-marked-down shutdown-sessions                  
+         - resolvers awsdns resolve-prefer ipv4 init-addr last,none                  
        servers:
          - demo_api_prod internal-ALB-DemoApi-Prod-1527402091.ap-southeast-1.elb.amazonaws.com:8080 check
 
