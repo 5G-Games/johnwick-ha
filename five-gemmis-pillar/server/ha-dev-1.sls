@@ -193,6 +193,14 @@ server:
        servers:
          - certmate_nlb a5f71736ba4d945b69ac0cf8c84079e5-bfefc137668a4c18.elb.ap-southeast-1.amazonaws.com:80 check
 
+     infra_portal_nlb:
+       name: infra_portal_nlb
+       options: 
+         - "tcp-check"
+       timeout_servers: 
+         - 300
+       servers:
+         - infra_portal_nlb a5f71736ba4d945b69ac0cf8c84079e5-bfefc137668a4c18.elb.ap-southeast-1.amazonaws.com:80 check
 
      #grafana
      grafana_elb:
